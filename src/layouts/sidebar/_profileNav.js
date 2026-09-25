@@ -12,7 +12,7 @@ export const navData = [
   //   url: "mailerGeneration",
   // },
   {
-    label: 'USER & ACCESS',
+    label: 'User & Access',
     type: 'category'
   },
   {
