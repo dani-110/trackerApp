@@ -7,6 +7,8 @@ import SelectFields from "../../components/SelectFields";
 import { useDispatch } from "react-redux";
 import { alphaNumericDash, decimalRegex, idRegex, phoneRegex, setDataObject } from "../../utils/Utils";
 import { createUsers } from "../../store/actions/users";
+import TextAreaFields from "../../components/textAreaFields";
+import { createTickets } from "../../store/actions/tickets";
 
 const TicketCreateForm = (props) => {
     const { setOpen, fetchList } = props
@@ -16,9 +18,10 @@ const TicketCreateForm = (props) => {
 
     const defaultValues = useForm({
         defaultValues: {
-            username: '',
-            displayName: '',
-            email: '',
+            senderEmail: '',
+            emailSubject: '',
+            emailBody: '',
+            supportCcEmail: '',
         },
     });
 
@@ -40,7 +43,7 @@ const TicketCreateForm = (props) => {
         setIsLoading(true)
         let obj = setDataObject(getValues())
         console.log(obj)
-        dispatch(createUsers(obj)).then((res) => {
+        dispatch(createTickets(obj)).then((res) => {
             console.log(res)
             if (res.payload.status == '201') {
                 setOpen(false)
@@ -54,34 +57,50 @@ const TicketCreateForm = (props) => {
         <Grid container spacing={2}>
             <Grid item xs={12} >
                 <InputFields
-                    fieldName="username"
+                    fieldName="senderEmail"
                     type="text"
-                    label="Username"
+                    label="Sender Email"
                     control={control}
                     rules={{
-                        required: "Username is required",
+                        required: "Sender Email is required",
                     }}
-                    error={errors?.username}
+                    error={errors?.senderEmail}
                 />
             </Grid>
             <Grid item xs={12} >
                 <InputFields
-                    fieldName="displayName"
+                    fieldName="emailSubject"
                     type="text"
-                    label="Display Name"
+                    label="Email Subject"
                     control={control}
                     rules={{
-                        required: "Display Name is required",
+                        required: "Email Subject is required",
                     }}
-                    error={errors?.displayName}
+                    error={errors?.emailSubject}
+                />
+            </Grid>
+            <Grid item xs={12} >
+                <TextAreaFields
+                    fieldName="emailBody"
+                    type="text"
+                    label="Email Body"
+                    control={control}
+                    rules={{
+                        required: "Email Body is required",
+                    }}
+                    error={errors?.emailBody}
                 />
             </Grid>
             <Grid item xs={12} >
                 <InputFields
-                    fieldName="email"
+                    fieldName="supportCcEmail"
                     type="text"
-                    label="Email"
+                    label="Support CC Email"
                     control={control}
+                    rules={{
+                        required: "Support CC Email is required",
+                    }}
+                    error={errors?.supportCcEmail}
                 />
             </Grid>
             <Grid item xs={12}>
@@ -91,7 +110,7 @@ const TicketCreateForm = (props) => {
                         {isLoading && (
                             <CircularProgress size={20} sx={{ marginRight: 1, color: "#fff" }} />
                         )}
-                        Save</Button>
+                        Create Ticket</Button>
 
                 </ButtonContainer>
             </Grid>

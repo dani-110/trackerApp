@@ -1,4 +1,4 @@
-import { TextField, Tooltip } from "@mui/material";
+import { TextField, Tooltip, Typography } from "@mui/material";
 import React from "react";
 import { Controller } from "react-hook-form";
 import { styled } from '@mui/material/styles';
@@ -32,6 +32,7 @@ const TextAreaFields = ({ error, type, fieldName, control, rules, label, phone, 
       render={({ field }) => {
         return (
           <Tooltip title={rules?.required ? rules.required : ""}>
+            <Typography variant="body1" sx={{ marginBottom: '6px', color: '#6c757d', textAlign: 'left' }}>{`${label}${rules?.required ? '*' : ''}`}</Typography>
             <CssTextField
               size="small"
               className="outlined"
@@ -41,7 +42,7 @@ const TextAreaFields = ({ error, type, fieldName, control, rules, label, phone, 
               // helperText={error ? error.message : " "}
               type={type}
               inputRef={field.ref}
-              label={label}
+              // label={label}
               value={field.value}
               onChange={field.onChange}
               fullWidth

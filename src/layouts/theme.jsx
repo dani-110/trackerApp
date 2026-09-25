@@ -43,7 +43,10 @@ const generateTheme = (mode) => {
           primary: '#000'
         },
         rowBackground: '#d3d3d3',
-        inputBorder: 'rgba(0, 0, 0, 0.23)'
+        inputBorder: 'rgba(0, 0, 0, 0.23)',
+        selectedTab: '#3bc0c3',
+        tabText: 'rgba(108, 117, 125, 0.75)',
+        selectedTabText: '#000',
       }
         : {
           btnColor: {
@@ -67,6 +70,9 @@ const generateTheme = (mode) => {
           shadowColor: 'rgba(197, 188, 188, 0.8) ',
           rowBackground: '#38373a',
           inputBorder: '#6F7E8C',
+          selectedTab: '#3bc0c3',
+          selectedTabText: '#fff',
+          tabText: '#8391a2',
           textColor,
           inputLabelColor,
           inputLabelFocusedColor,

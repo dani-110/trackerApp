@@ -38,3 +38,145 @@ export const tickets = createAsyncThunk(
     }
   }
 );
+
+export const ticketById = createAsyncThunk(
+  "ticketById",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.ticketById(data), undefined, thunkAPI);
+      console.log(response)
+      if (response.status == '200') {
+        return response.data
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.respdescription,
+          })
+        );
+        return thunkAPI.rejectWithValue();
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+
+
+export const createTickets = createAsyncThunk(
+  "createTickets",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.createTickets(), data, thunkAPI);
+      if (response.status == '201') {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "success",
+            title: "Success!",
+            message: response.data.message,
+          })
+        );
+        return response;
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.detail,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+export const acknowledgementApprove = createAsyncThunk(
+  "acknowledgementApprove",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.acknowledgementApprove(data.id), data.obj, thunkAPI);
+      if (response.status == '200') {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "success",
+            title: "Success!",
+            message: response.data.message,
+          })
+        );
+        return response;
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.detail,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+export const ticketClassification = createAsyncThunk(
+  "ticketClassification",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.ticketClassification(data.id), data.obj, thunkAPI);
+      if (response.status == '200') {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "success",
+            title: "Success!",
+            message: response.data.message,
+          })
+        );
+        return response;
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.detail,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+export const ticketAssignment = createAsyncThunk(
+  "ticketAssignment",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.ticketAssignment(data.id), data.obj, thunkAPI);
+      if (response.status == '200') {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "success",
+            title: "Success!",
+            message: response.data.message,
+          })
+        );
+        return response;
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.detail,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
