@@ -1,0 +1,57 @@
+@font-face {
+  font-family: 'Rubik';
+  src: url('./assests/fonts/Rubik-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900; /* Range of weights for the variable font */
+  font-style: normal;
+}
+
+:root {
+  --light-background-color: #eaf1f3;
+  --dark-background-color: #2d333c;
+}
+
+body {
+  background-color: var(--light-background-color); 
+  margin: 0;
+  font-family: 'Rubik', sans-serif; /* Use Rubik as the global font */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body.dark-mode {
+  background-color: var(--dark-background-color);
+}
+
+h1 {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 700; /* Bold for headings */
+}
+
+p {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 400; /* Regular weight for paragraphs */
+}
+
+code {
+  font-family: 'Rubik Mono One', 'Courier New', monospace; /* Code uses monospaced font */
+}
+
+button {
+  font-family: 'Rubik', sans-serif;  /* Buttons use Rubik */
+  font-weight: 500;
+}
+
+a {
+  font-family: 'Rubik', sans-serif;
+  font-weight: 500;
+}
+
+/* Optional: Additional styles for dark mode */
+body.dark-mode h1,
+body.dark-mode p {
+  color: #fff; /* Change text color in dark mode */
+}
+
+body.dark-mode code {
+  color: #ddd; /* Code text color in dark mode */
+}

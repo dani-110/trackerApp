@@ -1,0 +1,37 @@
+.imagePickerContainerView {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 5px;
+    padding: 7.5px 14px;
+}
+
+.uploadArea {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+
+.dragOver {
+    background-color: rgba(227, 251, 255, 1) !important;
+    border: 3px dotted aliceblue !important;
+}
+
+.uploadImage {
+    height: 20px;
+}
+
+.imageCard {
+    max-height: '85vh';
+    display: flex;
+    align-items: end;
+    flex-direction: column;
+    .icon{
+        width: 35px;
+    }
+
+    img {
+        width: 100%;
+        object-fit: contain
+    }
+}

@@ -1,0 +1,44 @@
+.tab {
+    overflow: hidden;
+    // border: 1px solid #ccc;
+    // background-color: #f1f1f1;
+}
+.tab-links{
+    background-color: transparent;
+    display: flex;
+    
+}
+.tabbutton {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.tabbutton:hover {
+    color: #9855ff;
+    background-color: rgb(237, 231, 246);
+}
+
+.tabbutton.active {
+    color: #9855ff;
+    border-bottom: 4px solid #9855ff;
+}
+
+.tab-content {
+    // display: none;
+    max-height: 70vh;
+    padding: 6px 12px;
+    // border: 1px solid #ccc;
+    border-top: none;
+    overflow: auto;
+}
+
+.tab-content.active {
+    display: block;
+}

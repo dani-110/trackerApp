@@ -1,0 +1,49 @@
+.skeletonMainContainer {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+
+  .skeletonInsideContainer {
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 2px 8px;
+    margin: 10px;
+
+    .skeletonSearchBar {
+      width: 100%;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .collapseableContainer {
+        padding: 6px 10px;
+        text-transform: capitalize;
+
+      }
+
+      .optionLabel {
+        padding: 6px 10px;
+        text-decoration: underline;
+      }
+    }
+
+    .childContainer {
+      max-height: 30vh;
+      overflow: auto;
+      padding: 5px;
+    }
+  }
+
+}
+
+// .childContainer::-webkit-scrollbar {
+//   width: 0px;
+//   /* Remove scrollbar width */
+//   background: transparent;
+//   /* Hide scrollbar background */
+// }
+
+// .childContainer::-webkit-scrollbar-thumb {
+//   display: none;
+//   /* Hide scrollbar thumb */
+// }

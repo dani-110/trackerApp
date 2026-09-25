@@ -1,0 +1,84 @@
+.receipt {
+    width: 595px;
+    height: 842px;
+    margin: 20px 40px;
+    /* padding: 5px 20px; */
+    font-family: Arial, sans-serif;
+    background: #fff;
+    position: relative;
+}
+
+.header {
+    width: 100%;
+    text-align: left;
+    border-bottom: 2px solid #8faadc;
+    margin-bottom: 10px;
+}
+
+.header .logo img {
+    width: 140px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.header-text h2 {
+    margin-bottom: 5px;
+    padding-top: 3px;
+    border-top: 2px solid #d8aef6;
+    color: #2f5496;
+
+}
+
+.section {
+    padding-bottom: 2px;
+    border-bottom: 1px solid #8faadc;
+    margin-bottom: 10px;
+}
+
+.section h4 {
+    margin:0;
+    margin-bottom: 4px;
+    text-align: left;
+    font-size: 14px;
+
+    border-bottom: 1px solid #000; /* underline ka kaam karega */
+    display: inline-block; /* taki sirf text ke niche aaye */
+    /* padding-bottom: 1px;  */
+}
+
+.row {
+    display: flex;
+    gap: 10px;
+    margin: 2px 0;
+}
+
+.row span:first-child {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.row span:last-child {
+    font-weight: 200;
+    font-size: 14px;
+}
+
+.footer {
+    display: flex;
+    flex: 1;
+    width: 100%;
+    justify-content: space-between;
+    background: #c485f2;
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1000;
+    bottom: 0px;
+}
+
+
+.footer span {
+    font-weight: 200;
+    font-size: 12px;
+}

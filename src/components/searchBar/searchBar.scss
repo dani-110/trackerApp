@@ -1,0 +1,21 @@
+.searchBarContainer{
+  position: relative;
+    border: 1px solid #cac4c4;
+    border-radius: 50px;
+    align-items: center;
+    display: flex;
+    // padding: 2px 20px;
+    width: 90%;
+    .iconContainer{
+        height: 25px;
+        width: 25px;
+        border-radius: 50px;
+        position: absolute;
+        right: 0;
+        margin-right: 5px;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}

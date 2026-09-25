@@ -1,0 +1,31 @@
+.dragOver {
+  background-color: rgba(227, 251, 255, 1) !important;
+  border: 3px dotted aliceblue !important;
+}
+.uploadImage {
+  display: block;
+  margin: auto;
+  width: auto;
+  height: 25vh;
+}
+.uploadArea {
+  box-sizing: border-box;
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;
+  padding: 5vh;
+  flex-direction: column;
+  cursor: pointer;
+  .heading {
+    font-family: Lato;
+    font-size: 30px;
+    font-weight: 700;
+    color: rgba(44, 46, 116, 1);
+  }
+  .subHeading {
+    color: #a0aec0;
+    font-size: 14px;
+  }
+  .fileName {
+    font-size: 22px !important;
+  }
+}

@@ -1,0 +1,57 @@
+.headerContainer {
+  padding: 0px 20px;
+  height: 10vh;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 4px;
+  img{
+    width: 150px;
+    object-fit: contain;
+  }
+}
+
+.imageContainer{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  img{
+    height: 50px;
+    object-fit: contain;
+  }
+}
+
+.sideToggleButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.toggleButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+
+// greater small screen
+@media(min-width:1200px) {
+  .toggleButton {
+    display: none;
+  }
+}
+@media(max-width:1200px) {
+  .sideToggleButton {
+    display: none;
+  }
+}
+
+@media(max-width:1200px) {
+  .headerContainer{
+    padding: 0px 10px;
+    img{
+      height: 40px;
+      width: 100px;
+      object-fit: contain;
+    }
+  }
+}

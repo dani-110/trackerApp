@@ -1,0 +1,16 @@
+.headingTitle {
+  padding: 6px 10px;
+  text-transform: uppercase;
+}
+
+.breadCrumList {
+  padding: 6px 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.titleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}

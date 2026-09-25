@@ -1,0 +1,159 @@
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { Button, CircularProgress, Grid } from "@mui/material";
+import InputFields from "../../components/InputFields";
+import ButtonContainer from "../../components/buttonContainer";
+import { useDispatch, useSelector } from "react-redux";
+import { setDataObject } from "../../utils/Utils";
+import SelectFields from "../../components/SelectFields";
+import DatePickerFields from "../../components/datePickerField";
+import { addTeamsMember } from "../../store/actions/teams";
+
+const AddMemberForm = (props) => {
+    const { data, setOpen, fetchList } = props
+
+    const dispatch = useDispatch();
+
+    const { userfiller, rolefiller } = useSelector(state => state.filler)
+
+    const [isLoading, setIsLoading] = useState(false);
+
+
+    const defaultValues = useForm({
+        defaultValues: {
+            team: '',
+            userId: '',
+            membershipRole: '',
+            effectiveFrom: '',
+            effectiveTo: '',
+        },
+    });
+
+
+    const {
+        control,
+        handleSubmit,
+        setError,
+        clearErrors,
+        watch,
+        reset,
+        setValue,
+        resetField,
+        getValues,
+        formState: { errors },
+    } = defaultValues;
+
+
+    useEffect(() => {
+        reset({
+            team: data.name + " " + data.code || '',
+        })
+    }, [])
+
+
+    const submit = () => {
+        setIsLoading(true)
+        let obj = setDataObject(getValues())
+        delete obj.team
+        console.log(obj)
+        const saveData = {
+            obj,
+            id: data.id
+        }
+        console.log(saveData, getValues())
+        dispatch(addTeamsMember(saveData)).then((res) => {
+            console.log(res)
+            if (res.payload.status == '201') {
+                setOpen(false)
+                fetchList({})
+            }
+            setIsLoading(false)
+        });
+    }
+
+    return <>
+        <form style={{ padding: '10px' }}>
+            <Grid container spacing={2}>
+
+                <Grid item xs={12} >
+                    <InputFields
+                        fieldName="team"
+                        type="text"
+                        label="Team"
+                        control={control}
+                        disabled
+                    />
+                </Grid>
+                <Grid item xs={12} >
+                    <SelectFields
+                        fieldName="userId"
+                        type="text"
+                        label="User"
+                        control={control}
+                        options={userfiller.map(({ id, name }) => {
+                            return { label: name, value: id };
+                        })}
+                        rules={{
+                            required: "User is required",
+                        }}
+                        error={errors?.userId}
+                    />
+                </Grid>
+                <Grid item xs={12} >
+                    <SelectFields
+                        fieldName="membershipRole"
+                        type="text"
+                        label="Membership Role"
+                        control={control}
+                        options={rolefiller.map(({ id, name }) => {
+                            return { label: name, value: id };
+                        })}
+                        rules={{
+                            required: "Membership Role is required",
+                        }}
+                        error={errors?.membershipRole}
+                    />
+                </Grid>
+                <Grid item xs={6} >
+                    <DatePickerFields
+                        fieldName="effectiveFrom"
+                        type="text"
+                        label="Effective From"
+                        control={control}
+                        rules={{
+                            required: "Effective From is required",
+                        }}
+                        error={errors?.effectiveFrom}
+                    />
+                </Grid>
+                <Grid item xs={6} >
+                    <DatePickerFields
+                        fieldName="effectiveTo"
+                        type="text"
+                        label="Effective To"
+                        control={control}
+                        rules={{
+                            required: "Effective To is required",
+                        }}
+                        error={errors?.effectiveTo}
+                    />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <ButtonContainer isSingle>
+                        <Button size="medium" variant="contained" color="primary" disabled={isLoading}
+                            onClick={handleSubmit(submit)}>
+                            {isLoading && (
+                                <CircularProgress size={20} sx={{ marginRight: 1, color: "#fff" }} />
+                            )}
+                            Save</Button>
+
+                    </ButtonContainer>
+                </Grid>
+            </Grid>
+
+        </form>
+    </>
+};
+
+export default AddMemberForm;
