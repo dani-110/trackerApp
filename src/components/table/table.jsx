@@ -166,6 +166,8 @@ import { MdOutlineVerifiedUser } from "react-icons/md";
 import { useState } from 'react';
 import ProcessingDuration from '../processingDuration/processingDuration';
 import Status from '../status/status';
+import WorkTypeCode from '../workTypeCode/workTypeCode';
+import AcknowledgeStatus from '../acknowledgeStatus/acknowledgeStatus';
 
 const TableContainer = (props) => {
   const {
@@ -268,27 +270,34 @@ const TableContainer = (props) => {
                       <TableCell key={i} align="left">
                         {v === 'status' ? (
                           <Status value={item[v]} />
-                        ) : item[v] === 'Yes' ? (
-                          <MdOutlineVerifiedUser size={30} color='rgb(19, 222, 185)' />
-                        ) : (
-                          <Tooltip title={item[v] || ""}>
-                            <Typography
-                              variant='body1'
-                              sx={{
-                                display: '-webkit-box',
-                                overflow: 'hidden',
-                                textOverflow: 'ellipsis',
-                                WebkitLineClamp: 2,
-                                WebkitBoxOrient: 'vertical',
-                                whiteSpace: 'normal',
-                                maxWidth: '250px',
-                                // margin: '0 auto'
-                              }}
-                            >
-                              {item[v]}
-                            </Typography>
-                          </Tooltip>
-                        )}
+                        ) :
+                          v === 'workTypeCode' ? (
+                            <WorkTypeCode value={item[v]} />
+                          ) :
+                          v === 'acknowledgementStatus' ? (
+                            <AcknowledgeStatus value={item[v]} />
+                          ) :
+                            item[v] === 'Yes' ? (
+                              <MdOutlineVerifiedUser size={30} color='rgb(19, 222, 185)' />
+                            ) : (
+                              <Tooltip title={item[v] || ""}>
+                                <Typography
+                                  variant='body1'
+                                  sx={{
+                                    display: '-webkit-box',
+                                    overflow: 'hidden',
+                                    textOverflow: 'ellipsis',
+                                    WebkitLineClamp: 2,
+                                    WebkitBoxOrient: 'vertical',
+                                    whiteSpace: 'normal',
+                                    maxWidth: '250px',
+                                    // margin: '0 auto'
+                                  }}
+                                >
+                                  {item[v]}
+                                </Typography>
+                              </Tooltip>
+                            )}
                       </TableCell>
                     ))}
                     {extraColumnParams && extraColumnParams.map((v, idx) => (
@@ -298,7 +307,7 @@ const TableContainer = (props) => {
                     ))}
                     {Action && (
                       <TableCell align="center" sx={{ whiteSpace: 'nowrap', minWidth: '100px' }}>
-                        <Action id={item} fetchList={fetchList}/>
+                        <Action id={item} fetchList={fetchList} />
                       </TableCell>
                     )}
                   </TableRow>

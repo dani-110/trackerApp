@@ -8,6 +8,7 @@ import Permissions from "../screens/permissions/permissions";
 import OragnizationalUnits from "../screens/oragnizationalUnits/oragnizationalUnits";
 import FunctionalUnit from "../screens/functionalUnit/functionalUnit";
 import Queues from "../screens/queues/queues";
+import Tickets from "../screens/tickets/tickets";
 
 export const privateRoutes = [
     { index: true, element: <Navigate to="/user" /> },
@@ -44,5 +45,9 @@ export const privateRoutes = [
                 element: <DetailView />
             }
         ]
-    }
+    },
+    {
+        path: 'tickets',
+        element: <Tickets />
+    },
 ];
