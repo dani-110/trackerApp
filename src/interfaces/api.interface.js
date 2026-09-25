@@ -11,8 +11,8 @@
 
 // export const apiURL = "http://192.168.15.35:8750/api";
 // export const apiURL = "https://cosigner-unmanaged-wolf.ngrok-free.dev/api";
-// export const apiURL = "https://large-retying-goofball.ngrok-free.dev/api/v1";
-export const apiURL = "http://100.107.106.84:8080/api/v1";
+export const apiURL = "https://large-retying-goofball.ngrok-free.dev/api/v1";
+// export const apiURL = "http://100.107.106.84:8080/api/v1";
 export const api = {
 
   //================Auth================
@@ -138,7 +138,7 @@ export const api = {
       method: "get",
     }
   },
-  //================Queues==================
+  //================Tickets==================
   tickets: (pageNo = 1, pageSize = 10) => {
     return {
       url: `${apiURL}/tickets?page=${pageNo}&pageSize=${pageSize}`,
