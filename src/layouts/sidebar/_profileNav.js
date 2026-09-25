@@ -54,5 +54,10 @@ export const navData = [
     icon: userManagement,
     url: "queues"
   },
+  {
+    label: "Tickets",
+    icon: userManagement,
+    url: "tickets"
+  },
 
 ];

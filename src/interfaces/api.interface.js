@@ -138,6 +138,13 @@ export const api = {
       method: "get",
     }
   },
+  //================Queues==================
+  tickets: (pageNo = 1, pageSize = 10) => {
+    return {
+      url: `${apiURL}/tickets?page=${pageNo}&pageSize=${pageSize}`,
+      method: "get",
+    }
+  },
   //================Fillers==================
   userFiller: (id) => {
     return {
