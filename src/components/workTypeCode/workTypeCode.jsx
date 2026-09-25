@@ -18,7 +18,9 @@ const WorkTypeCode = ({ value }) => {
         <Box sx={{
             backgroundColor: value ? getBackgroundColor(value) : 'tansparent',
             borderRadius: '5px',
-            padding: '0px 10px'
+            padding: '0px 10px',
+            display: 'inline-block',
+            width: 'fit-content',
         }} > <Typography variant='body1' sx={{ color: "#fff", textAlign: 'center' }}>{value}</Typography>
         </Box>
     )

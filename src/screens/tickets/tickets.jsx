@@ -41,7 +41,7 @@ const Tickets = () => {
                 <Typography variant="h2">Tickets</Typography>
                 <Typography variant="body1">Search and manage support tickets.</Typography>
             </Box>
-            <ModalButton open={openCreate} setOpen={setOpenCreate} label={'New Ticket'} type={'button'} startIcon={<IoMdAdd />} width={'30%'}>
+            <ModalButton open={openCreate} setOpen={setOpenCreate} label={'New Ticket'} heading={'Create New Ticket'} type={'button'} startIcon={<IoMdAdd />} width={'30%'}>
                 <TicketCreateForm setOpen={setOpenCreate} fetchList={fetchList} />
             </ModalButton>
         </Box>

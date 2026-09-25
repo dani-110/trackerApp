@@ -9,6 +9,7 @@ import OragnizationalUnits from "../screens/oragnizationalUnits/oragnizationalUn
 import FunctionalUnit from "../screens/functionalUnit/functionalUnit";
 import Queues from "../screens/queues/queues";
 import Tickets from "../screens/tickets/tickets";
+import TicketDetail from "../screens/tickets/ticketDetail";
 
 export const privateRoutes = [
     { index: true, element: <Navigate to="/user" /> },
@@ -48,6 +49,12 @@ export const privateRoutes = [
     },
     {
         path: 'tickets',
-        element: <Tickets />
+        children: [
+            { index: true, element: <Tickets /> },
+            {
+                path: 'Details',
+                element: <TicketDetail />
+            }
+        ]
     },
 ];
