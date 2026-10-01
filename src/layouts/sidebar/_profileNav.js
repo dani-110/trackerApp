@@ -5,6 +5,73 @@ import stationarylog from '../../assests/stationarylog.png'
 import pakistan from '../../assests/pakistan.png'
 import creditcard from '../../assests/creditcard.png'
 
+export const navBar = [
+  {
+    label: 'Workspace',
+    icon: 'LuLayoutDashboard',
+    subTab: [
+      {
+        label: 'Overview',
+        icon: 'LuLayoutDashboard',
+        url:''
+      },
+    ]
+  },
+  {
+    label: 'Work',
+    icon: 'LuTicket',
+    subTab: [
+      {
+        label: 'Tickets',
+        icon: 'LuTicket',
+        url:'tickets'
+      },
+      {
+        label: 'Approvals',
+        icon: 'LuShieldCheck',
+        url:''
+      },
+    ]
+  },
+  {
+    label: 'Time',
+    icon: 'WiTime3',
+    subTab: [
+      {
+        label: 'My Timesheet',
+        icon: 'WiTime3',
+        url:''
+      },
+      {
+        label: 'Compliance',
+        icon: 'LuActivity',
+        url:''
+      },
+    ]
+  },
+  {
+    label: 'Administration',
+    icon: 'LuShieldCheck',
+    subTab: [
+      {
+        label: 'User & Access',
+        icon: 'LuUsers',
+        url:'user'
+      },
+      {
+        label: 'Organization',
+        icon: 'LuBuilding2',
+        url:'oragnizationalUnits'
+      },
+      {
+        label: 'System Logs',
+        icon: 'LuScrollText',
+        url:''
+      },
+    ]
+  },
+]
+
 export const navData = [
   // {
   //   label: "Mailer Generation",

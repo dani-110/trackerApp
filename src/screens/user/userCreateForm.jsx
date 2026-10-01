@@ -1,11 +1,10 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Box, Button, CircularProgress, Grid } from "@mui/material";
 import InputFields from "../../components/InputFields";
 import ButtonContainer from "../../components/buttonContainer";
-import SelectFields from "../../components/SelectFields";
 import { useDispatch } from "react-redux";
-import { alphaNumericDash, decimalRegex, idRegex, phoneRegex, setDataObject } from "../../utils/Utils";
+import { setDataObject } from "../../utils/Utils";
 import { createUsers } from "../../store/actions/users";
 
 const UserCreateForm = (props) => {
