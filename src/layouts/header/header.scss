@@ -1,57 +1,97 @@
 .headerContainer {
   padding: 0px 20px;
   height: 10vh;
+  display: flex;
+  align-items: center;
+  background: linear-gradient(115deg, #101a2c 0%, #172640 58%, #1c2f4e 100%);
   box-shadow: rgba(0, 0, 0, 0.15) 0px 1px 4px;
-  img{
+
+  img {
     width: 150px;
     object-fit: contain;
   }
 }
 
-.imageContainer{
+
+.qorbitoLiveLogo {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  img{
-    height: 50px;
-    object-fit: contain;
-  }
+  gap: 10px
 }
 
-.sideToggleButton {
+.qorbitoLiveLogo img {
+  object-fit: contain;
+  height: 40px;
+  width: 40px;
+}
+
+
+.qorbitoLiveWord {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  gap: 2px
 }
 
-.toggleButton {
+.qorbitoTitle {
+  color: #f8fafc;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.qorbitoSubtitle {
+  color: #9aa9d6;
+  font-size: 6px;
+  font-weight: 600;
+  text-align: justify;
+  letter-spacing: 0.17em;
+  /* Space adjust karne ke liye is value ko thoda kam/zyada kar sakte hain */
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.activeTab {
+  background: linear-gradient(135deg, #665df0, #596ee8);
+  border-color: #ffffff17;
+  box-shadow: 0 7px 20px #4e49ce35;
+}
+
+.tabText {
+  color: #9aa9d6;
+}
+
+.activeTabText {
+  color: #fff;
+}
+
+.tab {
+  border: 1px solid transparent;
+  padding: 5px 10px;
+  border-radius: 10px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
+  gap: 10px;
   align-items: center;
 }
 
-
-// greater small screen
-@media(min-width:1200px) {
-  .toggleButton {
-    display: none;
-  }
-}
-@media(max-width:1200px) {
-  .sideToggleButton {
-    display: none;
-  }
+.subTabBar {
+  background: #15233a;
+  border-top: 1px solid #ffffff0a;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
 }
 
-@media(max-width:1200px) {
-  .headerContainer{
-    padding: 0px 10px;
-    img{
-      height: 40px;
-      width: 100px;
-      object-fit: contain;
-    }
-  }
+
+.subTab {
+  padding: 5px 10px;
+  border-radius: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.activeSubTab {
+  background: #ffffff10;
+  border-color: #ffffff17;
+  box-shadow: 0 7px 20px #4e49ce35;
 }

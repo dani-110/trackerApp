@@ -25,6 +25,7 @@ const call = (api, data, thunk, file) => {
   // return axios[api?.method]?.(api?.url, data, { headers })
   return axiosRequest
     .then(response => {
+      console.log(response)
       if (response.status == 403) {
         console.log(response.data.responsecode, thunk.dispatch(logoutUser()))
       }

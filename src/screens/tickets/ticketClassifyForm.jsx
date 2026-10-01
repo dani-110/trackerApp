@@ -50,7 +50,7 @@ const TicketClassifyForm = (props) => {
 
         dispatch(ticketClassification(saveObj)).then((res) => {
             console.log(res)
-            if (res.payload.status == '201') {
+            if (res.payload.status == '200') {
                 setOpen(false)
                 fetchList({})
             }

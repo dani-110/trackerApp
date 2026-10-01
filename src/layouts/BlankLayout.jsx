@@ -1,6 +1,6 @@
-import { useContext } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import React, { Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import { Navigate, useLocation } from "react-router-dom";
 
 const BlankLayout = () => {
