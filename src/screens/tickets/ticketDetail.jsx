@@ -9,6 +9,8 @@ import { useLocation } from "react-router-dom";
 import Acknowledgement from "./acknowledge";
 import { useDispatch } from "react-redux";
 import { ticketById } from "../../store/actions/tickets";
+import PageHeader from "../../components/pageHeader/pageHeader";
+import "./ticketDetail.scss";
 
 const TicketDetail = () => {
     const location = useLocation()
@@ -42,17 +44,22 @@ const TicketDetail = () => {
         {
             label: "Global Screening",
             component: <Box>
-                <Typography>Global Screening</Typography>
+                <Typography className="ticketDetailSectionTitle">Global Screening</Typography>
             </Box>
         },
     ]
 
-    return <Box style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'auto', padding: '10px', gap: '10px' }}>
+    return <Box className="screenPage ticketDetailPage">
+        <PageHeader
+            eyebrow="WORK MANAGEMENT / TICKETS"
+            title={state?.ticketNo ? `Ticket ${state.ticketNo}` : "Ticket details"}
+            description={state?.title || "Review ticket information and workflow."}
+        />
         {isLoading ?
             <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
                 <CircularProgress size={40} />
             </Box>
-            : <Card>
+            : <Card classes="ticketDetailCard">
                 <Tabs childArray={childArray} />
             </Card>}
     </Box>

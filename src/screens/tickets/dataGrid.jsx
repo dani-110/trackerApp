@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import TabelContainer from '../../components/table/table';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
-import { useTheme } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { Box, IconButton } from '@mui/material';
 import { MdMoreVert } from 'react-icons/md';
@@ -12,7 +11,7 @@ import TicketClassifyForm from './ticketClassifyForm';
 import TicketAssignForm from './ticketAssignForm';
 
 const DataGrid = (props) => {
-    const { isLoading, fetchList } = props
+    const { isLoading, fetchList, search = '' } = props
     const [dataList, setDataList] = useState([])
 
     const { tickets, totalcount } = useSelector(state => state.tickets)
@@ -28,6 +27,19 @@ const DataGrid = (props) => {
         })
         setDataList(arr)
     }, [tickets])
+
+    const normalizedSearch = search.trim().toLocaleLowerCase();
+    const visibleData = normalizedSearch
+        ? dataList.filter((ticket) => [
+            ticket.ticketNo,
+            ticket.title,
+            ticket.clientName,
+            ticket.teamName,
+            ticket.workTypeCode,
+            ticket.stateName,
+            ticket.acknowledgementStatus,
+        ].some((value) => String(value || '').toLocaleLowerCase().includes(normalizedSearch)))
+        : dataList;
 
     const tableHeader = [
         'Ticket No',
@@ -55,10 +67,10 @@ const DataGrid = (props) => {
         <TabelContainer
             tableHeader={tableHeader}
             action={TableAction}
-            data={dataList}
+            data={visibleData}
             verifyParam={verifyParam}
             isLoading={isLoading}
-            count={totalcount}
+            count={normalizedSearch ? visibleData.length : totalcount}
             fetchList={fetchList}
         />
     </>
@@ -89,6 +101,7 @@ const TableAction = (data) => {
         },
         {
             label: "Classify Ticket",
+            disabled: item?.workTypeCode !== "UNCLASSIFIED",
             onClick: () => {
                 setModalContent(<TicketClassifyForm data={item} setOpen={setOpenView} fetchList={data.fetchList} />);
                 setHeading('Classify Ticket')

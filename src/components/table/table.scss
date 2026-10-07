@@ -60,7 +60,8 @@
     overflow-y: auto; // Sirf vertically scroll hoga jab rows zyada hon
     overflow-x: auto; // Columns zyada hone par horizontally scroll hoga
     border-radius: 10px;
-    border: 1px solid #f3f3f3;
+    border: 1px solid  var(--mui-palette-divider);
+   
     // background: #faf9f7;
 
     .tableHeader {
@@ -78,7 +79,8 @@
         font-size: 15px;
         font-weight: 450;
         text-transform: capitalize;
-        color: #6c757d;
+        color: var(--mui-palette-text-primary);
+     
     }
 
     .tableLoadingContainer {

@@ -1,8 +1,9 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import DataGrid from "./dataGrid";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { teams } from "../../store/actions/teams";
+import PageHeader from "../../components/pageHeader/pageHeader";
 
 const Teams = () => {
 
@@ -32,13 +33,12 @@ const Teams = () => {
         });
     };
 
-    return <Box style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'auto', padding: '10px', gap: '10px' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Box>
-                <Typography variant="h2">Teams</Typography>
-                <Typography variant="body1">Manage teams and their members.</Typography>
-            </Box>
-        </Box>
+    return <Box className="screenPage">
+        <PageHeader
+            eyebrow="ADMINISTRATION"
+            title="Teams"
+            description="Manage teams and their members."
+        />
         <DataGrid fetchList={fetchList} isLoading={isLoading} />
     </Box>
 };

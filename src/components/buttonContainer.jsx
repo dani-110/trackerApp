@@ -4,6 +4,7 @@ const ButtonContainer = (props) => {
     const { children, isSingle, alignLeft, alignCenter, isThree, isFour, isFive } = props
     return (
         <Box
+            className="modalActionContainer"
             sx={{
                 display: 'flex',
                 alignItems: 'center',
@@ -12,6 +13,7 @@ const ButtonContainer = (props) => {
             }}
         >
             <Box
+                className="modalActionButtons"
                 sx={{
                     display: 'grid',
                     gridTemplateColumns: `repeat(${isSingle ? 1 : isThree ? 3 : isFour ? 4 : isFive ? 5 : 2}, minmax(100px, 1fr))`,

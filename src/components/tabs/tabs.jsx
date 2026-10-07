@@ -39,7 +39,7 @@ const Tabs = (props) => {
     };
 
     return (
-        <Box sx={{ width: '100%', height: '85vh', typography: 'body1', display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ width: '100%', height: '100%', minHeight: 0, typography: 'body1', display: 'flex', flexDirection: 'column' }}>
             <TabContext value={value}>
                 <Box sx={{ display: 'flex' }}>
                     <TabList
@@ -76,8 +76,9 @@ const Tabs = (props) => {
                     childArray.map((item, index) => (
                         <TabPanel value={index}
                             sx={{
-                                flex: 1,
-                                height: '100%',
+                            flex: 1,
+                            minHeight: 0,
+                            height: '100%',
                                 padding: '16px 0px 0px 0px', // Padding apne hisab se adjust kar sakte hain
                                 display: value === index ? 'flex' : 'none', // Active panel ko flex banayega
                                 flexDirection: 'column'

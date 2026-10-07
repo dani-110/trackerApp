@@ -7,7 +7,7 @@ export const tickets = createAsyncThunk(
   "tickets",
   async (data, thunkAPI) => {
     try {
-      const response = await HttpService.call(api.tickets(data.pageNo, data.pageSize), undefined, thunkAPI);
+      const response = await HttpService.call(api.tickets(data.pageNo, data.pageSize, data.filters), undefined, thunkAPI);
       console.log(response)
       if (response.status == '200') {
         if (response.data.tickets.length == 0) {

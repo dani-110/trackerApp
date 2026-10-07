@@ -1,6 +1,136 @@
+.modalButtonBackdrop {
+  background: rgba(3, 8, 18, 0.72) !important;
+  backdrop-filter: blur(4px);
+}
+
 .modalCardContainer {
-    max-height: 85vh;
-    overflow: auto;
-    padding: 0px;
-    border-radius: 3px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transform: translate(-50%, -50%);
+  border-radius: 14px;
+  outline: none;
+  background: var(--mui-palette-background-paper);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
+}
+
+.modalButtonHeader {
+  flex: 0 0 auto;
+  padding: 17px 22px 15px;
+  background: var(--mui-palette-modalButtonHeaderBackground);
+}
+
+.modalButtonQuickAction {
+  margin: 0 0 3px !important;
+  padding: 0 !important;
+  color: #a69cff !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  text-align: left !important;
+  letter-spacing: 0.08em !important;
+  line-height: 1.4 !important;
+  text-transform: uppercase !important;
+}
+
+.modalButtonHeader .headingTitle {
+  margin: 0 !important;
+  padding: 0 !important;
+  color: #f7f9ff !important;
+  font-size: 18px !important;
+  font-weight: 700 !important;
+  line-height: 1.35 !important;
+  text-transform: none !important;
+}
+
+.modalButtonHeader .titleContainer {
+  padding: 0 !important;
+}
+
+.modalButtonHeader .icon {
+  color: #cbd5e1 !important;
+}
+
+.modalButtonHeader .icon:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.modalButtonContent {
+  min-height: 0;
+  overflow: auto;
+  padding: 20px 22px;
+  background: var(--mui-palette-background-paper);
+  color: var(--mui-palette-text-primary);
+}
+
+.modalButtonContent .MuiInputLabel-root,
+.modalButtonContent .MuiFormLabel-root,
+.modalButtonContent .MuiTypography-root {
+  color: var(--mui-palette-text-primary);
+}
+
+.modalButtonContent .MuiOutlinedInput-root {
+  border-radius: 8px;
+  background: var(--mui-palette-background-paper);
+}
+
+.modalButtonContent .MuiOutlinedInput-notchedOutline {
+  border-color: var(--mui-palette-divider);
+}
+
+.modalButtonContent .modalActionContainer {
+  justify-content: flex-end !important;
+  margin-top: 0;
+  padding-top: 16px;
+  border-top: 0;
+}
+
+.modalButtonContent .modalActionButtons {
+  display: flex !important;
+  width: auto;
+  grid-template-columns: none !important;
+  justify-content: flex-end;
+  gap: 8px !important;
+}
+
+.modalButtonContent .modalActionContainer .MuiButton-root {
+  min-height: 38px;
+  border-radius: 8px;
+  padding: 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.modalButtonContent .modalActionContainer .MuiButton-contained {
+  background: linear-gradient(135deg, #665df0, #596ee8);
+  color: #fff !important;
+  box-shadow: 0 7px 18px rgba(89, 92, 230, 0.24);
+}
+
+.modalButtonContent .modalActionContainer .MuiButton-contained:hover {
+  background: linear-gradient(125deg, #6c7ddd, #6056ed);
+  filter: brightness(0.96);
+}
+
+.modalButtonContent .modalActionContainer .MuiButton-outlined {
+  border-color: var(--mui-palette-divider);
+  color: var(--mui-palette-text-primary) !important;
+}
+
+.modalButtonContent .modalActionContainer .MuiButton-outlined:hover {
+  border-color: #6d65e2;
+  background: rgba(109, 101, 226, 0.08);
+}
+
+@media (max-width: 600px) {
+  .modalButtonHeader {
+    padding: 15px 17px 13px;
+  }
+
+  .modalButtonContent {
+    padding: 17px;
+  }
 }

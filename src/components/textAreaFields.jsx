@@ -1,22 +1,29 @@
 import { TextField, Tooltip, Typography } from "@mui/material";
 import React from "react";
 import { Controller } from "react-hook-form";
-import { styled } from '@mui/material/styles';
+import { styled,useTheme} from '@mui/material/styles';
 
 const CssTextField = styled(TextField)(({ theme }) => ({
   '& label.Mui-focused': {
     color: theme.palette.inputLabelFocusedColor,
   },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: theme.palette.inputFieldsetColor,
+  "& .MuiOutlinedInput-root": {
+    minHeight: 46,
+    borderRadius: "10px",
+    backgroundColor: "#fff",
+    "& fieldset": {
+      borderColor: "#cbd5e1",
     },
-    '&:hover fieldset': {
+    "&:hover fieldset": {
       borderColor: theme.palette.inputFocusedColor,
     },
-    '&.Mui-focused fieldset': {
+    "&.Mui-focused fieldset": {
       borderColor: theme.palette.inputFocusedColor,
     },
+    "& input::placeholder": {
+  color: "#8a94a6",
+  opacity: 1,
+}
   },
   '& .MuiOutlinedInput-input': {
     color: theme.palette.textColor
@@ -24,6 +31,7 @@ const CssTextField = styled(TextField)(({ theme }) => ({
 }));
 
 const TextAreaFields = ({ error, type, fieldName, control, rules, label, phone, disabled, rows, helperText, ...rest }) => {
+  const theme = useTheme(); 
   return (
     <Controller
       name={fieldName}
@@ -32,7 +40,7 @@ const TextAreaFields = ({ error, type, fieldName, control, rules, label, phone, 
       render={({ field }) => {
         return (
           <Tooltip title={rules?.required ? rules.required : ""}>
-            <Typography variant="body1" sx={{ marginBottom: '6px', color: '#6c757d', textAlign: 'left' }}>{`${label}${rules?.required ? '*' : ''}`}</Typography>
+            <Typography variant="body1" sx={{ marginBottom: '6px', color: theme.palette.inputLabelColor,fontWeight: "500", textAlign: 'left' }}>{`${label}${rules?.required ? '*' : ''}`}</Typography>
             <CssTextField
               size="small"
               className="outlined"
