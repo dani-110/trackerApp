@@ -3,30 +3,32 @@ import DataGrid from "./dataGrid";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { organizationUnits } from "../../store/actions/oragnizationalUnits";
+import PageHeader from "../../components/pageHeader/pageHeader";
 
 const OragnizationalUnits = () => {
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
-    const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    fetchList({});
+  }, []);
 
-    useEffect(() => {
-        fetchList({})
-    }, [])
+  const fetchList = () => {
+    dispatch(organizationUnits()).then((res) => {
+      setIsLoading(false);
+    });
+  };
 
-    const fetchList = () => {
-        dispatch(organizationUnits()).then((res) => {
-            setIsLoading(false)
-        });
-    };
-
-    return <Box style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'auto', padding: '10px', gap: '10px' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Box>
-                <Typography variant="h2">Oragnizational Units</Typography>
-                <Typography variant="body1">Manage system Oragnizational Units.</Typography>
-            </Box>
-        </Box>
+  return (
+    <Box className="screenPage">
+        <PageHeader
+            eyebrow="ADMINISTRATION"
+            title="Oragnizational Units"
+            description=" Manage system Oragnizational Units."
+        />
         <DataGrid fetchList={fetchList} isLoading={isLoading} />
     </Box>
+    
+  );
 };
 export default OragnizationalUnits;

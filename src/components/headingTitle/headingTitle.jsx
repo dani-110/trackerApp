@@ -15,7 +15,7 @@ const HeadingTitle = (props) => {
         {title}
       </Typography>
       <IconButton className='icon' onClick={handleClose} size="small">
-        <IoMdClose color={theme.palette.textColor} size={25} />
+        <IoMdClose color="rgb(245 245 245)" size={25} />
       </IconButton>
     </Box>
   </Box>

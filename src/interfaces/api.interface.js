@@ -36,9 +36,12 @@ export const api = {
   },
 
   //================User==================
-  users: (pageNo = 1, pageSize = 10) => {
+  users: (pageNo = 1, pageSize = 10, filters = {}) => {
+    const query = new URLSearchParams({ pageNo: String(pageNo), pageSize: String(pageSize) });
+    if (filters.search) query.set("search", filters.search);
+    if (filters.status) query.set("status", filters.status);
     return {
-      url: `${apiURL}/users?pageNo=${pageNo}&pageSize=${pageSize}`,
+      url: `${apiURL}/users?${query.toString()}`,
       method: "get",
     }
   },
@@ -176,9 +179,13 @@ export const api = {
     }
   },
   //================Tickets==================
-  tickets: (pageNo = 1, pageSize = 10) => {
+  tickets: (pageNo = 1, pageSize = 10, filters = {}) => {
+    const query = new URLSearchParams({ page: pageNo, pageSize });
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') query.set(key, value);
+    });
     return {
-      url: `${apiURL}/tickets?page=${pageNo}&pageSize=${pageSize}`,
+      url: `${apiURL}/tickets?${query.toString()}`,
       method: "get",
     }
   },
