@@ -85,6 +85,10 @@ const CustomPopover = ({
                             key={index}
                             disabled={option.disabled}
                             onClick={() => !option.disabled && handleOptionClick(option)}
+
+                            disabled={option.disable}
+                            onClick={() => handleOptionClick(option)}
+
                             sx={{
                                 py: 0.8,
                                 px: 2,

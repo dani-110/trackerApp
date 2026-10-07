@@ -174,11 +174,13 @@ import { useTheme } from "@emotion/react";
 import "./table.scss";
 import TablePaginationComp from "./tablePagination";
 import { MdOutlineVerifiedUser } from "react-icons/md";
-import { useState } from "react";
-import ProcessingDuration from "../processingDuration/processingDuration";
-import Status from "../status/status";
-import WorkTypeCode from "../workTypeCode/workTypeCode";
-import AcknowledgeStatus from "../acknowledgeStatus/acknowledgeStatus";
+
+import { useState } from 'react';
+import ProcessingDuration from '../processingDuration/processingDuration';
+import Status from '../status/status';
+import WorkTypeCode from '../workTypeCode/workTypeCode';
+import AcknowledgeStatus from '../acknowledgeStatus/acknowledgeStatus';
+import TimelineStatus from '../timelineStatus/timelineStatus';
 
 const TableContainer = (props) => {
   const {
@@ -408,7 +410,9 @@ const TableContainer = (props) => {
                           <Status value={item[v]} />
                         ) : v === "isActive" ? (
                           <Status value={item[v] ? "Active" : "Inactive"} />
-                        ) : v === "workTypeCode" ? (
+                        ) :v === 'timesheetStatus' ? (
+                              <TimelineStatus value={item[v]} />
+                            ) : v === "workTypeCode" ? (
                           <WorkTypeCode value={item[v]} />
                         ) : v === "acknowledgementStatus" ? (
                           <AcknowledgeStatus value={item[v]} />

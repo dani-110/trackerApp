@@ -10,6 +10,7 @@ import organizationUnitsSlice from "./reducers/oragnizationalUnits-slice";
 import functionalUnitSlice from "./reducers/functionalUnit-slice";
 import queuesSlice from "./reducers/queues-slice";
 import ticketsSlice from "./reducers/tickets-slice";
+import timesheetSlice from "./reducers/timesheet-slice";
 
 const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
     functionalUnit: functionalUnitSlice,
     queues: queuesSlice,
     tickets: ticketsSlice,
+    timesheet: timesheetSlice,
   },
 });
 

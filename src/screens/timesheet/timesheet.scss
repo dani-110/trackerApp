@@ -1,0 +1,74 @@
+.timeSheetHeaderContainer {
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(120deg, #111d31, #1c3151 68%, #243f66);
+    border-radius: 10px;
+}
+
+.commitDeadline {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    background: #1a2b41;
+    padding: 12px 15px;
+    border-radius: 10px;
+}
+
+.entriesContainer {
+    display: flex;
+    flex: 1;
+    gap: 10px
+}
+
+.entriesList {
+    flex: 2;
+    border: 1px solid #dbe2eb;
+    background: #fff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden
+}
+
+.entriesHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(180deg, #f9fbfd, #f6f8fb);
+    padding: 10px,
+}
+
+.entriesFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px
+}
+
+.entriesItem {
+    display: flex;
+    padding: 10px 0px;
+    gap: 10px;
+    align-items: center;
+    border-bottom: 1px solid #edf0f4
+}
+
+.icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #e4e2ff, #d9e5ff);
+    height: 30px;
+    width: 30px;
+    border-radius: 10px
+}
+
+.workTypeItem {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding: 10px 0px;
+    border-bottom: 1px solid #edf0f4;
+}

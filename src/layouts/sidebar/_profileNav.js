@@ -38,14 +38,15 @@ export const navBar = [
     icon: "WiTime3",
     subTab: [
       {
-        label: "My Timesheet",
-        icon: "WiTime3",
-        url: "",
+
+        label: 'My Timesheet',
+        icon: 'WiTime3',
+        url:'timeSheet'
       },
       {
-        label: "Compliance",
-        icon: "LuActivity",
-        url: "",
+        label: 'Compliance',
+        icon: 'LuActivity',
+        url:'timeSheet/timesheetCompliance'
       },
     ],
   },
