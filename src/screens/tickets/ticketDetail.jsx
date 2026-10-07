@@ -42,9 +42,21 @@ const TicketDetail = () => {
             component: <Acknowledgement data={ticketData} />
         },
         {
-            label: "Global Screening",
+            label: "Assignment History",
             component: <Box>
-                <Typography className="ticketDetailSectionTitle">Global Screening</Typography>
+                <Typography className="ticketDetailSectionTitle">Assignment History</Typography>
+            </Box>
+        },
+        {
+            label: "Communications",
+            component: <Box>
+                <Typography className="ticketDetailSectionTitle">Communications</Typography>
+            </Box>
+        },
+        {
+            label: "Outbox Events",
+            component: <Box>
+                <Typography className="ticketDetailSectionTitle">Outbox Events</Typography>
             </Box>
         },
     ]
