@@ -11,8 +11,8 @@
 
 // export const apiURL = "http://192.168.15.35:8750/api";
 // export const apiURL = "https://cosigner-unmanaged-wolf.ngrok-free.dev/api";
-export const apiURL = "https://large-retying-goofball.ngrok-free.dev/api/v1";
-// export const apiURL = "http://100.107.106.84:8080/api/v1";
+// export const apiURL = "https://large-retying-goofball.ngrok-free.dev/api/v1";
+export const apiURL = "http://100.107.106.84:8080/api/v1";
 export const api = {
 
   //================Auth================
@@ -107,6 +107,43 @@ export const api = {
   roles: (id) => {
     return {
       url: `${apiURL}/roles?activeOnly=true`,
+      method: "get",
+    }
+  },
+  //================Timesheet==================
+  getTimeSheetByDay: (date) => {
+    return {
+      url: `${apiURL}/timesheets/my-day?workDate=${date}`,
+      method: "get",
+    }
+  },
+  workSuggestions: (date) => {
+    return {
+      url: `${apiURL}/timesheets/work-suggestions?workDate=${date}`,
+      method: "get",
+    }
+  },
+  entries: () => {
+    return {
+      url: `${apiURL}/timesheets/entries`,
+      method: "post",
+    }
+  },
+  updateEntries: (id) => {
+    return {
+      url: `${apiURL}/timesheets/entries/${id}`,
+      method: "put",
+    }
+  },
+  commit: () => {
+    return {
+      url: `${apiURL}/timesheets/commit`,
+      method: "post",
+    }
+  },
+  complianceStatus: ({ date, page, pageSize }) => {
+    return {
+      url: `${apiURL}/timesheets/compliance/status?workDate=${date}&page=${page}&pageSize=${pageSize}`,
       method: "get",
     }
   },

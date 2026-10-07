@@ -72,6 +72,7 @@ const TableAction = (data) => {
     const [modalContent, setModalContent] = useState(null);
     const [heading, setHeading] = useState('');
     const navigate = useNavigate()
+    console.log(item)
     const popoverOptions = [
         {
             label: "Details",
@@ -89,6 +90,7 @@ const TableAction = (data) => {
         },
         {
             label: "Classify Ticket",
+            disable: item.workTypeCode != 'unclassified',
             onClick: () => {
                 setModalContent(<TicketClassifyForm data={item} setOpen={setOpenView} fetchList={data.fetchList} />);
                 setHeading('Classify Ticket')

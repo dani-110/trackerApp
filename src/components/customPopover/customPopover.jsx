@@ -83,6 +83,7 @@ const CustomPopover = ({
                     {options.map((option, index) => (
                         <ListItemButton
                             key={index}
+                            disabled={option.disable}
                             onClick={() => handleOptionClick(option)}
                             sx={{
                                 py: 0.8,

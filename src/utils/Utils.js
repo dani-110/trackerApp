@@ -333,3 +333,58 @@ export const numberWithHifenRegex = /^[0-9-]*$/
 export const twoDigitsAfterDecimal = /^(\d+(\.\d{0,2})?)?$/
 export const locationRegex = /^\d*\.?\d*$/
 export const ibanRegex = /^PK\d{2}[A-Z]{4}[0-9A-Z]{16}$/
+
+export const timeActivity = [
+  {
+    value: 'ADMINISTRATIVE',
+    name: 'Administrative'
+  },
+  {
+    value: 'ANALYSIS',
+    name: 'Analysis'
+  },
+  {
+    value: 'DEPLOYMENT',
+    name: 'Deployment'
+  },
+  {
+    value: 'DEVELOPMENT',
+    name: 'Development'
+  },
+  {
+    value: 'DOCUMENTATION',
+    name: 'Documentation'
+  },
+  {
+    value: 'GENERAL_SUPPORT',
+    name: 'General Support'
+  },
+  {
+    value: 'INTERNAL_DEVELOPMENT',
+    name: 'Internal Development'
+  },
+  {
+    value: 'MEETING',
+    name: 'Meeting'
+  },
+  {
+    value: 'OTHER',
+    name: 'Other'
+  },
+  {
+    value: 'QA',
+    name: 'QA / Testing'
+  },
+  {
+    value: 'RD_LEARNING',
+    name: 'R&D / Learning'
+  },
+  {
+    value: 'SUPPORT',
+    name: 'Support'
+  },
+  {
+    value: 'TICKET_WORK',
+    name: 'Ticket Work'
+  },
+]

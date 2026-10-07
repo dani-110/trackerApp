@@ -32,7 +32,10 @@ const call = (api, data, thunk, file) => {
       return response;
     })
     .catch(error => {
-      console.log(error)
+      console.log(error.response)
+      if (error.response.status == 403) {
+        thunk.dispatch(logoutUser())
+      }
       return error.response
     });
 };

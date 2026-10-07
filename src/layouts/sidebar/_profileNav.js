@@ -40,12 +40,12 @@ export const navBar = [
       {
         label: 'My Timesheet',
         icon: 'WiTime3',
-        url:''
+        url:'timeSheet'
       },
       {
         label: 'Compliance',
         icon: 'LuActivity',
-        url:''
+        url:'timeSheet/timesheetCompliance'
       },
     ]
   },
