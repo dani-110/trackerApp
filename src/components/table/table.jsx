@@ -168,6 +168,7 @@ import ProcessingDuration from '../processingDuration/processingDuration';
 import Status from '../status/status';
 import WorkTypeCode from '../workTypeCode/workTypeCode';
 import AcknowledgeStatus from '../acknowledgeStatus/acknowledgeStatus';
+import TimelineStatus from '../timelineStatus/timelineStatus';
 
 const TableContainer = (props) => {
   const {
@@ -274,30 +275,33 @@ const TableContainer = (props) => {
                           v === 'workTypeCode' ? (
                             <WorkTypeCode value={item[v]} />
                           ) :
-                          v === 'acknowledgementStatus' ? (
-                            <AcknowledgeStatus value={item[v]} />
-                          ) :
-                            item[v] === 'Yes' ? (
-                              <MdOutlineVerifiedUser size={30} color='rgb(19, 222, 185)' />
-                            ) : (
-                              <Tooltip title={item[v] || ""}>
-                                <Typography
-                                  variant='body1'
-                                  sx={{
-                                    display: '-webkit-box',
-                                    overflow: 'hidden',
-                                    textOverflow: 'ellipsis',
-                                    WebkitLineClamp: 2,
-                                    WebkitBoxOrient: 'vertical',
-                                    whiteSpace: 'normal',
-                                    maxWidth: '250px',
-                                    // margin: '0 auto'
-                                  }}
-                                >
-                                  {item[v]}
-                                </Typography>
-                              </Tooltip>
-                            )}
+                            v === 'timesheetStatus' ? (
+                              <TimelineStatus value={item[v]} />
+                            ) :
+                              v === 'acknowledgementStatus' ? (
+                                <AcknowledgeStatus value={item[v]} />
+                              ) :
+                                item[v] === 'Yes' ? (
+                                  <MdOutlineVerifiedUser size={30} color='rgb(19, 222, 185)' />
+                                ) : (
+                                  <Tooltip title={item[v] || ""}>
+                                    <Typography
+                                      variant='body1'
+                                      sx={{
+                                        display: '-webkit-box',
+                                        overflow: 'hidden',
+                                        textOverflow: 'ellipsis',
+                                        WebkitLineClamp: 2,
+                                        WebkitBoxOrient: 'vertical',
+                                        whiteSpace: 'normal',
+                                        maxWidth: '250px',
+                                        // margin: '0 auto'
+                                      }}
+                                    >
+                                      {item[v]}
+                                    </Typography>
+                                  </Tooltip>
+                                )}
                       </TableCell>
                     ))}
                     {extraColumnParams && extraColumnParams.map((v, idx) => (
