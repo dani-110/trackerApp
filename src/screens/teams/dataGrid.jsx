@@ -3,9 +3,9 @@ import TabelContainer from '../../components/table/table';
 import { useSelector } from 'react-redux';
 import { Box, IconButton, useTheme } from '@mui/material';
 import moment from 'moment';
-import { MdMoreVert } from 'react-icons/md';
 import { useNavigate } from 'react-router-dom';
 import Card from '../../components/card/Card';
+import { ArrowRight } from 'lucide-react';
 
 const DataGrid = (props) => {
     const { isLoading, fetchList } = props
@@ -29,7 +29,7 @@ const DataGrid = (props) => {
         'Code',
         'Organisation Unit',
         'Member',
-        'Status',
+        'Is Active',
     ]
 
     const verifyParam = [
@@ -37,7 +37,7 @@ const DataGrid = (props) => {
         'code',
         'organizationUnitName',
         'memberCount',
-        'status',
+        'isActive',
     ]
 
     return <>
@@ -64,7 +64,7 @@ const TableAction = (data) => {
     return (
         <Box>
             <IconButton onClick={() => navigate(`Details`, { state: item })} size="small">
-                <MdMoreVert size={20} color={theme.palette.textColor} />
+                <ArrowRight size={17} color={theme.palette.textColor} />
             </IconButton>
         </Box>
     )

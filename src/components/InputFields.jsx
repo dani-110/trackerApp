@@ -1,32 +1,52 @@
-import { TextField, Tooltip, Typography } from "@mui/material";
-import { styled } from '@mui/material/styles';
+import { TextField, Tooltip, Typography,useTheme} from "@mui/material";
+import { styled } from "@mui/material/styles";
 import { Controller } from "react-hook-form";
 import { onlyPhone } from "../utils/Utils";
 import PropTypes from "prop-types";
 
 const CssTextField = styled(TextField)(({ theme }) => ({
-  '& label.Mui-focused': {
-    color: theme.palette.inputLabelFocusedColor,
-  },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: theme.palette.inputFieldsetColor,
+  "& .MuiOutlinedInput-root": {
+    minHeight: 46,
+    borderRadius: "10px",
+    backgroundColor: "#fff",
+    "& fieldset": {
+      borderColor: "#cbd5e1",
     },
-    '&:hover fieldset': {
+    "&:hover fieldset": {
       borderColor: theme.palette.inputFocusedColor,
     },
-    '&.Mui-focused fieldset': {
+    "&.Mui-focused fieldset": {
       borderColor: theme.palette.inputFocusedColor,
     },
   },
-  '& .MuiOutlinedInput-input': {
-    color: theme.palette.textColor
+  "& .MuiOutlinedInput-input": {
+    color: theme.palette.textColor,
+    padding: "12px 14px",
+    "&::placeholder": {
+      color: "#a2a9b4",
+      opacity: 1,
+    },
   },
 }));
 
-
 const InputFields = (props) => {
-  const { error, type, fieldName, control, rules, label, phone, disabled, inputProps, helperText, pattern, limit, isCaps, ...rest } = props
+  const theme = useTheme();
+  const {
+    error,
+    type,
+    fieldName,
+    control,
+    rules,
+    label,
+    phone,
+    disabled,
+    inputProps,
+    helperText,
+    pattern,
+    limit,
+    isCaps,
+    ...rest
+  } = props;
   return (
     <Controller
       name={fieldName}
@@ -40,7 +60,10 @@ const InputFields = (props) => {
         };
         return (
           <Tooltip title={error?.message ? error?.message : ""}>
-            <Typography variant="body1" sx={{ marginBottom: '6px', color: '#6c757d', textAlign: 'left' }}>{`${label}${rules?.required ? '*' : ''}`}</Typography>
+            <Typography
+              variant="body1"
+              sx={{ marginBottom: "6px", color: theme.palette.inputLabelColor,fontWeight: "500", textAlign: "left" }}
+            >{`${label}${rules?.required ? "*" : ""}`}</Typography>
             <CssTextField
               size="small"
               className="outlined"
@@ -53,10 +76,12 @@ const InputFields = (props) => {
               value={phone ? onlyPhone(field?.value) : field?.value}
               onChange={(e) => {
                 if (limit && e.target.value.length > limit) {
-                  return
+                  return;
                 }
-                const value = isCaps ? e.target.value?.toUpperCase() : e.target.value;
-                pattern ? handleChange(value) : field?.onChange(value)
+                const value = isCaps
+                  ? e.target.value?.toUpperCase()
+                  : e.target.value;
+                pattern ? handleChange(value) : field?.onChange(value);
               }}
               fullWidth
               disabled={disabled}

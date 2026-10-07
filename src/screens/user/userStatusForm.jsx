@@ -87,7 +87,7 @@ const UserStatusForm = (props) => {
                         {isLoading && (
                             <CircularProgress size={20} sx={{ marginRight: 1, color: "#fff" }} />
                         )}
-                        Save</Button>
+                        Update Status</Button>
 
                 </ButtonContainer>
             </Grid>

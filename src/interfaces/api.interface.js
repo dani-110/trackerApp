@@ -30,15 +30,18 @@ export const api = {
   },
   logout: () => {
     return {
-      url: `${apiURL}/ad/logout`,
+      url: `${apiURL}/auth/logout`,
       method: "post",
     };
   },
 
   //================User==================
-  users: (pageNo = 1, pageSize = 10) => {
+  users: (pageNo = 1, pageSize = 10, filters = {}) => {
+    const query = new URLSearchParams({ pageNo: String(pageNo), pageSize: String(pageSize) });
+    if (filters.search) query.set("search", filters.search);
+    if (filters.status) query.set("status", filters.status);
     return {
-      url: `${apiURL}/users?pageNo=${pageNo}&pageSize=${pageSize}`,
+      url: `${apiURL}/users?${query.toString()}`,
       method: "get",
     }
   },
@@ -110,6 +113,43 @@ export const api = {
       method: "get",
     }
   },
+  //================Timesheet==================
+  getTimeSheetByDay: (date) => {
+    return {
+      url: `${apiURL}/timesheets/my-day?workDate=${date}`,
+      method: "get",
+    }
+  },
+  workSuggestions: (date) => {
+    return {
+      url: `${apiURL}/timesheets/work-suggestions?workDate=${date}`,
+      method: "get",
+    }
+  },
+  entries: () => {
+    return {
+      url: `${apiURL}/timesheets/entries`,
+      method: "post",
+    }
+  },
+  updateEntries: (id) => {
+    return {
+      url: `${apiURL}/timesheets/entries/${id}`,
+      method: "put",
+    }
+  },
+  commit: () => {
+    return {
+      url: `${apiURL}/timesheets/commit`,
+      method: "post",
+    }
+  },
+  complianceStatus: ({ date, page, pageSize }) => {
+    return {
+      url: `${apiURL}/timesheets/compliance/status?workDate=${date}&page=${page}&pageSize=${pageSize}`,
+      method: "get",
+    }
+  },
   //================Permissions==================
   permissions: (domin) => {
     return {
@@ -139,9 +179,13 @@ export const api = {
     }
   },
   //================Tickets==================
-  tickets: (pageNo = 1, pageSize = 10) => {
+  tickets: (pageNo = 1, pageSize = 10, filters = {}) => {
+    const query = new URLSearchParams({ page: pageNo, pageSize });
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== '') query.set(key, value);
+    });
     return {
-      url: `${apiURL}/tickets?page=${pageNo}&pageSize=${pageSize}`,
+      url: `${apiURL}/tickets?${query.toString()}`,
       method: "get",
     }
   },
@@ -166,7 +210,7 @@ export const api = {
   ticketClassification: (id) => {
     return {
       url: `${apiURL}/tickets/${id}/classification`,
-      method: "post",
+      method: "patch",
     }
   },
   ticketAssignment: (id) => {

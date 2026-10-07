@@ -13,14 +13,17 @@ const CssAutocomplete = styled(Autocomplete)(({ theme }) => ({
   '& label.Mui-focused': {
     color: theme.palette.inputLabelFocusedColor,
   },
-  '& .MuiOutlinedInput-root': {
-    '& fieldset': {
-      borderColor: theme.palette.inputFieldsetColor,
+  "& .MuiOutlinedInput-root": {
+    minHeight: 46,
+    borderRadius: "10px",
+    backgroundColor: "#fff",
+    "& fieldset": {
+      borderColor: "#cbd5e1",
     },
-    '&:hover fieldset': {
+    "&:hover fieldset": {
       borderColor: theme.palette.inputFocusedColor,
     },
-    '&.Mui-focused fieldset': {
+    "&.Mui-focused fieldset": {
       borderColor: theme.palette.inputFocusedColor,
     },
   },
@@ -75,7 +78,7 @@ const SelectFields = (props) => {
         }
         return (
           <Tooltip title={rules?.required ? rules.required : ""}>
-            <Typography variant="body1" sx={{ marginBottom: '6px', color: '#6c757d', textAlign:'left' }}>{`${label}${rules?.required ? '*' : ''}`}</Typography>
+            <Typography variant="body1" sx={{ marginBottom: '6px', color: theme.palette.inputLabelColor,fontWeight:"500", textAlign:'left' }}>{`${label}${rules?.required ? '*' : ''}`}</Typography>
             <CssAutocomplete
               size="small"
               componentsProps={{

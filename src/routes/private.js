@@ -10,6 +10,9 @@ import FunctionalUnit from "../screens/functionalUnit/functionalUnit";
 import Queues from "../screens/queues/queues";
 import Tickets from "../screens/tickets/tickets";
 import TicketDetail from "../screens/tickets/ticketDetail";
+import ApprovalQueue from "../screens/tickets/approvalQueue";
+import TimeSheet from "../screens/timesheet/timeSheet";
+import TimesheetCompliance from "../screens/timesheetCompliance/timesheetCompliance";
 
 export const privateRoutes = [
     { index: true, element: <Navigate to="/user" /> },
@@ -38,12 +41,26 @@ export const privateRoutes = [
         element: <Queues />
     },
     {
+        path: 'approvals',
+        element: <ApprovalQueue />
+    },
+    {
         path: 'teams',
         children: [
             { index: true, element: <Teams /> },
             {
                 path: 'Details',
                 element: <DetailView />
+            }
+        ]
+    },
+    {
+        path: 'timeSheet',
+        children: [
+            { index: true, element: <TimeSheet /> },
+            {
+                path: 'timesheetCompliance',
+                element: <TimesheetCompliance />
             }
         ]
     },

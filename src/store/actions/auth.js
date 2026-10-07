@@ -45,8 +45,8 @@ export const logout = createAsyncThunk(
   "logout",
   async (data, thunkAPI) => {
     try {
-      const response = await HttpService.call(api.logout(), data, thunkAPI);
-      if (response.data.responseCode == '00') {
+      const response = await HttpService.call(api.logout(), undefined, thunkAPI);
+      if (response.status == '204') {
         thunkAPI.dispatch(
           uiActions.showNotification({
             status: "success",

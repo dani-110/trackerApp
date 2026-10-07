@@ -1,0 +1,54 @@
+.ticketDetailCard {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  border: 1px solid var(--mui-palette-divider) !important;
+  border-radius: 14px !important;
+  background: var(--mui-palette-background-paper) !important;
+}
+
+.ticketDetailCard > .MuiBox-root {
+  flex: 1;
+  min-height: 0;
+}
+
+.ticketDetailCard .MuiTabPanel-root {
+  min-height: 0;
+  overflow: auto;
+  padding: 20px !important;
+}
+
+.ticketDetailCard .MuiTabList-root {
+  padding: 0 12px;
+  border-bottom: 1px solid var(--mui-palette-divider);
+}
+
+.ticketDetailCard .ticketDetailSectionTitle {
+  margin-bottom: 14px;
+  color: var(--mui-palette-text-primary);
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.ticketDetailCard .ticketDetailColumn {
+  padding: 18px !important;
+  border-color: var(--mui-palette-divider) !important;
+}
+
+.ticketDetailCard .ticketDetailMetaRow {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--mui-palette-divider);
+}
+
+.ticketDetailCard .ticketAcknowledgement {
+  min-height: 0;
+}
+
+.ticketDetailCard .ticketAcknowledgementHeader {
+  margin-bottom: 16px;
+}
+
+.ticketDetailCard .ticketAcknowledgementLayout > .MuiGrid-item {
+  padding: 16px !important;
+}

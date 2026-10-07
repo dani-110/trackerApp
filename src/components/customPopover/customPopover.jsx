@@ -83,11 +83,17 @@ const CustomPopover = ({
                     {options.map((option, index) => (
                         <ListItemButton
                             key={index}
+                            disabled={option.disabled}
+                            onClick={() => !option.disabled && handleOptionClick(option)}
+
+                            disabled={option.disable}
                             onClick={() => handleOptionClick(option)}
+
                             sx={{
                                 py: 0.8,
                                 px: 2,
                                 "&:hover": { backgroundColor: theme.palette.popoverHeader},
+                                "&.Mui-disabled": { opacity: 0.45 },
                             }}
                         >
                             <ListItemText

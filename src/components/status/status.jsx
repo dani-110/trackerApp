@@ -2,27 +2,47 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 
 const Status = ({ value }) => {
-    const getBackgroundColor = (value) => {
-        if (value.trim().toLowerCase() === 'active')
-            return '#3bc0c3';
-        if (value.trim().toLowerCase() === 'pending')
-            return '#edc755';
-        if (value.trim().toLowerCase() === 'disabled')
-            return '#d03f3f';
-        if (value.trim().toLowerCase() === 'locked')
-            return '#33b0e0';
-        else
-            return '#d03f3f';
-    };
-    return (
-        <Box sx={{
-            backgroundColor: value ? getBackgroundColor(value) : 'tansparent',
-            borderRadius: '5px',
-            padding: '0px 10px',
-            display: 'inline-block',
-            width: 'fit-content',
-        }} > <Typography variant='body1' sx={{ color: "#fff", textAlign: 'center' }}>{value}</Typography>
-        </Box>
-    )
-}
+  const status = String(value ?? "").trim().toUpperCase();
+
+  const colors = {
+    ACTIVE: { background: "#e4f6ee", color: "#008765" },
+    INACTIVE: { background: "#eef1f5", color: "#607086" },
+    DISABLED: { background: "#eef1f5", color: "#607086" },
+    PENDING: { background: "#fff3d6", color: "#a96700" },
+    LOCKED: { background: "#e5efff", color: "#2764c5" },
+  };
+
+  const style = colors[status] || {
+    background: "#eef1f5",
+    color: "#607086",
+  };
+
+  return (
+    <Box
+      sx={{
+        display: "inline-flex",
+        alignItems: "center",
+        width: "fit-content",
+        borderRadius: "999px",
+        px: 1.1,
+        py: 0.35,
+        backgroundColor: style.background,
+      }}
+    >
+      <Typography
+        component="span"
+        sx={{
+          color: style.color,
+          fontSize: 10,
+          fontWeight: 500,
+          lineHeight: 1.2,
+          textTransform: "uppercase",
+        }}
+      >
+        {status}
+      </Typography>
+    </Box>
+  );
+};
+
 export default Status;

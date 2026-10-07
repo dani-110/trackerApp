@@ -3,30 +3,31 @@ import DataGrid from "./dataGrid";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { permissions } from "../../store/actions/permissions";
+import PageHeader from "../../components/pageHeader/pageHeader";
 
 const Permissions = () => {
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
-    const dispatch = useDispatch();
-    const [isLoading, setIsLoading] = useState(false);
+  useEffect(() => {
+    fetchList({});
+  }, []);
 
-    useEffect(() => {
-        fetchList({})
-    }, [])
+  const fetchList = () => {
+    dispatch(permissions()).then((res) => {
+      setIsLoading(false);
+    });
+  };
 
-    const fetchList = () => {
-        dispatch(permissions()).then((res) => {
-            setIsLoading(false)
-        });
-    };
-
-    return <Box style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'auto', padding: '10px', gap: '10px' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Box>
-                <Typography variant="h2">Permissions</Typography>
-                <Typography variant="body1">Manage system permissions.</Typography>
-            </Box>
-        </Box>
-        <DataGrid fetchList={fetchList} isLoading={isLoading} />
+  return (
+    <Box className="screenPage">
+      <PageHeader
+        eyebrow="ADMINISTRATION"
+        title="Permissions"
+        description=" Manage system permissions."
+      />
+      <DataGrid fetchList={fetchList} isLoading={isLoading} />
     </Box>
+  );
 };
 export default Permissions;

@@ -2,27 +2,39 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 
 const WorkTypeCode = ({ value }) => {
-    const getBackgroundColor = (value) => {
-        if (value.trim() === 'UNCLASSIFIED')
-            return '#b7b7bf';
-        if (value.trim() === 'CHANGE_REQUEST')
-            return '#eb701e';
-        if (value.trim() === 'BUG')
-            return '#d03f3f';
-        if (value.trim() === 'SUPPORT_CASE')
-            return '#4489e4';
-        else
-            return '#d03f3f';
-    };
-    return (
-        <Box sx={{
-            backgroundColor: value ? getBackgroundColor(value) : 'tansparent',
-            borderRadius: '5px',
-            padding: '0px 10px',
-            display: 'inline-block',
-            width: 'fit-content',
-        }} > <Typography variant='body1' sx={{ color: "#fff", textAlign: 'center' }}>{value}</Typography>
-        </Box>
-    )
-}
+  const styles = {
+    UNCLASSIFIED: { background: "#fff3d6", color: "#a96700" },
+    CHANGE_REQUEST: { background: "#f1e9ff", color: "#6536c9" },
+    BUG: { background: "#fee9e8", color: "#c34442" },
+    SUPPORT_CASE: { background: "#e5efff", color: "#2764c5" },
+  };
+  const colors = styles[value?.trim()] || {
+    background: "#fee9e8",
+    color: "#c34442",
+  };
+  return (
+    <Box
+      sx={{
+        backgroundColor: value ? colors.background : "transparent",
+        borderRadius: "12px",
+        padding: "2px 9px",
+        display: "inline-block",
+        width: "fit-content",
+      }}
+    >
+      {" "}
+      <Typography
+        variant="body1"
+        sx={{
+          color: colors.color,
+          textAlign: "center",
+          fontSize: 10,
+          fontWeight: 700,
+        }}
+      >
+        {value}
+      </Typography>
+    </Box>
+  );
+};
 export default WorkTypeCode;

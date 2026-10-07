@@ -25,13 +25,17 @@ const call = (api, data, thunk, file) => {
   // return axios[api?.method]?.(api?.url, data, { headers })
   return axiosRequest
     .then(response => {
+      console.log(response)
       if (response.status == 403) {
         console.log(response.data.responsecode, thunk.dispatch(logoutUser()))
       }
       return response;
     })
     .catch(error => {
-      console.log(error)
+      console.log(error.response)
+      if (error.response.status == 403) {
+        thunk.dispatch(logoutUser())
+      }
       return error.response
     });
 };
