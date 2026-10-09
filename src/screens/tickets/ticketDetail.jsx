@@ -11,6 +11,9 @@ import { useDispatch } from "react-redux";
 import { ticketById } from "../../store/actions/tickets";
 import PageHeader from "../../components/pageHeader/pageHeader";
 import "./ticketDetail.scss";
+import AssignmentHistory from "./assignmentHistory";
+import OutboxEvent from "./outboxEvent";
+import Communication from "./communication";
 
 const TicketDetail = () => {
     const location = useLocation()
@@ -43,21 +46,15 @@ const TicketDetail = () => {
         },
         {
             label: "Assignment History",
-            component: <Box>
-                <Typography className="ticketDetailSectionTitle">Assignment History</Typography>
-            </Box>
+            component: <AssignmentHistory data={ticketData} />
         },
         {
             label: "Communications",
-            component: <Box>
-                <Typography className="ticketDetailSectionTitle">Communications</Typography>
-            </Box>
+            component: <Communication data={ticketData} />
         },
         {
             label: "Outbox Events",
-            component: <Box>
-                <Typography className="ticketDetailSectionTitle">Outbox Events</Typography>
-            </Box>
+            component: <OutboxEvent data={ticketData} />
         },
     ]
 
