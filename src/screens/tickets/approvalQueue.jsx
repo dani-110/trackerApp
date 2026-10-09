@@ -5,6 +5,7 @@ import {
   CircularProgress,
   TablePagination,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { ShieldCheck } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +17,7 @@ import TicketAckApprove from "./ticketAckApprove";
 
 const ApprovalQueue = () => {
   const dispatch = useDispatch();
+  const theme=useTheme();
   const { tickets: ticketList = [], totalcount = 0 } = useSelector(
     (state) => state.tickets,
   );
@@ -80,10 +82,10 @@ const ApprovalQueue = () => {
                 p: 3,
                 border: "1px solid #dce4ef",
                 borderRadius: 3,
-                bgcolor: "#f8fafc",
+                bgcolor: theme.palette.background.paper,
               }}
             >
-              <Typography sx={{ color: "#405574", fontWeight: 600 }}>
+              <Typography sx={{ color:theme.palette.text.secondary, fontWeight: 600 }}>
                 No acknowledgements are waiting for approval.
               </Typography>
             </Box>
@@ -91,9 +93,9 @@ const ApprovalQueue = () => {
             <Box
               sx={{
                 overflow: "hidden",
-                border: "1px solid #dce4ef",
+                border: `1px solid ${theme.palette.divider}`,
                 borderRadius: 3,
-                bgcolor: "#f8fafc",
+                bgcolor: theme.palette.background.paper,
                 boxShadow: "0 10px 26px rgba(27, 47, 75, .05)",
               }}
             >
@@ -106,7 +108,7 @@ const ApprovalQueue = () => {
                     gap: 1.5,
                     px: 2.25,
                     py: 1.75,
-                    borderBottom: "1px solid #e5eaf1",
+                    borderBottom: `1px solid ${theme.palette.divider}`,
                     "&:last-of-type": { borderBottom: 0 },
                   }}
                 >
@@ -126,14 +128,14 @@ const ApprovalQueue = () => {
                   </Box>
                   <Box sx={{ minWidth: 0, flex: 1 }}>
                     <Typography
-                      sx={{ color: "#203047", fontSize: "16px", fontWeight: 600 }}
+                      sx={{ color: theme.palette.text.primary, fontSize: "16px", fontWeight: 600 }}
                     >
                       Acknowledgement ready for review
                     </Typography>
-                    <Typography sx={{ color: "#596c88", fontSize: 12 }} noWrap>
+                    <Typography sx={{ color: theme.palette.text.secondary, fontSize: 12 }} noWrap>
                       {ticket.ticketNo} · {ticket.title || ticket.subject || ""}
                     </Typography>
-                    <Typography sx={{ color: "#8795a9", fontSize: 11 }} noWrap>
+                    <Typography sx={{ color: theme.palette.text.secondary, fontSize: 11 }} noWrap>
                       To: {ticket.reporterContactEmail || "—"}
                       {ticket.createdAt
                         ? ` · Created ${moment(ticket.createdAt).fromNow()}`
@@ -147,12 +149,12 @@ const ApprovalQueue = () => {
                     onClick={() => openApproval(ticket)}
                     sx={{
                       minWidth: 68,
-                      borderColor: "#dbe3ed",
-                      color: "#243247",
+                      borderColor: theme.palette.divider,
+                      color: theme.palette.text.primary,
                       textTransform: "none",
                       borderRadius: 1.5,
                       fontWeight: 600,
-                      "&:hover": { borderColor: "#c6cefa" },
+                      "&:hover": { borderColor: theme.palette.primary.main, color: theme.palette.primary.main      },
                     }}
                   >
                     {reviewingId === ticket.workItemId ? (
@@ -179,7 +181,7 @@ const ApprovalQueue = () => {
                   fetchApprovals(0, nextRowsPerPage);
                 }}
                 rowsPerPageOptions={[5, 10, 25]}
-                sx={{ borderTop: "1px solid #e5eaf1", color: "#64758b" }}
+                sx={{ borderTop: `1px solid ${theme.palette.divider}`, color: "#64758b" }}
               />
             </Box>
           )}

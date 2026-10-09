@@ -1,74 +1,240 @@
-.timeSheetHeaderContainer {
-    padding: 10px;
+.timesheetPage {
+  padding: 18px clamp(20px, 4.5vw, 66px) !important;
+  gap: 16px;
+
+  .pageHeaderTitle {
+    font-size: 26px !important;
+  }
+
+  .pageHeaderEyebrow {
+    color: #8b7cff !important;
+    font-size: 10px !important;
+  }
+
+  .pageHeaderDescription {
+    font-size: 12px !important;
+  }
+
+  .pageHeaderAction {
+    width: 150px;
+  }
+
+  .compactDatePickerField .MuiOutlinedInput-root {
+    min-height: 34px;
+    border-radius: 8px;
+    background: color-mix(in srgb, var(--mui-palette-background-paper) 72%, transparent);
+  }
+
+  .compactDatePickerField .MuiOutlinedInput-notchedOutline {
+    border-color: color-mix(in srgb, var(--mui-palette-text-primary) 30%, transparent);
+  }
+
+  .compactDatePickerField .MuiInputBase-input {
+    color: var(--mui-palette-text-primary);
+  }
+
+  .compactDatePickerField .MuiIconButton-root {
+    color: var(--mui-palette-text-secondary);
+  }
+
+  .compactDatePickerField .MuiInputAdornment-root {
+    margin-left: 2px;
+  }
+
+  .compactDatePickerField .MuiSvgIcon-root {
+    width: 16px;
+    height: 16px;
+  }
+
+  .timeSheetHeaderContainer {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
+    min-height: 120px;
+    padding: 14px 20px;
+    border: 1px solid color-mix(in srgb, var(--mui-palette-primary-main) 18%, var(--mui-palette-divider));
+    border-radius: 15px;
     background: linear-gradient(120deg, #111d31, #1c3151 68%, #243f66);
-    border-radius: 10px;
-}
+    
+  }
 
-.commitDeadline {
+  .timeSheetBannerTitle {
+    margin: 5px 0 !important;
+    color: var(--mui-palette-text-primary) !important;
+    font-size: 17px !important;
+  }
+
+  .timeSheetBannerDescription {
+    color: var(--mui-palette-text-secondary) !important;
+    font-size: 10px !important;
+  }
+
+  .commitDeadline {
     display: flex;
-    gap: 10px;
     align-items: center;
-    background: #1a2b41;
-    padding: 12px 15px;
+    gap: 10px;
+    padding: 11px 14px;
+    border: 1px solid var(--mui-palette-divider);
     border-radius: 10px;
-}
+    background: color-mix(in srgb, var(--mui-palette-primary-main) 13%, var(--mui-palette-background-paper));
+  }
 
-.entriesContainer {
-    display: flex;
-    flex: 1;
-    gap: 10px
-}
+  .commitDeadlineIcon {
+    color: var(--mui-palette-text-primary);
+  }
 
-.entriesList {
-    flex: 2;
-    border: 1px solid #dbe2eb;
-    background: #fff;
-    border-radius: 10px;
+  .commitDeadlineTime {
+    color: var(--mui-palette-text-primary) !important;
+    font-size: 16px !important;
+    font-weight: 700 !important;
+  }
+
+  .entriesContainer {
+    display: grid;
+    grid-template-columns: minmax(0, 1.8fr) minmax(280px, 1fr);
+    flex: 0 0 auto;
+    align-items: start;
+    gap: 12px;
+    min-height: 0;
+  }
+
+  .entriesList,
+  .suggestedWorkPanel {
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--mui-palette-divider);
+    border-radius: 14px;
+    background: var(--mui-palette-background-paper);
+  }
+
+  .entriesList {
     display: flex;
     flex-direction: column;
-    overflow: hidden
-}
+  }
 
-.entriesHeader {
+  .entriesHeader {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    background: linear-gradient(180deg, #f9fbfd, #f6f8fb);
-    padding: 10px,
-}
-
-.entriesFooter {
-    display: flex;
     justify-content: space-between;
-    align-items: center;
-    padding: 5px 10px
-}
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--mui-palette-divider);
+    background: color-mix(in srgb, var(--mui-palette-primary-main) 6%, var(--mui-palette-background-paper));
+  }
 
-.entriesItem {
+  .entriesBody {
     display: flex;
-    padding: 10px 0px;
+    flex: 0 0 auto;
+    flex-direction: column;
+    padding: 5px 16px;
+  }
+
+  .entriesFooter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 16px;
+    border-top: 1px solid var(--mui-palette-divider);
+  }
+
+  .entriesItem,
+  .workTypeItem {
+    display: flex;
+    align-items: center;
     gap: 10px;
-    align-items: center;
-    border-bottom: 1px solid #edf0f4
-}
+    padding: 10px 0;
+    border-bottom: 1px solid var(--mui-palette-divider);
+  }
 
-.icon {
+  .entriesItem:last-child,
+  .workTypeItem:last-child {
+    border-bottom: 0;
+  }
+
+  .icon {
     display: flex;
+    flex: 0 0 32px;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #e4e2ff, #d9e5ff);
-    height: 30px;
-    width: 30px;
-    border-radius: 10px
-}
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: color-mix(in srgb, var(--mui-palette-primary-main) 15%, var(--mui-palette-background-paper));
+  }
 
-.workTypeItem {
+  .entryMenuIcon {
+    color: var(--mui-palette-text-secondary);
+    cursor: pointer;
+  }
+
+  body.dark-mode & .entryMenuIcon {
+    color: #fff;
+  }
+
+  .suggestedWorkPanel {
     display: flex;
-    gap: 10px;
-    align-items: center;
-    padding: 10px 0px;
-    border-bottom: 1px solid #edf0f4;
+    flex-direction: column;
+  }
+
+  .suggestedWorkList {
+    padding: 0 14px;
+  }
+
+  .workTypeItem {
+    cursor: pointer;
+    margin: 0 -14px;
+    padding: 10px 14px;
+    border-radius: 8px;
+    transition: background-color 140ms ease;
+  }
+
+  .workTypeItem:hover {
+    background: color-mix(in srgb, var(--mui-palette-primary-main) 8%, var(--mui-palette-background-paper));
+  }
+
+  .commitButton {
+    color: #fff !important;
+    background: linear-gradient(135deg, #665df0, #596ee8) !important;
+  }
+  .commitButton:hover {
+    background: linear-gradient(125deg, #4e61cc,#665df0) !important;
+  }
+
+  body.dark-mode & .timeSheetHeaderContainer {
+    border-color: #263b5a;
+    background: linear-gradient(120deg, #1a2d4b, #223d63);
+  }
+
+  body.dark-mode & .commitDeadline {
+    border-color: #263b5a;
+    background: #172b44;
+  }
+
+  @media (max-width: 850px) {
+    .entriesContainer {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .pageHeaderAction {
+      width: 100%;
+    }
+
+    .timeSheetHeaderContainer {
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .commitDeadline {
+      margin-left: auto;
+    }
+
+    .entriesFooter {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
 }

@@ -52,3 +52,273 @@
 .ticketDetailCard .ticketAcknowledgementLayout > .MuiGrid-item {
   padding: 16px !important;
 }
+
+.ticketDetailPage {
+  gap: 18px;
+  color: var(--mui-palette-text-primary);
+}
+
+.ticketDetailTopbar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100%;
+}
+
+.ticketBackButton {
+  min-height: 24px !important;
+  margin: -4px 0 12px -8px !important;
+  padding: 2px 8px !important;
+  color: var(--mui-palette-text-secondary) !important;
+  font-size: 12px !important;
+  text-transform: none !important;
+}
+
+.ticketDetailIdentity {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 5px;
+}
+
+.ticketDetailNumber {
+  color: var(--mui-palette-text-secondary) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+
+.ticketDetailTitle {
+  margin: 0 0 4px !important;
+  color: var(--mui-palette-text-primary) !important;
+  font-size: 27px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+}
+
+.ticketDetailSubtitle {
+  color: var(--mui-palette-text-secondary) !important;
+  font-size: 12px !important;
+}
+
+.ticketDetailActions {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 8px;
+  padding-top: 20px;
+}
+
+.ticketMoreButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid var(--mui-palette-divider) !important;
+  border-radius: 8px !important;
+  color: var(--mui-palette-text-secondary) !important;
+}
+
+.ticketPrimaryAction {
+  min-height: 36px !important;
+  border-radius: 8px !important;
+  padding: 0 14px !important;
+  background: linear-gradient(135deg, #665df0, #596ee8) !important;
+  box-shadow: 0 7px 18px rgba(89, 92, 230, 0.2) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: none !important;
+}
+
+.ticketDetailLoading {
+  display: grid;
+  min-height: 260px;
+  place-items: center;
+}
+
+.ticketDetailContent {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 280px;
+  align-items: start;
+  gap: 16px;
+  width: 100%;
+}
+
+.ticketDetailMainColumn {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ticketRequestCard,
+.ticketActivityCard,
+.ticketOverviewCard {
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 14px;
+  background: var(--mui-palette-background-paper);
+  box-shadow: 0 8px 24px rgba(25, 43, 67, 0.04);
+}
+
+.ticketRequestCard {
+  // min-height: 184px;
+  padding: 18px 20px;
+}
+
+.ticketCardEyebrow {
+  margin-bottom: 10px !important;
+  color: #6258ed !important;
+  font-size: 10px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+}
+
+.ticketRequestText {
+  color: var(--mui-palette-text-primary) !important;
+  font-size: 12px !important;
+  line-height: 1.9 !important;
+  white-space: pre-wrap;
+}
+
+.ticketActivityCard {
+  padding: 17px 20px 10px;
+}
+
+.ticketActivityTitle,
+.ticketOverviewTitle {
+  color: var(--mui-palette-text-primary) !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+.ticketActivityDescription {
+  margin-top: 1px !important;
+  color: var(--mui-palette-text-secondary) !important;
+  font-size: 11px !important;
+}
+
+.ticketActivityItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 0 8px;
+}
+
+.ticketActivityCopy {
+  min-width: 0;
+}
+
+.ticketActivityAvatar {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  place-items: center;
+  border-radius: 9px;
+  background: #eef0ff;
+  color: #5b55dc;
+  font-size: 9px;
+  font-weight: 800;
+}
+
+.ticketActivityEvent {
+  color: var(--mui-palette-text-primary) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+}
+
+.ticketActivityMeta {
+  color: var(--mui-palette-text-secondary) !important;
+  font-size: 10px !important;
+}
+
+.ticketActivityEmpty {
+  padding: 18px 0 8px;
+  color: var(--mui-palette-text-secondary) !important;
+  font-size: 11px !important;
+}
+
+.ticketOverviewFallback {
+  border-radius: 12px;
+  padding: 2px 9px;
+  background: #eef1f5;
+  color: #607086;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.ticketOverviewCard {
+  padding: 17px 18px;
+}
+
+.ticketOverviewRows {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 17px 0;
+}
+
+.ticketOverviewRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--mui-palette-text-secondary);
+  font-size: 10px;
+}
+
+.ticketOverviewRow strong {
+  color: var(--mui-palette-text-primary);
+  font-size: 10px;
+  font-weight: 700;
+  text-align: right;
+}
+
+.ticketValueBadge {
+  max-width: 150px;
+  height: 21px !important;
+  background: var(--mui-palette-background-default) !important;
+  color: var(--mui-palette-text-primary) !important;
+  font-size: 9px !important;
+  font-weight: 700 !important;
+}
+
+.ticketReassignButton {
+  width: 100%;
+  min-height: 34px !important;
+  border-color: var(--mui-palette-divider) !important;
+  border-radius: 8px !important;
+  color: var(--mui-palette-text-primary) !important;
+  font-size: 10px !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+}
+
+@media (max-width: 900px) {
+  .ticketDetailContent {
+    grid-template-columns: minmax(0, 1fr) 250px;
+  }
+
+  .ticketDetailTitle {
+    font-size: 23px !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .ticketDetailTopbar {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ticketDetailActions {
+    flex-wrap: wrap;
+    padding-top: 0;
+  }
+
+  .ticketDetailContent {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ticketOverviewCard {
+    order: -1;
+  }
+}

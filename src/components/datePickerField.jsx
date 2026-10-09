@@ -20,20 +20,24 @@ const CssDatePicker = styled(DatePicker)(({ theme }) => ({
   "& .MuiOutlinedInput-root": {
     minHeight: 46,
     borderRadius: "10px",
-    backgroundColor: "#fff",
+    backgroundColor: theme.palette.background.paper,
+    color: theme.palette.text.primary,
     "& fieldset": {
-      borderColor: "#cbd5e1",
+      borderColor: theme.palette.divider,
     },
 
     "&:hover fieldset": {
-      borderColor: theme.palette.inputFocusedColor,
+      borderColor: theme.palette.primary.main,
     },
     "&.Mui-focused fieldset": {
-      borderColor: theme.palette.inputFocusedColor,
+      borderColor: theme.palette.primary.main,
     },
     "& input::placeholder": {
-      color: "#8a94a6",
+      color: theme.palette.text.secondary,
       opacity: 1,
+    },
+    "& input": {
+      color: theme.palette.text.primary,
     },
     "&.Mui-error fieldset": {
       borderColor: theme.palette.error ? theme.palette.error.main : "#d32f2f",
@@ -54,6 +58,8 @@ const DatePickerFields = ({
   phone,
   disabled,
   helperText,
+  compact = false,
+  format = "DD/MM/YYYY",
   ...rest
 }) => {
   const theme = useTheme();
@@ -70,9 +76,9 @@ const DatePickerFields = ({
             title={rules && rules.required ? rules.required : ""}
             disableHoverListener={isPickerOpen}
           >
-            <Box>
+            <Box className={compact ? "compactDatePickerField" : "datePickerField"}>
               <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <Typography
+                {!compact && <Typography
                   variant="body1"
                   sx={{
                     marginBottom: "6px",
@@ -80,9 +86,9 @@ const DatePickerFields = ({
                     fontWeight: "500",
                     textAlign: "left",
                   }}
-                >{`${label}${rules?.required ? "*" : ""}`}</Typography>
+                >{`${label}${rules?.required ? "*" : ""}`}</Typography>}
                 <CssDatePicker
-                  format="DD/MM/YYYY"
+                  format={format}
                   slotProps={{
                     layout: {
                       sx: { bgcolor: theme.palette.headerBackgroundColor },
@@ -108,7 +114,14 @@ const DatePickerFields = ({
                   onClose={() => setIsPickerOpen(false)}
                   disabled={disabled}
                   {...rest}
-                  sx={{ width: "100%" }}
+                  sx={{
+                    width: "100%",
+                    ...(compact && {
+                      "& .MuiOutlinedInput-root": { minHeight: 34 },
+                      "& .MuiInputBase-input": { padding: "7px 8px", fontSize: 12 },
+                      "& .MuiIconButton-root": { padding: "5px" },
+                    }),
+                  }}
                 />
               </LocalizationProvider>
               {/* {error && (

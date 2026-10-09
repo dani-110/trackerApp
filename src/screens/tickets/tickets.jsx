@@ -4,45 +4,42 @@ import {
   Chip,
   TextField,
   InputAdornment,
+  useTheme,
 } from "@mui/material";
 import DataGrid from "./dataGrid";
-import { useEffect, useMemo, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import ModalButton from "../../components/modalButton/modalButton";
 import { IoMdAdd } from "react-icons/io";
 import { tickets } from "../../store/actions/tickets";
+import { getdashboarddata } from "../../store/actions/auth";
 import TicketCreateForm from "./ticketCreateForm";
 import { Search } from "lucide-react";
 import PageHeader from "../../components/pageHeader/pageHeader";
 
 const Tickets = () => {
   const dispatch = useDispatch();
+  const theme = useTheme();
   const [isLoading, setIsLoading] = useState(false);
   const [openCreate, setOpenCreate] = useState(false);
   const [activeFilter, setActiveFilter] = useState("all");
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState({});
-  const user = useSelector((state) => state.auth.user);
-  const teamCodes = useMemo(() => {
-    const memberships = Array.isArray(user?.teams) ? user.teams : [];
-    return [
-      user?.teamCode,
-      user?.teamcode,
-      user?.team?.teamCode,
-      user?.team?.teamcode,
-      user?.team?.code,
-      ...memberships.flatMap((team) => [
-        team?.teamCode,
-        team?.teamcode,
-        team?.code,
-      ]),
-    ]
-      .filter((value) => value !== undefined && value !== null && value !== "")
-      .map(String);
-  }, [user]);
+  const [teamId, setTeamId] = useState("");
 
   useEffect(() => {
     fetchList({});
+    dispatch(getdashboarddata({ silent: true }))
+      .unwrap()
+      .then((data) => {
+        setTeamId(
+          data?.summary?.teamId ??
+            data?.teamId ??
+            data?.summary?.team?.id ??
+            "",
+        );
+      })
+      .catch(() => setTeamId(""));
   }, []);
 
   const fetchList = (data = {}, rowsPerPage, page) => {
@@ -99,18 +96,20 @@ const Tickets = () => {
         height: 28,
         px: 0.25,
         fontSize: 12,
-        color:
-          activeFilter === (value || key)
-            ? "var(--mui-palette-text-primary)"
-            : "var(--mui-palette-text-secondary)",
-        borderColor:
-          activeFilter === (value || key)
-            ? "#2d2f33"
-            : "var(--mui-palette-divider)",
-        bgcolor:
-          activeFilter === (value || key)
-            ? "#4e607a"
-            : "var(--mui-palette-background-default)",
+        color: activeFilter === (value || key)
+          ? theme.palette.ticketFilterChipActiveText
+          : theme.palette.ticketFilterChipText,
+        borderColor: activeFilter === (value || key)
+          ? theme.palette.ticketFilterChipActiveBorder
+          : theme.palette.ticketFilterChipBorder,
+        bgcolor: activeFilter === (value || key)
+          ? theme.palette.ticketFilterChipActiveBackground
+          : theme.palette.ticketFilterChipBackground,
+        "&:hover": {
+          bgcolor: activeFilter === (value || key)
+            ? theme.palette.ticketFilterChipActiveBackground
+            : theme.palette.action.hover,
+        },
         "&.Mui-disabled": { opacity: 0.45 },
       }}
     />
@@ -140,9 +139,9 @@ const Tickets = () => {
         {filterChip("All", "all")}
         {filterChip(
           "My team",
-          "teamcode",
-          teamCodes.length ? teamCodes.join(",") : undefined,
-          !teamCodes.length,
+          "teamId",
+          teamId || undefined,
+          !teamId,
         )}
         {filterChip("Unclassified", "workTypeCode", "UNCLASSIFIED")}
         {filterChip("Awaiting approval", "emailStatus", "AWAITING_APPROVAL")}

@@ -38,7 +38,7 @@ const generateTheme = (mode) => {
             },
             backgroundColor: "rgb(255, 255, 255)",
             headerBackgroundColor: "rgb(255, 255, 255)",
-            popoverHeader: "#f7f7f7",
+            popoverHeader: "linear-gradient(135deg, #665df0, #596ee8)",
             backgroundBaseColor: "rgb(238, 242, 246)",
             sideBarBackground: "#1a2942",
             shadowColor: "rgba(0, 0, 0, 0.5)",
@@ -61,8 +61,15 @@ const generateTheme = (mode) => {
             tableText: "#172b4d",
             tableMutedText: "#74849a",
             paginationBackground: "#ffffff",
+            ticketFilterChipBackground: "#f7f9fc",
+            ticketFilterChipText: "#526580",
+            ticketFilterChipBorder: "#d7e0eb",
+            ticketFilterChipActiveBackground: "#e8e5ff",
+            ticketFilterChipActiveText: "#5146d8",
+            ticketFilterChipActiveBorder: "#cbc5ff",
             
             modalButtonHeaderBackground: "#1b304d",
+            PanelHeaderBackground:"aliceblue"
 
           }
         : {
@@ -82,7 +89,7 @@ const generateTheme = (mode) => {
 
             backgroundColor: "#081827",
             headerBackgroundColor: "#0b1d2e",
-            popoverHeader: "#102438",
+            popoverHeader: "linear-gradient(135deg, #665df0, #596ee8)",
             backgroundBaseColor: "#061522",
             sideBarBackground: "#081827",
 
@@ -117,8 +124,15 @@ const generateTheme = (mode) => {
             tableText: "#d9e4ee",
             tableMutedText: "#aab8c5",
             paginationBackground: "#081827",
+            ticketFilterChipBackground: "#111f31",
+            ticketFilterChipText: "#aab8c5",
+            ticketFilterChipBorder: "#30445b",
+            ticketFilterChipActiveBackground: "#463b7d",
+            ticketFilterChipActiveText: "#f6f4ff",
+            ticketFilterChipActiveBorder: "#7466df",
 
             modalButtonHeaderBackground: "#1b304d",
+            PanelHeaderBackground:"#253e54cf"
           }),
     },
 

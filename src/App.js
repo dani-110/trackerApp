@@ -40,6 +40,8 @@ function App() {
       "--mui-palette-background-default": palette.background.default,
       "--mui-palette-background-paper": palette.background.paper,
       "--mui-palette-divider": palette.divider,
+      "--mui-palette-primary-main": palette.primary.main,
+      "--mui-palette-action-hover": palette.action.hover,
       "--mui-palette-text-primary": palette.text.primary,
       "--mui-palette-text-secondary": palette.text.secondary || palette.textColor,
       "--app-table-header-background": palette.tableHeaderBackground,

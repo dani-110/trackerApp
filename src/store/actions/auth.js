@@ -100,40 +100,73 @@ export const me = createAsyncThunk(
     }
   }
 );
+
+
 export const getdashboarddata = createAsyncThunk(
   "getdashboarddata",
   async (data, thunkAPI) => {
     try {
-      const response = await HttpService.call(api.getdashboarddata(), data, thunkAPI);
-      console.log(response)
-      if (response.data.responsecode == 0) {
-        thunkAPI.dispatch(
-          uiActions.showNotification({
-            status: "success",
-            title: "Authorized!",
-            message: response.data.respdescription,
-          })
-        );
-        return response.data
-      } else {
+      const response = await HttpService.call(
+        api.getdashboarddata(),
+        undefined,
+        thunkAPI
+      );
+
+      if (
+        response?.status >= 200 &&
+        response?.status < 300 &&
+        response.data
+      ) {
+        if (!data?.silent) {
+          thunkAPI.dispatch(
+            uiActions.showNotification({
+              status: "success",
+              title: "Success!",
+              message: response.data.respdescription,
+            })
+          );
+        }
+
+        return response.data;
+      }
+
+      const errorMessage =
+        response?.data?.respdescription ||
+        "Failed to load dashboard data.";
+
+      if (!data?.silent) {
         thunkAPI.dispatch(
           uiActions.showNotification({
             status: "error",
             title: "Failed!",
-            message: response.data.respdescription,
+            message: errorMessage,
           })
         );
-        return thunkAPI.rejectWithValue();
       }
-    } catch (error) {
-      thunkAPI.dispatch(
-        uiActions.showNotification({
-          status: "error",
-          title: "Authorization Failed!",
-          message: "Invalid Username/Password",
-        })
+
+      return thunkAPI.rejectWithValue(
+        response?.data ?? errorMessage
       );
-      return thunkAPI.rejectWithValue();
+    } catch (error) {
+      const errorData = error?.response?.data;
+
+      const errorMessage =
+        errorData?.respdescription ||
+        "Unable to load dashboard data. Please try again.";
+
+      if (!data?.silent) {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Request Failed!",
+            message: errorMessage,
+          })
+        );
+      }
+
+      return thunkAPI.rejectWithValue(
+        errorData ?? error?.message ?? errorMessage
+      );
     }
   }
 );

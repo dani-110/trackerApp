@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import DataGrid from "./dataGrid";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
@@ -6,6 +6,8 @@ import { complianceStatus } from "../../store/actions/timesheet";
 import { useForm } from "react-hook-form";
 import moment from "moment";
 import DatePickerFields from "../../components/datePickerField";
+import PageHeader from "../../components/pageHeader/pageHeader";
+import "./timesheetCompliance.scss";
 
 const TimesheetCompliance = () => {
 
@@ -60,19 +62,20 @@ const TimesheetCompliance = () => {
         });
     };
 
-    return <Box style={{ height: '100%', display: 'flex', flexDirection: 'column', overflow: 'auto', padding: '10px', gap: '10px' }}>
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Box>
-                <Typography variant="h2">Timesheet Compliance</Typography>
-                <Typography variant="body1">See who is done, who needs a reminder, and where follow-up is required.</Typography>
-            </Box>
+    return <Box className="screenPage timesheetCompliancePage">
+        <PageHeader
+            eyebrow="TIME TRACKING"
+            title="Timesheet Compliance"
+            description="See who is done, who needs a reminder, and where follow-up is required."
+            action={
             <DatePickerFields
                 fieldName="day"
                 type="text"
                 label="Day"
                 control={control}
             />
-        </Box>
+            }
+        />
         <DataGrid fetchList={fetchList} isLoading={isLoading} />
     </Box>
 };

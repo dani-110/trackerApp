@@ -1,7 +1,9 @@
 import React, { useMemo } from 'react';
+import { useTheme } from '@mui/material/styles';
 import Chart from 'react-apexcharts';
 
 const TimeProgressChart = ({ data }) => {
+  const theme = useTheme();
   const expectedMinutes = data?.expectedMinutes ?? 480;
   const currentMinutes = data?.currentMinutes ?? 0;
 
@@ -35,13 +37,13 @@ const TimeProgressChart = ({ data }) => {
           startAngle: 0,
           endAngle: 360,
           hollow: { margin: 0, size: '75%', background: 'transparent' },
-          track: { background: '#2A3447', strokeWidth: '100%', margin: 0 },
+          track: { background: theme.palette.divider, strokeWidth: '100%', margin: 0 },
           dataLabels: {
             show: true,
             name: {
               show: true,
               fontSize: '11px',
-              color: '#8A99AD',
+              color: theme.palette.text.secondary,
               offsetY: 18,
               formatter: () => formatExpectedTime(expectedMinutes)
             },
@@ -49,21 +51,21 @@ const TimeProgressChart = ({ data }) => {
               show: true,
               fontSize: '15px',
               fontWeight: 'bold',
-              color: '#FFFFFF',
+              color: theme.palette.text.primary,
               offsetY: -12,
               formatter: () => formatCurrentTime(currentMinutes)
             }
           }
         }
       },
-      fill: { colors: ['#8073FF'] },
+      fill: { colors: ['#8073ff'] },
       stroke: { lineCap: 'butt' }
     };
-  }, [expectedMinutes, currentMinutes]);
+  }, [expectedMinutes, currentMinutes, theme.palette]);
 
   return (
-    <div style={{ borderRadius: '12px', width: '120px' }}>
-      <Chart options={options} series={series} type="radialBar" height={120} />
+    <div style={{ borderRadius: '12px', width: '100px', flex: '0 0 100px' }}>
+      <Chart options={options} series={series} type="radialBar" height={100} />
     </div>
   );
 };

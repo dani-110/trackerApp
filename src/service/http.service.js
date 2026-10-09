@@ -38,6 +38,7 @@ const call = (api, data, thunk, file) => {
       }
       return error.response
     });
+    
 };
 
 export default {

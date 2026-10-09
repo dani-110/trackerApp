@@ -199,6 +199,7 @@ const TableContainer = (props) => {
     recordCount,
     fetchList,
     masterHeader,
+    onRowClick,
   } = props;
 
   const [pagination, setPagination] = useState({ page: 0, rowsPerPage: 10 });
@@ -341,12 +342,29 @@ const TableContainer = (props) => {
                 return (
                   <TableRow
                     key={index}
+                    onClick={onRowClick ? () => onRowClick(item) : undefined}
+                    onKeyDown={onRowClick ? (event) => {
+                      if (
+                        event.target === event.currentTarget &&
+                        (event.key === "Enter" || event.key === " ")
+                      ) {
+                        event.preventDefault();
+                        onRowClick(item);
+                      }
+                    } : undefined}
+                    tabIndex={onRowClick ? 0 : undefined}
                     sx={{
                       transition: "all 0.3s ease-in-out",
                       cursor: "pointer",
                       "&:hover": {
                         backgroundColor: theme.palette.tableRowHover,
                       },
+                      ...(onRowClick && {
+                        "&:focus-visible": {
+                          outline: `2px solid ${theme.palette.secondary.main}`,
+                          outlineOffset: -2,
+                        },
+                      }),
                     }}
                   >
                     <TableCell
@@ -459,6 +477,7 @@ const TableContainer = (props) => {
                     {Action && (
                       <TableCell
                         align="center"
+                        onClick={(event) => event.stopPropagation()}
                         sx={{ whiteSpace: "nowrap", minWidth: "100px" }}
                       >
                         <Action id={item} fetchList={fetchList} />
