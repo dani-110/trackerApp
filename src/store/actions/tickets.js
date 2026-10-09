@@ -180,3 +180,69 @@ export const ticketAssignment = createAsyncThunk(
     }
   }
 );
+export const ticketAssignmentHistory = createAsyncThunk(
+  "ticketAssignmentHistory",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.ticketAssignmentHistory(data), undefined, thunkAPI);
+      if (response.status == '200') {
+        return response;
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.detail,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+export const ticketOutboxEvents = createAsyncThunk(
+  "ticketOutboxEvents",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.ticketOutboxEvents(data), undefined, thunkAPI);
+      if (response.status == '200') {
+        return response;
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.detail,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+export const ticketActivityHistory = createAsyncThunk(
+  "ticketActivityHistory",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.ticketActivityHistory(data), undefined, thunkAPI);
+      if (response.status == '200') {
+        return response;
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.detail,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);

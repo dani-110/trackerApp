@@ -219,6 +219,24 @@ export const api = {
       method: "post",
     }
   },
+  ticketAssignmentHistory: (id) => {
+    return {
+      url: `${apiURL}/tickets/${id}/assignment-history`,
+      method: "get",
+    }
+  },
+  ticketOutboxEvents: (id) => {
+    return {
+      url: `${apiURL}/tickets/${id}/outbox-events`,
+      method: "get",
+    }
+  },
+  ticketActivityHistory: (id) => {
+    return {
+      url: `${apiURL}/tickets/${id}/activity-history`,
+      method: "get",
+    }
+  },
   //================Fillers==================
   userFiller: (id) => {
     return {
