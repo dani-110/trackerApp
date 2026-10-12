@@ -49,7 +49,7 @@ const TimeSheet = () => {
   return (
     <Box className="screenPage timesheetPage">
       <PageHeader
-        eyebrow="SPRINT 04 - TIME"
+        eyebrow="TIMESHEET TRACKING"
         title="My timesheet"
         description="Log the work, not the paperwork. Keep today accurate in a few clicks."
         action={
@@ -77,9 +77,9 @@ const TimeSheet = () => {
       ) : (
         <>
           <Box className="timeSheetHeaderContainer">
-            <Box sx={{ display: "flex", alignItems: "center", gap: "18px" }}>
+            <Box className="timeSheetBannerMain">
               <TimeProgressChart data={header} />
-              <Box>
+              <Box className="timeSheetBannerCopy">
                 <TimelineStatus value={header.status} />
                 <Typography variant="h2" className="timeSheetBannerTitle">
                   Keep today up to date

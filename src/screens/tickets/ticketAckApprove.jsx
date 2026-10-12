@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Box, Button, CircularProgress, Typography } from "@mui/material";
+import { Box, Button, CircularProgress, Typography, useTheme } from "@mui/material";
 import { Check, Send } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { acknowledgementApprove } from "../../store/actions/tickets";
@@ -7,6 +7,7 @@ import ButtonContainer from "../../components/buttonContainer";
 
 const TicketAckApprove = ({ setOpen, data, onApproved }) => {
   const dispatch = useDispatch();
+  const theme=useTheme();
   const [isLoading, setIsLoading] = useState(false);
 
   const submit = () => {
@@ -30,7 +31,7 @@ const TicketAckApprove = ({ setOpen, data, onApproved }) => {
   const field = (label, value) => (
     <Box sx={{ mb: 1.2 }}>
       <Typography
-        sx={{ mb: 0.5, color: "#64748b", fontSize: 11, fontWeight: 700 }}
+        sx={{ mb: 0.5, color: theme.palette.text.secondary, fontSize: 11, fontWeight: 500 }}
       >
         {label}
       </Typography>
@@ -41,12 +42,12 @@ const TicketAckApprove = ({ setOpen, data, onApproved }) => {
           alignItems: "center",
           px: 1.25,
           py: 0.75,
-          border: "1px solid #dbe3ed",
+          border: `1px solid ${theme.palette.divider}`,
           borderRadius: 1.5,
-          bgcolor: "#fff",
-          color: "#334155",
+          bgcolor: theme.palette.background.paper,
+          color: theme.palette.text.primary,
           fontSize: 11,
-          fontWeight: 600,
+          fontWeight: 500,
           whiteSpace: "pre-wrap",
           overflowWrap: "anywhere",
         }}
@@ -62,15 +63,15 @@ const TicketAckApprove = ({ setOpen, data, onApproved }) => {
         sx={{
           mb: 1.5,
           p: 1.25,
-          border: "1px solid #e5eaf1",
+          border: `1px solid ${theme.palette.divider}`,
           borderRadius: 1.5,
-          bgcolor: "#f8fafc",
+          bgcolor: theme.palette.background.paper,
         }}
       >
-        <Typography sx={{ color: "#26354b", fontSize: 11, fontWeight: 700 }}>
+        <Typography sx={{ color: theme.palette.text.primary, fontSize: 11, fontWeight: 700 }}>
           {data?.ticketNo}
         </Typography>
-        <Typography sx={{ color: "#718096", fontSize: 10 }}>
+        <Typography sx={{ color:theme.palette.text.secondary, fontSize: 10 }}>
           {data?.title}
         </Typography>
       </Box>
@@ -86,12 +87,12 @@ const TicketAckApprove = ({ setOpen, data, onApproved }) => {
           p: 1.2,
           mb: 1.5,
           borderRadius: 1.5,
-          bgcolor: "#f1f0ff",
-          color: "#635bdb",
+          bgcolor: theme.palette.approvalQueueBackground,
+          color: theme.palette.approvalQueueText,
         }}
       >
         <Send size={16} />
-        <Typography sx={{ fontSize: 10 }}>
+        <Typography sx={{ fontSize: 10, color:` ${theme.palette.approvalQueueText} !important`}}>
           Approval will queue the email for sending.
         </Typography>
       </Box>

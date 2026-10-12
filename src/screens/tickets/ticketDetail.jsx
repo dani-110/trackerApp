@@ -20,7 +20,7 @@ import {
   Users,
 } from "lucide-react";
 import moment from "moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ticketById } from "../../store/actions/tickets";
 import ModalButton from "../../components/modalButton/modalButton";
@@ -36,6 +36,8 @@ const TicketDetail = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
+  const currentUser = useSelector((state) => state.auth.user);
+  const knownUsers = useSelector((state) => state.users.users);
   const initialTicket = location.state || null;
   const [ticket, setTicket] = useState(initialTicket);
   const [isLoading, setIsLoading] = useState(Boolean(initialTicket?.workItemId));
@@ -82,10 +84,30 @@ const TicketDetail = () => {
   const assignedTeam =
     ticket?.teamName || ticket?.team?.name || ticket?.assignedTeamName;
   const firstDate = (...values) => values.find(Boolean);
-  const actorName = (value) =>
-    typeof value === "string"
-      ? value
-      : value?.displayName || value?.name || value?.username;
+  const actorName = (value) => {
+    if (value && typeof value === "object") {
+      return value.displayName || value.fullName || value.name || value.username;
+    }
+    if (typeof value !== "string") return "";
+
+    const matchingUser = [currentUser, ...(knownUsers || [])].find((person) =>
+      [person?.id, person?.userId, person?.userID]
+        .filter((id) => id !== undefined && id !== null)
+        .some((id) => String(id).toLowerCase() === value.toLowerCase()),
+    );
+    const resolvedName =
+      matchingUser?.displayName ||
+      matchingUser?.fullName ||
+      matchingUser?.name ||
+      matchingUser?.username;
+
+    if (resolvedName) return resolvedName;
+
+    // Avoid exposing an unresolved GUID or numeric database ID in the activity feed.
+    const looksLikeId =
+      /^[0-9a-f]{8}-[0-9a-f-]{27,}$/i.test(value) || /^\d+$/.test(value);
+    return looksLikeId ? "a team member" : value;
+  };
   const generatedAt = firstDate(
     ticket?.generatedAt,
     ticket?.acknowledgementCreatedAt,
@@ -103,13 +125,21 @@ const TicketDetail = () => {
     ticket?.acknowledgement?.queuedAt,
   );
   const approvedBy = actorName(
-    ticket?.approvedByName ||
+      ticket?.approvedByName ||
+      ticket?.approvedByDisplayName ||
       ticket?.approvedByUserName ||
+      ticket?.approvedByUsername ||
       ticket?.acknowledgementApprovedByName ||
       ticket?.approvedBy ||
       ticket?.acknowledgement?.approvedBy,
   );
-  const updatedBy = actorName(ticket?.updatedByName || ticket?.updatedBy);
+  const updatedBy = actorName(
+    ticket?.updatedByName ||
+      ticket?.updatedByDisplayName ||
+      ticket?.updatedByUsername ||
+      ticket?.updatedBy ||
+      ticket?.updatedByUserId,
+  );
   const activityEvents = [
     {
       key: "created",
@@ -180,7 +210,7 @@ const TicketDetail = () => {
             <Typography className="ticketDetailNumber">
               {ticket?.ticketNo}
             </Typography>
-            {ticket?.stateCode && <Status value={ticket.stateCode} />}
+            {ticket?.stateCode && <Status value={ticket.stateCode}  />}
           </Box>
           <Typography component="h1" className="ticketDetailTitle">
             {ticket?.title || ticket?.subject || "Ticket details"}

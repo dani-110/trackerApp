@@ -25,21 +25,17 @@ const Tickets = () => {
   const [activeFilter, setActiveFilter] = useState("all");
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState({});
-  const [teamId, setTeamId] = useState("");
+  const [teamCode, setTeamCode] = useState("");
 
   useEffect(() => {
     fetchList({});
+
     dispatch(getdashboarddata({ silent: true }))
       .unwrap()
       .then((data) => {
-        setTeamId(
-          data?.summary?.teamId ??
-            data?.teamId ??
-            data?.summary?.team?.id ??
-            "",
-        );
+        setTeamCode(data?.priorityWork?.[0]?.teamCode ?? data?.teamCode ?? "");
       })
-      .catch(() => setTeamId(""));
+      .catch(() => setTeamCode(""));
   }, []);
 
   const fetchList = (data = {}, rowsPerPage, page) => {
@@ -95,20 +91,25 @@ const Tickets = () => {
         borderRadius: "18px",
         height: 28,
         px: 0.25,
+        border:"1px solid",
         fontSize: 12,
-        color: activeFilter === (value || key)
-          ? theme.palette.ticketFilterChipActiveText
-          : theme.palette.ticketFilterChipText,
-        borderColor: activeFilter === (value || key)
-          ? theme.palette.ticketFilterChipActiveBorder
-          : theme.palette.ticketFilterChipBorder,
-        bgcolor: activeFilter === (value || key)
-          ? theme.palette.ticketFilterChipActiveBackground
-          : theme.palette.ticketFilterChipBackground,
-        "&:hover": {
-          bgcolor: activeFilter === (value || key)
+        color:
+          activeFilter === (value || key)
+            ? theme.palette.ticketFilterChipActiveText
+            : theme.palette.ticketFilterChipText,
+        borderColor:
+          activeFilter === (value || key)
+            ? theme.palette.ticketFilterChipActiveBorder
+            : theme.palette.ticketFilterChipBorder,
+        bgcolor:
+          activeFilter === (value || key)
             ? theme.palette.ticketFilterChipActiveBackground
-            : theme.palette.action.hover,
+            : theme.palette.ticketFilterChipBackground,
+        "&:hover": {
+          bgcolor:
+            activeFilter === (value || key)
+              ? theme.palette.ticketFilterChipActiveBackground
+              : theme.palette.action.hover,
         },
         "&.Mui-disabled": { opacity: 0.45 },
       }}
@@ -137,12 +138,7 @@ const Tickets = () => {
       />
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 1.5 }}>
         {filterChip("All", "all")}
-        {filterChip(
-          "My team",
-          "teamId",
-          teamId || undefined,
-          !teamId,
-        )}
+        {filterChip("My team", "teamCode", teamCode || undefined, !teamCode)}
         {filterChip("Unclassified", "workTypeCode", "UNCLASSIFIED")}
         {filterChip("Awaiting approval", "emailStatus", "AWAITING_APPROVAL")}
         {filterChip("Bugs", "workTypeCode", "BUG")}

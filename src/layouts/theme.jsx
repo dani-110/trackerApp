@@ -66,9 +66,11 @@ const generateTheme = (mode) => {
             ticketFilterChipBorder: "#d7e0eb",
             ticketFilterChipActiveBackground: "#e8e5ff",
             ticketFilterChipActiveText: "#5146d8",
-            ticketFilterChipActiveBorder: "#cbc5ff",
+            ticketFilterChipActiveBorder: "#5a4aec",
+            approvalQueueBackground:"#f5f5ff",
+            approvalQueueText:"#5650c9",
             
-            modalButtonHeaderBackground: "#1b304d",
+            modalButtonHeaderBackground: "linear-gradient(135deg, #101a2c, #1b3151)",
             PanelHeaderBackground:"aliceblue"
 
           }
@@ -104,7 +106,7 @@ const generateTheme = (mode) => {
 
             textColor: "#d9e4ee",
 
-            inputLabelColor: "#d9e4ee",
+            inputLabelColor: "#b9c7d7",
             inputLabelFocusedColor: "#ffffff",
             inputFieldsetColor: "#304a61",
             inputFocusedColor: "#7d6cff",
@@ -130,8 +132,11 @@ const generateTheme = (mode) => {
             ticketFilterChipActiveBackground: "#463b7d",
             ticketFilterChipActiveText: "#f6f4ff",
             ticketFilterChipActiveBorder: "#7466df",
+            approvalQueueBackground:"#1c2145",
+            approvalQueueText:"#c7c3ff",
 
-            modalButtonHeaderBackground: "#1b304d",
+
+            modalButtonHeaderBackground: "linear-gradient(135deg, #201d45, #2c3a8d)",
             PanelHeaderBackground:"#253e54cf"
           }),
     },

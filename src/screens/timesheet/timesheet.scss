@@ -51,22 +51,61 @@
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    min-height: 120px;
-    padding: 14px 20px;
+    min-height: 100px;
+    padding: 16px 24px;
     border: 1px solid color-mix(in srgb, var(--mui-palette-primary-main) 18%, var(--mui-palette-divider));
     border-radius: 15px;
-    background: linear-gradient(120deg, #111d31, #1c3151 68%, #243f66);
+    background: linear-gradient(120deg, #111d31, #1c3151 68%, #243f66)!important;
     
+  }
+
+  .timeSheetBannerMain {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 18px;
+  }
+
+  .timeProgressChart {
+    position: relative;
+    width: 104px;
+    height: 104px;
+    flex: 0 0 104px;
+  }
+
+  .timeProgressLabels {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    pointer-events: none;
+    line-height: 1.15;
+    text-align: center;
+  }
+
+  .timeProgressCurrent {
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .timeProgressExpected {
+    margin-top: 2px;
+    color: #d5deea;
+    font-size: 9px;
   }
 
   .timeSheetBannerTitle {
     margin: 5px 0 !important;
-    color: var(--mui-palette-text-primary) !important;
+    color: #fff !important;
     font-size: 17px !important;
   }
 
   .timeSheetBannerDescription {
-    color: var(--mui-palette-text-secondary) !important;
+    color: #aab8c5 !important;
     font-size: 10px !important;
   }
 
@@ -75,17 +114,17 @@
     align-items: center;
     gap: 10px;
     padding: 11px 14px;
-    border: 1px solid var(--mui-palette-divider);
+    border: 1px solid #304a61;
     border-radius: 10px;
-    background: color-mix(in srgb, var(--mui-palette-primary-main) 13%, var(--mui-palette-background-paper));
+    background: #172b44;
   }
 
   .commitDeadlineIcon {
-    color: var(--mui-palette-text-primary);
+    color: #fff;
   }
 
   .commitDeadlineTime {
-    color: var(--mui-palette-text-primary) !important;
+    color: #fff !important;
     font-size: 16px !important;
     font-weight: 700 !important;
   }
@@ -115,7 +154,6 @@
 
   .entriesHeader {
     display: flex;
-    align-items: center;
     justify-content: space-between;
     gap: 12px;
     padding: 12px 16px;
@@ -161,7 +199,7 @@
     width: 32px;
     height: 32px;
     border-radius: 9px;
-    background: color-mix(in srgb, var(--mui-palette-primary-main) 15%, var(--mui-palette-background-paper));
+    background: #eef0ff;
   }
 
   .entryMenuIcon {
@@ -169,9 +207,6 @@
     cursor: pointer;
   }
 
-  body.dark-mode & .entryMenuIcon {
-    color: #fff;
-  }
 
   .suggestedWorkPanel {
     display: flex;
@@ -226,6 +261,15 @@
     .timeSheetHeaderContainer {
       align-items: flex-start;
       gap: 14px;
+      padding: 16px 24px;
+    }
+
+    .timeSheetBannerMain {
+      width: 100%;
+    }
+
+    .commitDeadline {
+      display: none;
     }
 
     .commitDeadline {

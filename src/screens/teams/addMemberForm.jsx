@@ -136,7 +136,7 @@ const AddMemberForm = (props) => {
           </Grid>
 
           <Grid item xs={12}>
-              <ButtonContainer isSingle>
+              <ButtonContainer>
                 <Button
                   type="button"
                   variant="outlined"

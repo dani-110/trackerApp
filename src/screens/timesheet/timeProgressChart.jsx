@@ -1,9 +1,7 @@
 import React, { useMemo } from 'react';
-import { useTheme } from '@mui/material/styles';
 import Chart from 'react-apexcharts';
 
 const TimeProgressChart = ({ data }) => {
-  const theme = useTheme();
   const expectedMinutes = data?.expectedMinutes ?? 480;
   const currentMinutes = data?.currentMinutes ?? 0;
 
@@ -36,36 +34,25 @@ const TimeProgressChart = ({ data }) => {
         radialBar: {
           startAngle: 0,
           endAngle: 360,
-          hollow: { margin: 0, size: '75%', background: 'transparent' },
-          track: { background: theme.palette.divider, strokeWidth: '100%', margin: 0 },
+          hollow: { margin: 0, size: '78%', background: 'transparent' },
+          track: { background: '#34445d', strokeWidth: '100%', margin: 0 },
           dataLabels: {
-            show: true,
-            name: {
-              show: true,
-              fontSize: '11px',
-              color: theme.palette.text.secondary,
-              offsetY: 18,
-              formatter: () => formatExpectedTime(expectedMinutes)
-            },
-            value: {
-              show: true,
-              fontSize: '15px',
-              fontWeight: 'bold',
-              color: theme.palette.text.primary,
-              offsetY: -12,
-              formatter: () => formatCurrentTime(currentMinutes)
-            }
+            show: false,
           }
         }
       },
-      fill: { colors: ['#8073ff'] },
-      stroke: { lineCap: 'butt' }
+      fill: { colors: ['#9488ff'] },
+      stroke: { lineCap: 'round' }
     };
-  }, [expectedMinutes, currentMinutes, theme.palette]);
+  }, [expectedMinutes, currentMinutes]);
 
   return (
-    <div style={{ borderRadius: '12px', width: '100px', flex: '0 0 100px' }}>
-      <Chart options={options} series={series} type="radialBar" height={100} />
+    <div className="timeProgressChart">
+      <Chart options={options} series={series} type="radialBar" height={104} />
+      <div className="timeProgressLabels" aria-live="polite">
+        <span className="timeProgressCurrent">{formatCurrentTime(currentMinutes)}</span>
+        <span className="timeProgressExpected">{formatExpectedTime(expectedMinutes)}</span>
+      </div>
     </div>
   );
 };

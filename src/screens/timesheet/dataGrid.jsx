@@ -117,7 +117,7 @@ const DataGrid = (props) => {
               open={openCreate}
               setOpen={setOpenCreate}
               label={"Add Time"}
-              heading={"Add time entry"}
+              heading={"Add timesheet entry"}
               type={"button"}
               startIcon={<IoMdAdd />}
               width={"40%"}

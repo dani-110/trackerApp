@@ -128,7 +128,7 @@ const ApprovalQueue = () => {
                   </Box>
                   <Box sx={{ minWidth: 0, flex: 1 }}>
                     <Typography
-                      sx={{ color: theme.palette.text.primary, fontSize: "16px", fontWeight: 600 }}
+                      sx={{ color: theme.palette.text.primary, fontSize: "15px", fontWeight: 600 }}
                     >
                       Acknowledgement ready for review
                     </Typography>
@@ -153,7 +153,7 @@ const ApprovalQueue = () => {
                       color: theme.palette.text.primary,
                       textTransform: "none",
                       borderRadius: 1.5,
-                      fontWeight: 600,
+                      fontWeight: 500,
                       "&:hover": { borderColor: theme.palette.primary.main, color: theme.palette.primary.main      },
                     }}
                   >
