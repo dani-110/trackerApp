@@ -1,10 +1,11 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 
-const Status = ({ value }) => {
+export const getStatusStyle = (value) => {
   const status = String(value ?? "").trim().toUpperCase();
 
   const colors = {
+    NEW: { background: "#e4f6ee", color: "#008765" },
     ACTIVE: { background: "#e4f6ee", color: "#008765" },
     INACTIVE: { background: "#eef1f5", color: "#607086" },
     DISABLED: { background: "#eef1f5", color: "#607086" },
@@ -12,10 +13,15 @@ const Status = ({ value }) => {
     LOCKED: { background: "#e5efff", color: "#2764c5" },
   };
 
-  const style = colors[status] || {
+  return colors[status] || {
     background: "#eef1f5",
     color: "#607086",
   };
+};
+
+const Status = ({ value }) => {
+  const status = String(value ?? "").trim().toUpperCase();
+  const style = getStatusStyle(status);
 
   return (
     <Box

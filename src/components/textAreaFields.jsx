@@ -10,9 +10,9 @@ const CssTextField = styled(TextField)(({ theme }) => ({
   "& .MuiOutlinedInput-root": {
     minHeight: 46,
     borderRadius: "10px",
-    backgroundColor: "#fff",
+    backgroundColor: theme.palette.inputBackgroundColor,
     "& fieldset": {
-      borderColor: "#cbd5e1",
+      borderColor: theme.palette.inputBorder,
     },
     "&:hover fieldset": {
       borderColor: theme.palette.inputFocusedColor,

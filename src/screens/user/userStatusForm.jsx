@@ -81,7 +81,7 @@ const UserStatusForm = (props) => {
                 />
             </Grid>
             <Grid item xs={12}>
-                <ButtonContainer isSingle>
+                <ButtonContainer>
                     <Button size="medium" variant="contained" color="primary" disabled={isLoading}
                         onClick={handleSubmit(submit)}>
                         {isLoading && (

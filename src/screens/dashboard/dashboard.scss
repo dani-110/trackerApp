@@ -1,0 +1,194 @@
+.dashboardMetricGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 14px;
+}
+.dashboardPage{
+  padding: 40px clamp(20px, 5.5vw, 86px) !important;
+}
+
+.dashboardMainGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(320px, 1fr);
+  gap: 16px;
+  margin-top: 2px;
+}
+
+.dashboardPanel {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 14px;
+  background: var(--mui-palette-background-paper) !important;
+}
+
+.dashboardPanelHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 17px 18px;
+  border-bottom: 1px solid var(--mui-palette-divider) ;
+}
+
+.dashboardPanelTitle {
+  color: var(--mui-palette-text-primary) !important;
+  font-size: 15px !important;
+  font-weight: 700 !important;
+}
+
+.dashboardPanelDescription {
+  margin-top: 2px !important;
+  color: var(--mui-palette-text-secondary) !important;
+  font-size: 11px !important;
+}
+
+.dashboardViewAll {
+  border: 0;
+  background: transparent;
+  color: var(--mui-palette-text-primary);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.priorityWorkRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 57px;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--mui-palette-divider);
+}
+
+.priorityWorkRow:last-child {
+  border-bottom: 0;
+}
+
+.priorityWorkIndicator {
+  width: 7px;
+  height: 7px;
+  flex: 0 0 7px;
+  border-radius: 50%;
+  background: #6258ed;
+}
+
+.priorityWorkContent {
+  min-width: 0;
+  flex: 1;
+}
+
+.priorityWorkTitle {
+  overflow: hidden;
+  color: var(--mui-palette-text-primary) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.priorityWorkMeta {
+  margin-top: 3px !important;
+  overflow: hidden;
+  color: var(--mui-palette-text-secondary) !important;
+  font-size: 10px !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.priorityWorkArrow {
+  color: var(--mui-palette-text-primary) !important;
+  font-size: 18px !important;
+}
+
+.todayRow {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--mui-palette-divider) ;
+}
+
+.todayRow:last-child {
+  border-bottom: 0;
+}
+
+.todayStatus {
+  width: 12px;
+  height: 12px;
+  flex: 0 0 12px;
+  border: 1px solid var(--mui-palette-divider) ;
+  border-radius: 50%;
+}
+
+.todayStatus.requiresAttention {
+  border-color: #6258ed;
+}
+
+.todayContent {
+  min-width: 0;
+  flex: 1;
+}
+
+.todayTitle {
+  color: var(--mui-palette-text-primary) !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+.todaySubtitle {
+  margin-top: 2px !important;
+  color: var(--mui-palette-text-secondary) !important;
+  font-size: 10px !important;
+}
+
+.todayCount {
+  color: var(--mui-palette-text-secondary) !important;
+  font-size: 11px !important;
+}
+
+.todayTimesheetButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  width: calc(100% - 36px);
+  min-height: 40px;
+  margin: 10px 18px 16px;
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 9px;
+  background: var(--mui-palette-background-paper);
+  color: var(--mui-palette-text-primary);
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color 150ms ease, background-color 150ms ease;
+}
+
+.todayTimesheetButton:hover {
+  border-color: var(--mui-palette-primary-main);
+  background: var(--mui-palette-action-hover);
+}
+
+.todayTimesheetButton:focus-visible {
+  outline: 2px solid var(--mui-palette-primary-main);
+  outline-offset: 2px;
+}
+
+@media (max-width: 1000px) {
+  .dashboardMetricGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dashboardMainGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboardMetricGrid {
+    grid-template-columns: 1fr;
+  }
+
+}
