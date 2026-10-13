@@ -13,7 +13,7 @@ export const navBar = [
       {
         label: "Overview",
         icon: "LuLayoutDashboard",
-        url: "",
+        url: "dashboard",
       },
     ],
   },

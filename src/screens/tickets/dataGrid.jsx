@@ -12,6 +12,7 @@ import TicketAssignForm from './ticketAssignForm';
 
 const DataGrid = (props) => {
     const { isLoading, fetchList, search = '' } = props
+    const navigate = useNavigate()
     const [dataList, setDataList] = useState([])
 
     const { tickets, totalcount } = useSelector(state => state.tickets)
@@ -72,6 +73,7 @@ const DataGrid = (props) => {
             isLoading={isLoading}
             count={normalizedSearch ? visibleData.length : totalcount}
             fetchList={fetchList}
+            onRowClick={(ticket) => navigate('Details', { state: ticket })}
         />
     </>
 }
@@ -84,7 +86,6 @@ const TableAction = (data) => {
     const [modalContent, setModalContent] = useState(null);
     const [heading, setHeading] = useState('');
     const navigate = useNavigate()
-    console.log(item)
     const popoverOptions = [
         {
             label: "Details",

@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import TabelContainer from '../../components/table/table';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
-import { Box, Typography } from '@mui/material';
-import Card from '../../components/card/Card';
+import { Box } from '@mui/material';
+import DashboardMetricCard from '../../components/dashboardMetricCard/dashboardMetricCard';
 
 const DataGrid = (props) => {
     const { isLoading, fetchList } = props
@@ -83,27 +83,11 @@ const DataGrid = (props) => {
     ]
 
     return <>
-        <Box sx={{ display: 'flex', gap: '10px' }}>
-            <Card style={{ flex: 1, background: 'linear-gradient(145deg,#f8fbff,#eef3f8)', borderRadius: '10px', padding: '10px', border: '1px solid #dce3ec' }}>
-                <Typography variant='body2' sx={{ fontWeight: '500' }}>Committed</Typography>
-                <Typography variant='h2' sx={{ color: '#000', margin:'10px 0px' }}>{committedCount}</Typography>
-                <Typography variant='body2'>Committed</Typography>
-            </Card>
-            <Card style={{ flex: 1, background: 'linear-gradient(145deg,#f3fbfa,#e7f4f1)', borderRadius: '10px', padding: '10px', border: '1px solid #dce3ec' }}>
-                <Typography variant='body2' sx={{ fontWeight: '500' }}>In progress</Typography>
-                <Typography variant='h2' sx={{ color: '#000', margin:'10px 0px' }}>{inprogressCount}</Typography>
-                <Typography variant='body2'>Before deadline</Typography>
-            </Card>
-            <Card style={{ flex: 1, background: 'linear-gradient(145deg,#fff9f0,#f6eddf)', borderRadius: '10px', padding: '10px', border: '1px solid #dce3ec' }}>
-                <Typography variant='body2' sx={{ fontWeight: '500' }}>Not started</Typography>
-                <Typography variant='h2' sx={{ color: '#000', margin:'10px 0px' }}>{notStartedCount}</Typography>
-                <Typography variant='body2'>Before deadline</Typography>
-            </Card>
-            <Card style={{ flex: 1, background: 'linear-gradient(145deg,#f4f7ff,#e9eef9)', borderRadius: '10px', padding: '10px', border: '1px solid #dce3ec' }}>
-                <Typography variant='body2' sx={{ fontWeight: '500' }}>Overdue</Typography>
-                <Typography variant='h2' sx={{ color: '#000', margin:'10px 0px' }}>{overdueCount}</Typography>
-                <Typography variant='body2'>Needs follow-up</Typography>
-            </Card>
+        <Box className="complianceMetricGrid">
+            <DashboardMetricCard className="complianceMetricCard committedMetric" label="Committed" value={committedCount} description="Timesheets submitted" />
+            <DashboardMetricCard className="complianceMetricCard inProgressMetric" label="In progress" value={inprogressCount} description="Before deadline" />
+            <DashboardMetricCard className="complianceMetricCard notStartedMetric" label="Not started" value={notStartedCount} description="Before deadline" />
+            <DashboardMetricCard className="complianceMetricCard overdueMetric" label="Overdue" value={overdueCount} description="Needs follow-up" />
         </Box>
         <TabelContainer
             tableHeader={tableHeader}

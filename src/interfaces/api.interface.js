@@ -22,12 +22,12 @@ export const api = {
       method: "post",
     };
   },
-  me: () => {
-    return {
-      url: `${apiURL}/me`,
-      method: "get",
-    };
-  },
+  getdashboarddata: () => {
+  return {
+    url: `${apiURL}/dashboard`,
+    method: "get",
+  };
+},
   logout: () => {
     return {
       url: `${apiURL}/auth/logout`,

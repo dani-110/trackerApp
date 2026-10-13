@@ -17,6 +17,10 @@
   text-transform: uppercase;
 }
 
+body.dark-mode .pageHeaderEyebrow {
+  color: #9d95ff !important;
+}
+
 .pageHeaderTitle {
   color: var(--mui-palette-text-primary) !important;
   font-size: 28px !important;

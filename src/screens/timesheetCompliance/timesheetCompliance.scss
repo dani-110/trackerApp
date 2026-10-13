@@ -1,0 +1,51 @@
+.timesheetCompliancePage {
+  .pageHeaderAction {
+    width: 210px;
+  }
+
+  .complianceMetricGrid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 12px;
+  }
+
+  .complianceMetricCard {
+    min-height: 98px;
+    padding: 14px 16px;
+  }
+
+  .committedMetric { --metric-accent: #5480dc; }
+  .inProgressMetric { --metric-accent: #19a879; }
+  .notStartedMetric { --metric-accent: #e89a32; }
+  .overdueMetric { --metric-accent: #d95364; }
+
+  .complianceMetricCard .dashboardMetricCardLabel {
+    font-size: 12px !important;
+  }
+
+  .complianceMetricCard .dashboardMetricCardValue {
+    font-size: 24px !important;
+    line-height: 1.35 !important;
+  }
+
+  .complianceMetricCard .dashboardMetricCardDescription {
+    margin-top: 5px !important;
+    font-size: 11px !important;
+  }
+
+  @media (max-width: 900px) {
+    .complianceMetricGrid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 520px) {
+    .pageHeaderAction {
+      width: 100%;
+    }
+
+    .complianceMetricGrid {
+      grid-template-columns: 1fr;
+    }
+  }
+}

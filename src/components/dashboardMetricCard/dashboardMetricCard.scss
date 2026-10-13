@@ -1,0 +1,79 @@
+.dashboardMetricCard {
+  --metric-accent: var(--mui-palette-primary-main);
+  position: relative;
+  isolation: isolate;
+  min-width: 0;
+  min-height: 180px;
+  overflow: hidden;
+  padding: 31px 29px;
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--metric-accent) 6%, var(--mui-palette-background-paper));
+  box-shadow: 0 5px 16px color-mix(in srgb, var(--mui-palette-text-primary) 4%, transparent);
+  box-sizing: border-box;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.dashboardMetricCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 22px color-mix(in srgb, var(--mui-palette-text-primary) 8%, transparent);
+}
+
+.dashboardMetricCardAccent {
+  position: absolute;
+  z-index: -1;
+  top: -30px;
+  right: -20px;
+  width: 112px;
+  height: 109px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--metric-accent) 9%, transparent);
+}
+
+.dashboardMetricCardLabel {
+  margin-bottom: 5px !important;
+  color: var(--mui-palette-text-secondary) !important;
+  font-size: 17px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.01em;
+}
+
+.dashboardMetricCardValue {
+  color: var(--mui-palette-text-primary) !important;
+  font-size: 27px !important;
+  font-weight: 650 !important;
+  line-height: 1.95 !important;
+}
+
+.dashboardMetricCardDescription {
+  margin-top: 7px !important;
+  color: var(--mui-palette-text-secondary) !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+.attentionCard {
+  --metric-accent: #6558e8;
+  border-color: transparent;
+  background: linear-gradient(120deg, #6655e8, #547be0);
+}
+.attentionCard .dashboardMetricCardLabel,
+.attentionCard .dashboardMetricCardValue,
+.attentionCard .dashboardMetricCardDescription {
+  color: #fff !important;
+}
+.attentionCard .dashboardMetricCardAccent {
+  background: color-mix(in srgb, #fff 10%, transparent);
+}
+.teamQueueCard { --metric-accent: #19a879; }
+.timeCard { --metric-accent: #e89a32; }
+.timesheetCard { --metric-accent: #5480dc; }
+
+body.dark-mode .dashboardMetricCard:not(.attentionCard) {
+  background: color-mix(in srgb, var(--metric-accent) 13%, var(--mui-palette-background-paper));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dashboardMetricCard { transition: none; }
+  .dashboardMetricCard:hover { transform: none; }
+}

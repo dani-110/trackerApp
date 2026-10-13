@@ -34,36 +34,25 @@ const TimeProgressChart = ({ data }) => {
         radialBar: {
           startAngle: 0,
           endAngle: 360,
-          hollow: { margin: 0, size: '75%', background: 'transparent' },
-          track: { background: '#2A3447', strokeWidth: '100%', margin: 0 },
+          hollow: { margin: 0, size: '78%', background: 'transparent' },
+          track: { background: '#34445d', strokeWidth: '100%', margin: 0 },
           dataLabels: {
-            show: true,
-            name: {
-              show: true,
-              fontSize: '11px',
-              color: '#8A99AD',
-              offsetY: 18,
-              formatter: () => formatExpectedTime(expectedMinutes)
-            },
-            value: {
-              show: true,
-              fontSize: '15px',
-              fontWeight: 'bold',
-              color: '#FFFFFF',
-              offsetY: -12,
-              formatter: () => formatCurrentTime(currentMinutes)
-            }
+            show: false,
           }
         }
       },
-      fill: { colors: ['#8073FF'] },
-      stroke: { lineCap: 'butt' }
+      fill: { colors: ['#9488ff'] },
+      stroke: { lineCap: 'round' }
     };
   }, [expectedMinutes, currentMinutes]);
 
   return (
-    <div style={{ borderRadius: '12px', width: '120px' }}>
-      <Chart options={options} series={series} type="radialBar" height={120} />
+    <div className="timeProgressChart">
+      <Chart options={options} series={series} type="radialBar" height={104} />
+      <div className="timeProgressLabels" aria-live="polite">
+        <span className="timeProgressCurrent">{formatCurrentTime(currentMinutes)}</span>
+        <span className="timeProgressExpected">{formatExpectedTime(expectedMinutes)}</span>
+      </div>
     </div>
   );
 };
