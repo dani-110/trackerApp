@@ -31,6 +31,9 @@ import Status from "../../components/status/status";
 import WorkTypeCode from "../../components/workTypeCode/workTypeCode";
 import AcknowledgeStatus from "../../components/acknowledgeStatus/acknowledgeStatus";
 import "./ticketDetail.scss";
+import AssignmentHistory from "./assignmentHistory";
+import OutboxEvent from "./outboxEvent";
+import Communication from "./communication";
 
 const TicketDetail = () => {
   const dispatch = useDispatch();

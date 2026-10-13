@@ -33,7 +33,7 @@ const call = (api, data, thunk, file) => {
     })
     .catch(error => {
       console.log(error.response)
-      if (error.response.status == 403) {
+      if (error.response.status == 401) {
         thunk.dispatch(logoutUser())
       }
       return error.response
