@@ -205,6 +205,35 @@ export const ticketAssignment = createAsyncThunk(
     }
   }
 );
+export const ticketAssignee = createAsyncThunk(
+  "ticketAssignee",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.ticketAssignee(data.id), data.obj, thunkAPI);
+      if (response.status == '200') {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "success",
+            title: "Success!",
+            message: response.data.message,
+          })
+        );
+        return response;
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.detail,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
 export const ticketAssignmentHistory = createAsyncThunk(
   "ticketAssignmentHistory",
   async (data, thunkAPI) => {

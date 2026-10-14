@@ -49,6 +49,10 @@ const TicketDetail = () => {
     const [openAssign, setOpenAssign] = useState(false);
     const [openApproval, setOpenApproval] = useState(false);
     const [actionMenuAnchor, setActionMenuAnchor] = useState(null);
+    const { user } = useSelector(state => state.auth)
+
+    const allowedRoles = ['SYSTEM_ADMIN', 'SUPPORT_L1', 'SUPPORT_L2', 'SUPPORT_L3'];
+    const hasAccess = allowedRoles.some(role => user.roles.includes(role)) ? 'Assign Team' : user.roles.includes('TEAM_LEAD') ? 'Assign User' : '';
 
     useEffect(() => {
         if (!initialTicket?.workItemId) return;
@@ -226,6 +230,17 @@ const TicketDetail = () => {
                     </Typography>
                 </Box>
                 <Box className="ticketDetailActions">
+                    {hasAccess && (
+                        <PermissionComp name='TICKET_ASSIGN'>
+                            <Button
+                                variant="outlined"
+                                onClick={() => setOpenClassify(true)}
+                                className="ticketPrimaryAction"
+                            >
+                                {hasAccess}
+                            </Button>
+                        </PermissionComp>
+                    )}
 
                     {isUnclassified && (
                         <PermissionComp name='TICKET_CLASSIFY'>

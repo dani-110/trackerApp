@@ -1,6 +1,6 @@
 import { Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { teamsMember } from "../../store/actions/teams";
 import Status from "../../components/status/status";
 import ModalButton from "../../components/modalButton/modalButton";
@@ -20,14 +20,19 @@ const DetailView = () => {
   const [dataList, setDataList] = useState([]);
 
   const [isLoader, setIsLoader] = useState(false);
+  const { user } = useSelector(state => state.auth)
 
   const location = useLocation();
   const { state } = location;
+  const allowedRoles = ['SYSTEM_ADMIN', 'SUPPORT_L1', 'SUPPORT_L2', 'SUPPORT_L3', 'TEAM_LEAD'];
 
   useEffect(() => {
-    fetchFilterData();
+    if (allowedRoles.some(role => user.roles.includes(role))) {
+      fetchFilterData();
+    } else {
+      fetchList();
+    }
   }, []);
-
   const fetchFilterData = async () => {
     setIsLoader(true);
     try {

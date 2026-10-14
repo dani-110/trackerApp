@@ -219,6 +219,12 @@ export const api = {
       method: "post",
     }
   },
+  ticketAssignee: (id) => {
+    return {
+      url: `${apiURL}/tickets/${id}/assignee`,
+      method: "post",
+    }
+  },
   ticketAssignmentHistory: (id) => {
     return {
       url: `${apiURL}/tickets/${id}/assignment-history`,
