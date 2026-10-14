@@ -9,6 +9,7 @@ import UserCreateForm from "./userCreateForm";
 import PageHeader from "../../components/pageHeader/pageHeader";
 import { Search } from "lucide-react";
 import "./user.scss";
+import PermissionComp from "../../components/permissionComp/permissionComp";
 
 const User = () => {
   const dispatch = useDispatch();
@@ -50,16 +51,18 @@ const User = () => {
         title="Users & access"
         description="Manage identities, roles and access without exposing complexity."
         action={
-          <ModalButton
-            open={openCreate}
-            setOpen={setOpenCreate}
-            label="Add User"
-            type="button"
-            startIcon={<IoMdAdd />}
-            width="30%"
-          >
-            <UserCreateForm setOpen={setOpenCreate} fetchList={fetchList} />
-          </ModalButton>
+          <PermissionComp name='USER_CREATE'>
+            <ModalButton
+              open={openCreate}
+              setOpen={setOpenCreate}
+              label="Add User"
+              type="button"
+              startIcon={<IoMdAdd />}
+              width="30%"
+            >
+              <UserCreateForm setOpen={setOpenCreate} fetchList={fetchList} />
+            </ModalButton>
+          </PermissionComp>
         }
       />
       <Box className="userSearchToolbar">

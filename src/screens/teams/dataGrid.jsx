@@ -10,7 +10,8 @@ import { ArrowRight } from 'lucide-react';
 const DataGrid = (props) => {
     const { isLoading, fetchList } = props
     const [dataList, setDataList] = useState([])
-    
+    const { user } = useSelector((state) => state.auth);
+
     const { teams, totalcount } = useSelector(state => state.teams)
 
     useEffect(() => {
@@ -43,7 +44,7 @@ const DataGrid = (props) => {
     return <>
         <TabelContainer
             tableHeader={tableHeader}
-            action={TableAction}
+            action={user?.permissions?.includes('TEAM_MEMBER_VIEW') && TableAction}
             data={dataList}
             verifyParam={verifyParam}
             isLoading={isLoading}

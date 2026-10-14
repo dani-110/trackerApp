@@ -10,6 +10,7 @@ import MemberGrid from "./memberGrid";
 import AddMemberForm from "./addMemberForm";
 import { roleFiller, userFiller } from "../../store/actions/fillers";
 import PageHeader from "../../components/pageHeader/pageHeader";
+import PermissionComp from "../../components/permissionComp/permissionComp";
 
 const DetailView = () => {
   const dispatch = useDispatch();
@@ -69,21 +70,23 @@ const DetailView = () => {
         action={
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <Status value={activeStatus} />
-            <ModalButton
-              open={openCreate}
-              setOpen={setOpenCreate}
-              label={"Add Member"}
-              heading={"Assign User To Team"}
-              type={"button"}
-              startIcon={<IoMdAdd />}
-              width={"30%"}
-            >
-              <AddMemberForm
-                data={state}
+            <PermissionComp name='TEAM_MEMBER_ASSIGN'>
+              <ModalButton
+                open={openCreate}
                 setOpen={setOpenCreate}
-                fetchList={fetchList}
-              />
-            </ModalButton>
+                label={"Add Member"}
+                heading={"Assign User To Team"}
+                type={"button"}
+                startIcon={<IoMdAdd />}
+                width={"30%"}
+              >
+                <AddMemberForm
+                  data={state}
+                  setOpen={setOpenCreate}
+                  fetchList={fetchList}
+                />
+              </ModalButton>
+            </PermissionComp>
           </Box>
         }
       />

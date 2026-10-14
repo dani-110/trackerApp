@@ -237,6 +237,12 @@ export const api = {
       method: "get",
     }
   },
+  assignmentReasons: (type) => {
+    return {
+      url: `${apiURL}/tickets/assignment-reasons?type=${type}`,
+      method: "get",
+    }
+  },
   //================Fillers==================
   userFiller: (id) => {
     return {
