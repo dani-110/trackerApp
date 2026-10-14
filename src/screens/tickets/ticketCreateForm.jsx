@@ -18,7 +18,7 @@ const TicketCreateForm = (props) => {
 
   const defaultValues = useForm({
     defaultValues: {
-      senderEmail: "",
+      senderEmail: "tracker.demo@qubits.local",
       emailSubject: "",
       emailBody: "",
       supportCcEmail: "",
@@ -62,6 +62,7 @@ const TicketCreateForm = (props) => {
             label="Sender Email"
             placeholder="e.g user@example.com"
             control={control}
+            disabled
             rules={{
               required: "Sender Email is required",
             }}

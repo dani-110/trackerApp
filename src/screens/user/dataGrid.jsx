@@ -14,7 +14,6 @@ import { uiActions } from '../../store/reducers/ui-slice';
 const DataGrid = (props) => {
     const { isLoading, fetchList } = props
     const [dataList, setDataList] = useState([])
-
     const { users, totalcount } = useSelector(state => state.users)
 
     useEffect(() => {
@@ -65,6 +64,7 @@ const TableAction = (data) => {
     const [modalContent, setModalContent] = useState(null);
     const [heading, setHeading] = useState('');
     const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.auth);
 
     const revoke = async () => {
         await dispatch(getRoleUsers(item.id)).then((res) => {
@@ -96,6 +96,7 @@ const TableAction = (data) => {
     const popoverOptions = [
         {
             label: "Edit User",
+            permission: 'USER_UPDATE',
             onClick: () => {
                 setModalContent(<UserEditForm data={item} setOpen={setOpenView} fetchList={data.fetchList} />);
                 setHeading('Edit User')
@@ -104,6 +105,7 @@ const TableAction = (data) => {
         },
         {
             label: "Change User Status",
+            permission: 'USER_STATUS_CHANGE',
             onClick: () => {
                 setModalContent(<UserStatusForm data={item} setOpen={setOpenView} fetchList={data.fetchList} />);
                 setHeading('Change User Status')
@@ -112,6 +114,7 @@ const TableAction = (data) => {
         },
         {
             label: "Assign Role To User",
+            permission: 'USER_ROLE_ASSIGN',
             onClick: () => {
                 setModalContent(<UserRoleForm data={item} setOpen={setOpenView} fetchList={data.fetchList} />);
                 setHeading('Assign Role To User')
@@ -120,6 +123,7 @@ const TableAction = (data) => {
         },
         {
             label: "Revoke Role Confirmation",
+            permission: 'USER_ROLE_REMOVE',
             onClick: () => {
                 revoke()
             }
@@ -129,7 +133,7 @@ const TableAction = (data) => {
         <Box>
             <CustomPopover
                 title="Actions"
-                options={popoverOptions}
+                options={popoverOptions.filter(val => user?.permissions?.includes(val.permission))}
             />
 
             <ModalButton open={openView} setOpen={setOpenView} heading={heading} width={'30%'}>

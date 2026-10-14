@@ -93,6 +93,31 @@ export const createTickets = createAsyncThunk(
     }
   }
 );
+export const assignmentReasons = createAsyncThunk(
+  "assignmentReasons",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.assignmentReasons(data), undefined, thunkAPI);
+      if (response.status == '200') {
+        return {
+          list: response.data.items,
+          total: response.data.totalCount
+        };
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.detail,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
 export const acknowledgementApprove = createAsyncThunk(
   "acknowledgementApprove",
   async (data, thunkAPI) => {

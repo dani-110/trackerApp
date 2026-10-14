@@ -22,6 +22,7 @@ const MemberGrid = (props) => {
   const { dataList, isLoading, fetchList } = props;
   const { rolefiller } = useSelector((state) => state.filler);
   const [list, setList] = useState([]);
+    const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     let arr = [];
@@ -51,7 +52,7 @@ const MemberGrid = (props) => {
     <>
       <TabelContainer
         tableHeader={tableHeader}
-        action={TableAction}
+        action={user?.permissions?.includes('TEAM_MEMBER_REMOVE') && TableAction}
         data={list}
         verifyParam={verifyParam}
         isLoading={isLoading}

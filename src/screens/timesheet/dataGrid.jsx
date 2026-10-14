@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { Box, Button, CircularProgress, Grid, Typography ,useTheme} from "@mui/material";
+import { Box, Button, CircularProgress, Grid, Typography, useTheme } from "@mui/material";
 import ModalButton from "../../components/modalButton/modalButton";
 import AddTime from "./addTime";
 import { IoMdAdd } from "react-icons/io";
@@ -13,11 +13,12 @@ import {
 import "./timesheet.scss";
 import { commit, workSuggestions } from "../../store/actions/timesheet";
 import { useDispatch } from "react-redux";
+import PermissionComp from "../../components/permissionComp/permissionComp";
 
 const DataGrid = (props) => {
   const { list, header, date, fetchList } = props;
   const dispatch = useDispatch();
-  const theme=useTheme();
+  const theme = useTheme();
 
   const [dataList, setDataList] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -132,7 +133,7 @@ const DataGrid = (props) => {
             </ModalButton>
           )}
         </Box>
-          <Box className="entriesBody">
+        <Box className="entriesBody">
           {dataList.map((val) => (
             <Box className="entriesItem">
               <Box className="icon">
@@ -157,10 +158,12 @@ const DataGrid = (props) => {
                 {formatDuration(val?.durationMinutes)}
               </Typography>
               {header.status == "DRAFT" && (
-                <LuEllipsis
-                  className="entryMenuIcon"
-                  onClick={() => handleEntries(val)}
-                />
+                <PermissionComp name='TIMESHEET_EDIT'>
+                  <LuEllipsis
+                    className="entryMenuIcon"
+                    onClick={() => handleEntries(val)}
+                  />
+                </PermissionComp>
               )}
             </Box>
           ))}
@@ -169,7 +172,7 @@ const DataGrid = (props) => {
           <Box className="entriesFooter">
             <Box>
               <Typography
-                sx={{ fontSize: "12px", fontWeight: "500", color:  theme.palette.text.primary  }}
+                sx={{ fontSize: "12px", fontWeight: "500", color: theme.palette.text.primary }}
               >
                 Ready when you are
               </Typography>
@@ -177,22 +180,24 @@ const DataGrid = (props) => {
                 Short days are allowed — commit the actual time worked.
               </Typography>
             </Box>
-            <Button
-              size="medium"
-              variant="contained"
-              className="commitButton"
-              disabled={isLoading}
-              startIcon={<LuCircleCheck />}
-              onClick={submit}
-            >
-              {isLoading && (
-                <CircularProgress
-                  size={20}
-                  sx={{ marginRight: 1, color: "inherit" }}
-                />
-              )}
-              Commit day
-            </Button>
+            <PermissionComp name='TIMESHEET_COMMIT'>
+              <Button
+                size="medium"
+                variant="contained"
+                className="commitButton"
+                disabled={isLoading}
+                startIcon={<LuCircleCheck />}
+                onClick={submit}
+              >
+                {isLoading && (
+                  <CircularProgress
+                    size={20}
+                    sx={{ marginRight: 1, color: "inherit" }}
+                  />
+                )}
+                Commit day
+              </Button>
+            </PermissionComp>
           </Box>
         )}
       </Box>
@@ -205,7 +210,7 @@ const DataGrid = (props) => {
             Suggested work
           </Typography>
           <Typography variant="body2" sx={{
-            color:theme.palette.text.primary
+            color: theme.palette.text.primary
           }}>{`Tickets currently assigned to you.`}</Typography>
         </Box>
         {loader ? (
@@ -226,7 +231,7 @@ const DataGrid = (props) => {
                 <LuBriefcaseBusiness color={theme.palette.text.secondary} />
                 <Box sx={{ display: "flex", flex: 1, flexDirection: "column" }}>
                   <Typography
-                    sx={{ fontSize: "12px", fontWeight: "500", color: theme.palette.text.primary}}
+                    sx={{ fontSize: "12px", fontWeight: "500", color: theme.palette.text.primary }}
                   >
                     {val?.title}
                   </Typography>
@@ -234,7 +239,7 @@ const DataGrid = (props) => {
                     {val?.workItemNo}
                   </Typography>
                 </Box>
-                {header.status == "DRAFT" && <IoMdAdd color={theme.palette.text.primary}/>}
+                {header.status == "DRAFT" && <IoMdAdd color={theme.palette.text.primary} />}
               </Box>
             ))}
           </Box>

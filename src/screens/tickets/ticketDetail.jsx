@@ -1,23 +1,23 @@
 import { useEffect, useState } from "react";
 import {
-  Box,
-  Button,
-  CircularProgress,
-  IconButton,
-  Menu,
-  MenuItem,
-  Typography,
+    Box,
+    Button,
+    CircularProgress,
+    IconButton,
+    Menu,
+    MenuItem,
+    Typography,
 } from "@mui/material";
 import {
-  ArrowLeft,
-  Check,
-  FilePlus2,
-  MailCheck,
-  MoreHorizontal,
-  Pencil,
-  Send,
-  ShieldCheck,
-  Users,
+    ArrowLeft,
+    Check,
+    FilePlus2,
+    MailCheck,
+    MoreHorizontal,
+    Pencil,
+    Send,
+    ShieldCheck,
+    Users,
 } from "lucide-react";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,340 +34,345 @@ import "./ticketDetail.scss";
 import AssignmentHistory from "./assignmentHistory";
 import OutboxEvent from "./outboxEvent";
 import Communication from "./communication";
+import PermissionComp from "../../components/permissionComp/permissionComp";
 
 const TicketDetail = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const currentUser = useSelector((state) => state.auth.user);
-  const knownUsers = useSelector((state) => state.users.users);
-  const initialTicket = location.state || null;
-  const [ticket, setTicket] = useState(initialTicket);
-  const [isLoading, setIsLoading] = useState(Boolean(initialTicket?.workItemId));
-  const [openClassify, setOpenClassify] = useState(false);
-  const [openAssign, setOpenAssign] = useState(false);
-  const [openApproval, setOpenApproval] = useState(false);
-  const [actionMenuAnchor, setActionMenuAnchor] = useState(null);
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const currentUser = useSelector((state) => state.auth.user);
+    const knownUsers = useSelector((state) => state.users.users);
+    const initialTicket = location.state || null;
+    const [ticket, setTicket] = useState(initialTicket);
+    const [isLoading, setIsLoading] = useState(Boolean(initialTicket?.workItemId));
+    const [openClassify, setOpenClassify] = useState(false);
+    const [openAssign, setOpenAssign] = useState(false);
+    const [openApproval, setOpenApproval] = useState(false);
+    const [actionMenuAnchor, setActionMenuAnchor] = useState(null);
 
-  useEffect(() => {
-    if (!initialTicket?.workItemId) return;
-    dispatch(ticketById(initialTicket.workItemId)).then((result) => {
-      if (result.meta.requestStatus === "fulfilled") setTicket(result.payload);
-      setIsLoading(false);
-    });
-  }, [dispatch, initialTicket?.workItemId]);
+    useEffect(() => {
+        if (!initialTicket?.workItemId) return;
+        dispatch(ticketById(initialTicket.workItemId)).then((result) => {
+            if (result.meta.requestStatus === "fulfilled") setTicket(result.payload);
+            setIsLoading(false);
+        });
+    }, [dispatch, initialTicket?.workItemId]);
 
-  if (!initialTicket?.workItemId) {
-    return (
-      <Box className="screenPage ticketDetailPage">
-        <Button
-          startIcon={<ArrowLeft size={16} />}
-          onClick={() => navigate("/tickets")}
-          className="ticketBackButton"
-        >
-          Back to tickets
-        </Button>
-        <Typography>Choose a ticket from the list to view its details.</Typography>
-      </Box>
-    );
-  }
-
-  const refreshTicket = () => {
-    dispatch(ticketById(initialTicket.workItemId)).then((result) => {
-      if (result.meta.requestStatus === "fulfilled") setTicket(result.payload);
-    });
-  };
-
-  const isUnclassified = ticket?.workTypeCode === "UNCLASSIFIED";
-  const canReview = ticket?.acknowledgementStatus === "AWAITING_APPROVAL";
-  const createdAt = ticket?.createdAt
-    ? moment(ticket.createdAt).fromNow()
-    : "";
-  const source = String(ticket?.sourceChannel || "Client request");
-  const assignedTeam =
-    ticket?.teamName || ticket?.team?.name || ticket?.assignedTeamName;
-  const firstDate = (...values) => values.find(Boolean);
-  const actorName = (value) => {
-    if (value && typeof value === "object") {
-      return value.displayName || value.fullName || value.name || value.username;
+    if (!initialTicket?.workItemId) {
+        return (
+            <Box className="screenPage ticketDetailPage">
+                <Button
+                    startIcon={<ArrowLeft size={16} />}
+                    onClick={() => navigate("/tickets")}
+                    className="ticketBackButton"
+                >
+                    Back to tickets
+                </Button>
+                <Typography>Choose a ticket from the list to view its details.</Typography>
+            </Box>
+        );
     }
-    if (typeof value !== "string") return "";
 
-    const matchingUser = [currentUser, ...(knownUsers || [])].find((person) =>
-      [person?.id, person?.userId, person?.userID]
-        .filter((id) => id !== undefined && id !== null)
-        .some((id) => String(id).toLowerCase() === value.toLowerCase()),
+    const refreshTicket = () => {
+        dispatch(ticketById(initialTicket.workItemId)).then((result) => {
+            if (result.meta.requestStatus === "fulfilled") setTicket(result.payload);
+        });
+    };
+
+    const isUnclassified = ticket?.workTypeCode === "UNCLASSIFIED";
+    const canReview = ticket?.acknowledgementStatus === "AWAITING_APPROVAL";
+    const createdAt = ticket?.createdAt
+        ? moment(ticket.createdAt).fromNow()
+        : "";
+    const source = String(ticket?.sourceChannel || "Client request");
+    const assignedTeam =
+        ticket?.teamName || ticket?.team?.name || ticket?.assignedTeamName;
+    const firstDate = (...values) => values.find(Boolean);
+    const actorName = (value) => {
+        if (value && typeof value === "object") {
+            return value.displayName || value.fullName || value.name || value.username;
+        }
+        if (typeof value !== "string") return "";
+
+        const matchingUser = [currentUser, ...(knownUsers || [])].find((person) =>
+            [person?.id, person?.userId, person?.userID]
+                .filter((id) => id !== undefined && id !== null)
+                .some((id) => String(id).toLowerCase() === value.toLowerCase()),
+        );
+        const resolvedName =
+            matchingUser?.displayName ||
+            matchingUser?.fullName ||
+            matchingUser?.name ||
+            matchingUser?.username;
+
+        if (resolvedName) return resolvedName;
+
+        // Avoid exposing an unresolved GUID or numeric database ID in the activity feed.
+        const looksLikeId =
+            /^[0-9a-f]{8}-[0-9a-f-]{27,}$/i.test(value) || /^\d+$/.test(value);
+        return looksLikeId ? "a team member" : value;
+    };
+    const generatedAt = firstDate(
+        ticket?.generatedAt,
+        ticket?.acknowledgementCreatedAt,
+        ticket?.acknowledgementGeneratedAt,
+        ticket?.acknowledgement?.generatedAt,
     );
-    const resolvedName =
-      matchingUser?.displayName ||
-      matchingUser?.fullName ||
-      matchingUser?.name ||
-      matchingUser?.username;
-
-    if (resolvedName) return resolvedName;
-
-    // Avoid exposing an unresolved GUID or numeric database ID in the activity feed.
-    const looksLikeId =
-      /^[0-9a-f]{8}-[0-9a-f-]{27,}$/i.test(value) || /^\d+$/.test(value);
-    return looksLikeId ? "a team member" : value;
-  };
-  const generatedAt = firstDate(
-    ticket?.generatedAt,
-    ticket?.acknowledgementCreatedAt,
-    ticket?.acknowledgementGeneratedAt,
-    ticket?.acknowledgement?.generatedAt,
-  );
-  const approvedAt = firstDate(
-    ticket?.approvedAt,
-    ticket?.acknowledgementApprovedAt,
-    ticket?.acknowledgement?.approvedAt,
-  );
-  const queuedAt = firstDate(
-    ticket?.queuedAt,
-    ticket?.acknowledgementQueuedAt,
-    ticket?.acknowledgement?.queuedAt,
-  );
-  const approvedBy = actorName(
-      ticket?.approvedByName ||
-      ticket?.approvedByDisplayName ||
-      ticket?.approvedByUserName ||
-      ticket?.approvedByUsername ||
-      ticket?.acknowledgementApprovedByName ||
-      ticket?.approvedBy ||
-      ticket?.acknowledgement?.approvedBy,
-  );
-  const updatedBy = actorName(
-    ticket?.updatedByName ||
-      ticket?.updatedByDisplayName ||
-      ticket?.updatedByUsername ||
-      ticket?.updatedBy ||
-      ticket?.updatedByUserId,
-  );
-  const activityEvents = [
-    {
-      key: "created",
-      title: "Ticket created from " + source.toLowerCase(),
-      detail: "Initial request received",
-      timestamp: ticket?.createdAt,
-      icon: <FilePlus2 size={15} />,
-    },
-    {
-      key: "ack-generated",
-      title: "Acknowledgement generated",
-      detail: "Email acknowledgement prepared",
-      timestamp: generatedAt,
-      icon: <MailCheck size={15} />,
-    },
-    {
-      key: "ack-approved",
-      title: "Acknowledgement approved",
-      detail: "Approved by " + (approvedBy || "user"),
-      timestamp: approvedAt,
-      icon: <ShieldCheck size={15} />,
-    },
-    {
-      key: "ack-queued",
-      title: "Acknowledgement queued for delivery",
-      detail: "Email added to delivery queue",
-      timestamp: queuedAt,
-      icon: <Send size={15} />,
-    },
-    {
-      key: "updated",
-      title: "Ticket details updated",
-      detail: updatedBy ? "Updated by " + updatedBy : "Latest ticket information saved",
-      timestamp: ticket?.updatedAt,
-      icon: <Pencil size={15} />,
-    },
-  ]
-    .filter(
-      (event) =>
-        event.timestamp &&
-        moment(event.timestamp).isValid() &&
-        !(event.key === "updated" &&
-          [ticket?.createdAt, generatedAt, approvedAt, queuedAt].some(
-            (date) =>
-              date &&
-              moment(date).isValid() &&
-              moment(date).valueOf() === moment(event.timestamp).valueOf(),
-          )),
-    )
-    .sort(
-      (first, second) =>
-        moment(first.timestamp).valueOf() -
-        moment(second.timestamp).valueOf(),
+    const approvedAt = firstDate(
+        ticket?.approvedAt,
+        ticket?.acknowledgementApprovedAt,
+        ticket?.acknowledgement?.approvedAt,
     );
+    const queuedAt = firstDate(
+        ticket?.queuedAt,
+        ticket?.acknowledgementQueuedAt,
+        ticket?.acknowledgement?.queuedAt,
+    );
+    const approvedBy = actorName(
+        ticket?.approvedByName ||
+        ticket?.approvedByDisplayName ||
+        ticket?.approvedByUserName ||
+        ticket?.approvedByUsername ||
+        ticket?.acknowledgementApprovedByName ||
+        ticket?.approvedBy ||
+        ticket?.acknowledgement?.approvedBy,
+    );
+    const updatedBy = actorName(
+        ticket?.updatedByName ||
+        ticket?.updatedByDisplayName ||
+        ticket?.updatedByUsername ||
+        ticket?.updatedBy ||
+        ticket?.updatedByUserId,
+    );
+    const activityEvents = [
+        {
+            key: "created",
+            title: "Ticket created from " + source.toLowerCase(),
+            detail: "Initial request received",
+            timestamp: ticket?.createdAt,
+            icon: <FilePlus2 size={15} />,
+        },
+        {
+            key: "ack-generated",
+            title: "Acknowledgement generated",
+            detail: "Email acknowledgement prepared",
+            timestamp: generatedAt,
+            icon: <MailCheck size={15} />,
+        },
+        {
+            key: "ack-approved",
+            title: "Acknowledgement approved",
+            detail: "Approved by " + (approvedBy || "user"),
+            timestamp: approvedAt,
+            icon: <ShieldCheck size={15} />,
+        },
+        {
+            key: "ack-queued",
+            title: "Acknowledgement queued for delivery",
+            detail: "Email added to delivery queue",
+            timestamp: queuedAt,
+            icon: <Send size={15} />,
+        },
+        {
+            key: "updated",
+            title: "Ticket details updated",
+            detail: updatedBy ? "Updated by " + updatedBy : "Latest ticket information saved",
+            timestamp: ticket?.updatedAt,
+            icon: <Pencil size={15} />,
+        },
+    ]
+        .filter(
+            (event) =>
+                event.timestamp &&
+                moment(event.timestamp).isValid() &&
+                !(event.key === "updated" &&
+                    [ticket?.createdAt, generatedAt, approvedAt, queuedAt].some(
+                        (date) =>
+                            date &&
+                            moment(date).isValid() &&
+                            moment(date).valueOf() === moment(event.timestamp).valueOf(),
+                    )),
+        )
+        .sort(
+            (first, second) =>
+                moment(first.timestamp).valueOf() -
+                moment(second.timestamp).valueOf(),
+        );
 
-  return (
-    <Box className="screenPage ticketDetailPage">
-      <Box className="ticketDetailTopbar">
-        <Box>
-          <Button
-            startIcon={<ArrowLeft size={15} />}
-            onClick={() => navigate("/tickets")}
-            className="ticketBackButton"
-          >
-            Back to tickets
-          </Button>
-          <Box className="ticketDetailIdentity">
-            <Typography className="ticketDetailNumber">
-              {ticket?.ticketNo}
-            </Typography>
-            {ticket?.stateCode && <Status value={ticket.stateCode}  />}
-          </Box>
-          <Typography component="h1" className="ticketDetailTitle">
-            {ticket?.title || ticket?.subject || "Ticket details"}
-          </Typography>
-          <Typography className="ticketDetailSubtitle">
-            {[ticket?.clientName, source, createdAt && `received ${createdAt}`]
-              .filter(Boolean)
-              .join(" . ")}
-          </Typography>
-        </Box>
-        <Box className="ticketDetailActions">
-
-          {isUnclassified && (
-            <Button
-              variant="contained"
-              onClick={() => setOpenClassify(true)}
-              className="ticketPrimaryAction"
-            >
-              Classify ticket
-            </Button>
-          )}
-          {canReview && (
-            <Button
-              variant="contained"
-              onClick={() => setOpenApproval(true)}
-              className="ticketPrimaryAction"
-              startIcon={<Check size={15} />}
-            >
-              Review acknowledgement
-            </Button>
-          )}
-        </Box>
-      </Box>
-
-      {isLoading ? (
-        <Box className="ticketDetailLoading">
-          <CircularProgress size={32} />
-        </Box>
-      ) : (
-        <Box className="ticketDetailContent">
-          <Box className="ticketDetailMainColumn">
-            <Box className="ticketRequestCard">
-              <Typography className="ticketCardEyebrow">CLIENT REQUEST</Typography>
-              <Typography className="ticketRequestText">
-                {ticket?.description || "No description was provided."}
-              </Typography>
-            </Box>
-
-            <Box className="ticketActivityCard">
-              <Typography className="ticketActivityTitle">Activity</Typography>
-              <Typography className="ticketActivityDescription">
-                Ticket Activity Timeline.
-              </Typography>
-              {activityEvents.length ? (
-                activityEvents.map((event) => (
-                  <Box className="ticketActivityItem" key={event.key}>
-                    <Box className="ticketActivityAvatar">{event.icon}</Box>
-                    <Box className="ticketActivityCopy">
-                      <Typography className="ticketActivityEvent">
-                        {event.title}
-                      </Typography>
-                      <Typography className="ticketActivityMeta">
-                        {event.detail} | {moment(event.timestamp).fromNow()}
-                      </Typography>
+    return (
+        <Box className="screenPage ticketDetailPage">
+            <Box className="ticketDetailTopbar">
+                <Box>
+                    <Button
+                        startIcon={<ArrowLeft size={15} />}
+                        onClick={() => navigate("/tickets")}
+                        className="ticketBackButton"
+                    >
+                        Back to tickets
+                    </Button>
+                    <Box className="ticketDetailIdentity">
+                        <Typography className="ticketDetailNumber">
+                            {ticket?.ticketNo}
+                        </Typography>
+                        {ticket?.stateCode && <Status value={ticket.stateCode} />}
                     </Box>
-                  </Box>
-                ))
-              ) : (
-                <Typography className="ticketActivityEmpty">
-                  No activity events are available for this ticket yet.
-                </Typography>
-              )}
-            </Box>
-          </Box>
+                    <Typography component="h1" className="ticketDetailTitle">
+                        {ticket?.title || ticket?.subject || "Ticket details"}
+                    </Typography>
+                    <Typography className="ticketDetailSubtitle">
+                        {[ticket?.clientName, source, createdAt && `received ${createdAt}`]
+                            .filter(Boolean)
+                            .join(" . ")}
+                    </Typography>
+                </Box>
+                <Box className="ticketDetailActions">
 
-          <Box className="ticketOverviewCard">
-            <Typography className="ticketOverviewTitle">Ticket overview</Typography>
-            <Box className="ticketOverviewRows">
-              <Box className="ticketOverviewRow">
-                <span>Classification</span>
-                <WorkTypeCode value={ticket?.workTypeCode || "UNCLASSIFIED"} />
-              </Box>
-              <Box className="ticketOverviewRow">
-                <span>Assigned team</span>
-                <strong>{assignedTeam || ticket?.teamCode || "UNASSIGNED"}</strong>
-              </Box>
-              <Box className="ticketOverviewRow">
-                <span>Queue</span>
-                <strong>{ticket?.queueName || ticket?.queueCode || "-"}</strong>
-              </Box>
-              <Box className="ticketOverviewRow">
-                <span>Acknowledgement</span>
-                {ticket?.acknowledgementStatus ? (
-                  <AcknowledgeStatus value={ticket.acknowledgementStatus} />
-                ) : (
-                  <span className="ticketOverviewFallback">NOT STARTED</span>
-                )}
-              </Box>
-              <Box className="ticketOverviewRow">
-                <span>Workflow</span>
-                <strong>{ticket?.workflowCode || "-"}</strong>
-              </Box>
-              <Box className="ticketOverviewRow">
-                <span>Version</span>
-                <strong>{ticket?.workItemVersionNo ?? ticket?.versionNo ?? "-"}</strong>
-              </Box>
+                    {isUnclassified && (
+                        <PermissionComp name='TICKET_CLASSIFY'>
+                            <Button
+                                variant="contained"
+                                onClick={() => setOpenClassify(true)}
+                                className="ticketPrimaryAction"
+                            >
+                                Classify ticket
+                            </Button>
+                        </PermissionComp>
+                    )}
+                    {canReview && (
+                        <PermissionComp name='TICKET_ACK_APPROVE'>
+                            <Button
+                                variant="contained"
+                                onClick={() => setOpenApproval(true)}
+                                className="ticketPrimaryAction"
+                                startIcon={<Check size={15} />}
+                            >
+                                Review acknowledgement
+                            </Button>
+                        </PermissionComp>
+                    )}
+                </Box>
             </Box>
-            <Button
-              variant="outlined"
-              startIcon={<Users size={15} />}
-              onClick={() => setOpenAssign(true)}
-              className="ticketReassignButton"
+
+            {isLoading ? (
+                <Box className="ticketDetailLoading">
+                    <CircularProgress size={32} />
+                </Box>
+            ) : (
+                <Box className="ticketDetailContent">
+                    <Box className="ticketDetailMainColumn">
+                        <Box className="ticketRequestCard">
+                            <Typography className="ticketCardEyebrow">CLIENT REQUEST</Typography>
+                            <Typography className="ticketRequestText">
+                                {ticket?.description || "No description was provided."}
+                            </Typography>
+                        </Box>
+
+                        <Box className="ticketActivityCard">
+                            <Typography className="ticketActivityTitle">Activity</Typography>
+                            <Typography className="ticketActivityDescription">
+                                Ticket Activity Timeline.
+                            </Typography>
+                            {activityEvents.length ? (
+                                activityEvents.map((event) => (
+                                    <Box className="ticketActivityItem" key={event.key}>
+                                        <Box className="ticketActivityAvatar">{event.icon}</Box>
+                                        <Box className="ticketActivityCopy">
+                                            <Typography className="ticketActivityEvent">
+                                                {event.title}
+                                            </Typography>
+                                            <Typography className="ticketActivityMeta">
+                                                {event.detail} | {moment(event.timestamp).fromNow()}
+                                            </Typography>
+                                        </Box>
+                                    </Box>
+                                ))
+                            ) : (
+                                <Typography className="ticketActivityEmpty">
+                                    No activity events are available for this ticket yet.
+                                </Typography>
+                            )}
+                        </Box>
+                    </Box>
+
+                    <Box className="ticketOverviewCard">
+                        <Typography className="ticketOverviewTitle">Ticket overview</Typography>
+                        <Box className="ticketOverviewRows">
+                            <Box className="ticketOverviewRow">
+                                <span>Classification</span>
+                                <WorkTypeCode value={ticket?.workTypeCode || "UNCLASSIFIED"} />
+                            </Box>
+                            <Box className="ticketOverviewRow">
+                                <span>Assigned team</span>
+                                <strong>{assignedTeam || ticket?.teamCode || "UNASSIGNED"}</strong>
+                            </Box>
+                            <Box className="ticketOverviewRow">
+                                <span>Queue</span>
+                                <strong>{ticket?.queueName || ticket?.queueCode || "-"}</strong>
+                            </Box>
+                            <Box className="ticketOverviewRow">
+                                <span>Acknowledgement</span>
+                                {ticket?.acknowledgementStatus ? (
+                                    <AcknowledgeStatus value={ticket.acknowledgementStatus} />
+                                ) : (
+                                    <span className="ticketOverviewFallback">NOT STARTED</span>
+                                )}
+                            </Box>
+                            <Box className="ticketOverviewRow">
+                                <span>Workflow</span>
+                                <strong>{ticket?.workflowCode || "-"}</strong>
+                            </Box>
+                            <Box className="ticketOverviewRow">
+                                <span>Version</span>
+                                <strong>{ticket?.workItemVersionNo ?? ticket?.versionNo ?? "-"}</strong>
+                            </Box>
+                        </Box>
+                        <Button
+                            variant="outlined"
+                            startIcon={<Users size={15} />}
+                            onClick={() => setOpenAssign(true)}
+                            className="ticketReassignButton"
+                        >
+                            Reassign team
+                        </Button>
+                    </Box>
+                </Box>
+            )}
+
+            <ModalButton
+                open={openClassify}
+                setOpen={setOpenClassify}
+                heading="Classify ticket"
             >
-              Reassign team
-            </Button>
-          </Box>
+                <TicketClassifyForm
+                    data={ticket}
+                    setOpen={setOpenClassify}
+                    fetchList={refreshTicket}
+                />
+            </ModalButton>
+            <ModalButton
+                open={openAssign}
+                setOpen={setOpenAssign}
+                heading="Reassign team"
+            >
+                <TicketAssignForm
+                    data={ticket}
+                    setOpen={setOpenAssign}
+                    fetchList={refreshTicket}
+                />
+            </ModalButton>
+            <ModalButton
+                open={openApproval}
+                setOpen={setOpenApproval}
+                heading="Review acknowledgement"
+            >
+                <TicketAckApprove
+                    data={ticket}
+                    setOpen={setOpenApproval}
+                    onApproved={refreshTicket}
+                />
+            </ModalButton>
         </Box>
-      )}
-
-      <ModalButton
-        open={openClassify}
-        setOpen={setOpenClassify}
-        heading="Classify ticket"
-      >
-        <TicketClassifyForm
-          data={ticket}
-          setOpen={setOpenClassify}
-          fetchList={refreshTicket}
-        />
-      </ModalButton>
-      <ModalButton
-        open={openAssign}
-        setOpen={setOpenAssign}
-        heading="Reassign team"
-      >
-        <TicketAssignForm
-          data={ticket}
-          setOpen={setOpenAssign}
-          fetchList={refreshTicket}
-        />
-      </ModalButton>
-      <ModalButton
-        open={openApproval}
-        setOpen={setOpenApproval}
-        heading="Review acknowledgement"
-      >
-        <TicketAckApprove
-          data={ticket}
-          setOpen={setOpenApproval}
-          onApproved={refreshTicket}
-        />
-      </ModalButton>
-    </Box>
-  );
+    );
 };
 
 export default TicketDetail;
