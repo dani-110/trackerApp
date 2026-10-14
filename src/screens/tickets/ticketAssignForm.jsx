@@ -165,7 +165,7 @@ const TicketAssignForm = (props) => {
             {user.roles.includes('TEAM_LEAD') && <Grid item xs={12}>
               <SelectFields
                 fieldName="teamId"
-                label="Team"
+                label="Member"
                 control={control}
                 options={dataList?.map(({ userId, displayName }) => {
                   return { label: displayName, value: userId };
