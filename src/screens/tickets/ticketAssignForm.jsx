@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Box, Button, CircularProgress, Grid } from "@mui/material";
 import ButtonContainer from "../../components/buttonContainer";
@@ -6,22 +6,23 @@ import SelectFields from "../../components/SelectFields";
 import { useDispatch, useSelector } from "react-redux";
 import {
   assignmentReasons,
+  ticketAssignee,
   ticketAssignment,
-  ticketClassification,
 } from "../../store/actions/tickets";
-import InputFields from "../../components/InputFields";
 import TextAreaFields from "../../components/textAreaFields";
 import { setDataObject } from "../../utils/Utils";
-import { teams } from "../../store/actions/teams";
+import { teams, teamsMember } from "../../store/actions/teams";
 
 const TicketAssignForm = (props) => {
   const { data, setOpen, fetchList } = props;
 
   const dispatch = useDispatch();
+
   const [isLoading, setIsLoading] = useState(false);
   const [isTeamLoading, setIsTeamLoading] = useState(false);
   const [teamList, setTeamList] = useState([]);
   const [reasonList, setReasonList] = useState([]);
+  const [dataList, setDataList] = useState([]);
 
   const { user } = useSelector(state => state.auth)
 
@@ -32,44 +33,69 @@ const TicketAssignForm = (props) => {
       assignmentComment: "",
     },
   });
+  
   const {
     control,
     handleSubmit,
-    setError,
-    clearErrors,
     watch,
-    reset,
-    setValue,
-    resetField,
     getValues,
     formState: { errors },
   } = defaultValues;
 
+  const allowedRoles = ['SYSTEM_ADMIN', 'SUPPORT_L1', 'SUPPORT_L2', 'SUPPORT_L3'];
+
   useEffect(() => {
-    setIsTeamLoading(true);
-    const obj = {
-      pageSize: 1000,
-      pageNo: 1,
-    };
-    dispatch(teams(obj)).then((res) => {
-      setTeamList(res.payload.list);
-      setIsTeamLoading(false);
-    });
-    getAssignReasons();
+    const hasAccess = allowedRoles.some(role => user.roles.includes(role));
+    if (hasAccess) {
+      setIsTeamLoading(true);
+      const obj = {
+        pageSize: 1000,
+        pageNo: 1,
+      };
+      dispatch(teams(obj)).then((res) => {
+        setTeamList(res.payload.list);
+        setIsTeamLoading(false);
+      });
+    }
+
+    const allowedReasonRoles = ['SYSTEM_ADMIN', 'SUPPORT_L1', 'SUPPORT_L2', 'SUPPORT_L3', 'TEAM_LEAD'];
+    if (allowedReasonRoles.some(role => user.roles.includes(role))) {
+      getAssignReasons();
+    }
+
+    if (user.roles.includes('TEAM_LEAD')) {
+      getTeamMember()
+    }
   }, []);
 
   const getAssignReasons = () => {
-    const allowedRoles = ['SYSTEM_ADMIN', 'SUPPORT_L1', 'SUPPORT_L2', 'SUPPORT_L3'];
-
     const hasAccess = allowedRoles.some(role => user.roles.includes(role));
-    console.log(hasAccess, user)
     dispatch(assignmentReasons(hasAccess ? 'TEAM' : user.roles.includes('TEAM_LEAD') ? 'User' : '')).then((res) => {
       setReasonList(res.payload.list)
     })
   }
 
+  const getTeamMember = () => {
+    dispatch(teamsMember(user.teamId)).then((res) => {
+      if (res.payload.status == 200) {
+        setDataList(res.payload.data.items);
+      }
+    })
+  }
+
   const submit = () => {
     setIsLoading(true);
+    if (allowedRoles.some(role => user.roles.includes(role))) {
+      teamAssignee()
+    }
+
+    if (user.roles.includes('TEAM_LEAD')) {
+      userAssignee()
+    }
+
+  };
+
+  const teamAssignee = () => {
     const saveObj = {
       id: data?.workItemId,
       obj: {
@@ -85,8 +111,27 @@ const TicketAssignForm = (props) => {
       }
       setIsLoading(false);
     });
-  };
+  }
 
+  const userAssignee = () => {
+    const saveObj = {
+      id: data?.workItemId,
+      obj: {
+        userId: watch('teamId'),
+        assignmentComment: watch('assignmentComment'),
+        assignmentReasonCode: watch('assignmentReasonCode'),
+        expectedVersion: data?.versionNo,
+      },
+    };
+    dispatch(ticketAssignee(saveObj)).then((res) => {
+      console.log(res);
+      if (res.payload.status == "200") {
+        setOpen(false);
+        fetchList({});
+      }
+      setIsLoading(false);
+    });
+  }
   return (
     <>
       {isTeamLoading ? (
@@ -103,7 +148,7 @@ const TicketAssignForm = (props) => {
       ) : (
         <form style={{ padding: "10px" }}>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            {allowedRoles.some(role => user.roles.includes(role)) && <Grid item xs={12}>
               <SelectFields
                 fieldName="teamId"
                 label="Team"
@@ -116,7 +161,21 @@ const TicketAssignForm = (props) => {
                 }}
                 error={errors?.teamId}
               />
-            </Grid>
+            </Grid>}
+            {user.roles.includes('TEAM_LEAD') && <Grid item xs={12}>
+              <SelectFields
+                fieldName="teamId"
+                label="Team"
+                control={control}
+                options={dataList?.map(({ userId, displayName }) => {
+                  return { label: displayName, value: userId };
+                })}
+                rules={{
+                  required: "Team is required",
+                }}
+                error={errors?.teamId}
+              />
+            </Grid>}
             <Grid item xs={12}>
               <SelectFields
                 fieldName="assignmentReasonCode"
