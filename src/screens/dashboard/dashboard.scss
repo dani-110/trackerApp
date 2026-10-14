@@ -60,6 +60,9 @@
   padding: 10px 18px;
   border-bottom: 1px solid var(--mui-palette-divider);
 }
+.priorityWorkRow:hover{
+  background-color: var(--mui-palette-action-hover);
+}
 
 .priorityWorkRow:last-child {
   border-bottom: 0;

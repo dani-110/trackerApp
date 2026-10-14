@@ -3,12 +3,8 @@ import TabelContainer from '../../components/table/table';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
 import { useNavigate } from 'react-router-dom';
-import { Box, IconButton } from '@mui/material';
-import { MdMoreVert } from 'react-icons/md';
-import CustomPopover from '../../components/customPopover/customPopover';
-import ModalButton from '../../components/modalButton/modalButton';
-import TicketClassifyForm from './ticketClassifyForm';
-import TicketAssignForm from './ticketAssignForm';
+import { Box, IconButton, useTheme } from '@mui/material';
+import { ArrowRight } from 'lucide-react';
 
 const DataGrid = (props) => {
     const { isLoading, fetchList, search = '' } = props
@@ -82,46 +78,14 @@ export default DataGrid;
 
 const TableAction = (data) => {
     const item = data.id
-    const [openView, setOpenView] = useState(false);
-    const [modalContent, setModalContent] = useState(null);
-    const [heading, setHeading] = useState('');
+    const theme=useTheme();
     const navigate = useNavigate()
-    const popoverOptions = [
-        {
-            label: "Details",
-            onClick: () => {
-                navigate(`Details`, { state: item })
-            }
-        },
-        {
-            label: "Ticket Assign",
-            onClick: () => {
-                setModalContent(<TicketAssignForm data={item} setOpen={setOpenView} fetchList={data.fetchList} />);
-                setHeading('Assign Team to Ticket')
-                setOpenView(true);
-            }
-        },
-        {
-            label: "Classify Ticket",
-            disabled: item?.workTypeCode !== "UNCLASSIFIED",
-
-            onClick: () => {
-                setModalContent(<TicketClassifyForm data={item} setOpen={setOpenView} fetchList={data.fetchList} />);
-                setHeading('Classify Ticket')
-                setOpenView(true);
-            }
-        },
-    ];
+   
     return (
         <Box>
-            <CustomPopover
-                title="Actions"
-                options={popoverOptions}
-            />
-
-            <ModalButton open={openView} setOpen={setOpenView} heading={heading} width={'30%'}>
-                {modalContent}
-            </ModalButton>
+           <IconButton onClick={() => navigate(`Details`, { state: item })} size="small">
+                <ArrowRight size={17} color={theme.palette.textColor} />
+            </IconButton>
         </Box>
     )
 }

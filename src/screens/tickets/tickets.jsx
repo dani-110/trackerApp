@@ -1,6 +1,5 @@
 import {
   Box,
-  Typography,
   Chip,
   TextField,
   InputAdornment,
@@ -34,7 +33,7 @@ const Tickets = () => {
     dispatch(getdashboarddata({ silent: true }))
       .unwrap()
       .then((data) => {
-        setTeamCode(data?.priorityWork?.[0]?.teamCode ?? data?.teamCode ?? "");
+        setTeamCode(data?.summary?.teamCode?? "");
       })
       .catch(() => setTeamCode(""));
   }, []);

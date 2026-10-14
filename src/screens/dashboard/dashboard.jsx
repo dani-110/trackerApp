@@ -121,6 +121,18 @@ const Dashboard = () => {
 
   const { priorityWork = [], today = [] } = dashboard;
 
+const actionableToday = today.filter((item) => {
+  if (item.actionCode === "CLASSIFY_TICKETS") {
+    return summary.canClassify && summary.actionableUnclassifiedCount > 0;
+  }
+
+  if (item.actionCode === "APPROVE_ACKNOWLEDGEMENTS") {
+    return summary.canApprove && summary.actionableApprovalCount > 0;
+  }
+
+  return true; // Keep other items, such as the timesheet deadline.
+});
+
   return (
     <Box className="screenPage dashboardPage">
       {pageHeader}
@@ -256,8 +268,8 @@ const Dashboard = () => {
           </Box>
 
           <Box className="todayList">
-            {today.length > 0 ? (
-              today.map((item) => (
+            {actionableToday.length > 0 ? (
+  actionableToday.map((item) => (
                 <Box className="todayRow" key={item.actionCode}>
                   <Box
                     className={`todayStatus ${

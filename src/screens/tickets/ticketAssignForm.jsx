@@ -74,7 +74,7 @@ const TicketAssignForm = (props) => {
       id: data?.workItemId,
       obj: {
         ...setDataObject(getValues()),
-        expectedVersion: data?.versionNo,
+        expectedVersion: data?.workItemVersionNo,
       },
     };
     dispatch(ticketAssignment(saveObj)).then((res) => {
