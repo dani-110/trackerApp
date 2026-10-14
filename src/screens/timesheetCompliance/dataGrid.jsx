@@ -51,7 +51,7 @@ const DataGrid = (props) => {
         timesheetCompliance.forEach((ele) => {
             const obj = { ...ele }
             obj['createdAtValue'] = moment(ele.createdAt).format('DD MMM YYYY')
-            obj['duration'] = formatDuration(ele.committedMinutes)
+            obj['duration'] = formatDuration(ele.loggedMinutes)
             obj['complianceAt'] = checkSubmissionStatus(ele)
             arr.push(obj)
         })
