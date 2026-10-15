@@ -33,7 +33,7 @@ const TicketAssignForm = (props) => {
       assignmentComment: "",
     },
   });
-  
+
   const {
     control,
     handleSubmit,
@@ -76,10 +76,13 @@ const TicketAssignForm = (props) => {
   }
 
   const getTeamMember = () => {
+    setIsTeamLoading(true);
     dispatch(teamsMember(user.teamId)).then((res) => {
+      console.log(res.payload.data.items)
       if (res.payload.status == 200) {
         setDataList(res.payload.data.items);
       }
+      setIsTeamLoading(false);
     })
   }
 
@@ -220,7 +223,7 @@ const TicketAssignForm = (props) => {
                       sx={{ marginRight: 1, color: "#fff" }}
                     />
                   )}
-                   {allowedRoles.some((role) => user.roles.includes(role))
+                  {allowedRoles.some((role) => user.roles.includes(role))
                     ? "Assign team"
                     : "Assign user"}
                 </Button>
