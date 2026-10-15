@@ -16,7 +16,7 @@ const AcknowledgeStatus = ({ value }) => {
             padding: '2px 9px',
             display: 'inline-block',
             width: 'fit-content',
-        }} > <Typography variant='body1' sx={{ color: colors.color, textAlign: 'center', fontSize: 10, fontWeight: 700 }}>{value}</Typography>
+        }} > <Typography variant='body1' sx={{ color: colors.color, textAlign: 'center', fontSize: 10, fontWeight: 600 }}>{value}</Typography>
         </Box>
     )
 }

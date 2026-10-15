@@ -33,7 +33,7 @@ const WorkTypeCode = ({ value }) => {
           color: colors.color,
           textAlign: "center",
           fontSize: 10,
-          fontWeight: 700,
+          fontWeight: 600,
         }}
       >
         {value}

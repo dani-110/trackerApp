@@ -71,6 +71,8 @@ const generateTheme = (mode) => {
             approvalQueueText:"#5650c9",
             
             modalButtonHeaderBackground: "linear-gradient(135deg, #101a2c, #1b3151)",
+            modalButtonBackground: "#fbfbfb",
+            modalButtonBorder: "#dce4ef",
             PanelHeaderBackground:"aliceblue"
 
           }
@@ -137,6 +139,8 @@ const generateTheme = (mode) => {
 
 
             modalButtonHeaderBackground: "linear-gradient(135deg, #201d45, #2c3a8d)",
+            modalButtonBackground: "linear-gradient(135deg, #101a2c, #1b3151)",
+            modalButtonBorder: "linear-gradient(135deg, #101a2c, #1b3151)",
             PanelHeaderBackground:"#253e54cf"
           }),
     },

@@ -25,8 +25,13 @@ const ModalButton = (props) => {
     startIcon,
     endIcon,
     disabled,
+    className,
+    variant = "contained",
   } = props;
   const theme = useTheme();
+  const buttonVariant = variant === "outline" ? "outlined" : variant;
+  const isLightOutlined =
+    theme.palette.mode === "light" && buttonVariant === "outlined";
   const breadCrumCtxt = useContext(BreadCrumSelectorContext);
 
   const handleOpen = () => {
@@ -52,21 +57,45 @@ const ModalButton = (props) => {
           {type == "button" ? (
             <Button
               size="medium"
-              variant="contained"
-              color= {theme.palette.mode === "dark" ? "secondary" : "primary"}
+              variant={buttonVariant}
+              className={className}
               sx={{
                 margin: "0px 0px 10px",
-                minHeight: 40,
+                minHeight: isLightOutlined ? 34 : 40,
                 px: 2,
                 borderRadius: "8px",
-                background: "linear-gradient(135deg, #665df0, #596ee8)",
-                borderColor: "#ffffff17",
-                boxShadow: "0 7px 20px #4e49ce35",
+                // borderColor:
+                //   buttonVariant === "outlined" ? "#665df0" : "#ffffff17",
+                background:
+                  buttonVariant === "contained"
+                    ? "linear-gradient(135deg, #665df0, #596ee8)"
+                    : theme.palette.modalButtonBackground,
+                color:
+                  buttonVariant === "contained"
+                    ? "#fff"
+                    : isLightOutlined
+                      ? "#353a41"
+                      : "inherit",
+                borderColor: isLightOutlined
+                  ? theme.palette.modalButtonBorder
+                  : undefined,
+                boxShadow:
+                  buttonVariant === "contained"
+                    ? "0 7px 20px #4e49ce35"
+                    : "none",
                 textTransform: "none",
-                fontWeight: 600,
+                fontSize: isLightOutlined ? 12 : undefined,
+                fontWeight: isLightOutlined ? 500 : 600,
                 "&:hover": {
-                  background: "linear-gradient(135deg, #665df0, #596ee8)",
-                  filter: "brightness(0.96)",
+                  background:
+                    buttonVariant === "contained"
+                      ? "linear-gradient(135deg, #665df0, #596ee8)"
+                      : isLightOutlined
+                        ? "#edf2f8"
+                        : "rgba(102, 93, 240, 0.08)",
+                  borderColor: isLightOutlined ? "#cbd7e5" : "#665df0",
+                  filter:
+                    buttonVariant === "contained" ? "brightness(0.96)" : "none",
                 },
               }}
               onClick={handleOpen}
