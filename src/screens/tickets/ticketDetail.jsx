@@ -46,6 +46,7 @@ const TicketDetail = () => {
     const [ticket, setTicket] = useState(initialTicket);
     const [isLoading, setIsLoading] = useState(Boolean(initialTicket?.workItemId));
     const [openClassify, setOpenClassify] = useState(false);
+    const [openAssignTicket, setOpenAssignTicket] = useState(false);
     const [openAssign, setOpenAssign] = useState(false);
     const [openApproval, setOpenApproval] = useState(false);
     const [actionMenuAnchor, setActionMenuAnchor] = useState(null);
@@ -234,7 +235,7 @@ const TicketDetail = () => {
                         <PermissionComp name='TICKET_ASSIGN'>
                             <Button
                                 variant="outlined"
-                                onClick={() => setOpenClassify(true)}
+                                onClick={() => setOpenAssignTicket(true)}
                                 className="ticketPrimaryAction"
                             >
                                 {hasAccess}
@@ -354,7 +355,18 @@ const TicketDetail = () => {
             )}
 
             <ModalButton
-                open={openClassify}
+                open={openAssignTicket}
+                setOpen={setOpenAssignTicket}
+                heading="Assign Ticket"
+            >
+                <TicketAssignForm
+                    data={ticket}
+                    setOpen={setOpenAssignTicket}
+                    fetchList={refreshTicket}
+                />
+            </ModalButton>
+            <ModalButton
+                open={openAssignTicket}
                 setOpen={setOpenClassify}
                 heading="Classify ticket"
             >
