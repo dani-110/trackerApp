@@ -54,6 +54,7 @@ const TicketDetail = () => {
 
     const allowedRoles = ['SYSTEM_ADMIN', 'SUPPORT_L1', 'SUPPORT_L2', 'SUPPORT_L3'];
     const hasAccess = allowedRoles.some(role => user.roles.includes(role)) ? 'Assign Team' : user.roles.includes('TEAM_LEAD') ? 'Assign User' : '';
+    const reassignButton = allowedRoles.some(role => user.roles.includes(role)) ? 'Reassign Team' : user.roles.includes('TEAM_LEAD') ? 'Reassign User' : '';
 
     useEffect(() => {
         if (!initialTicket?.workItemId) return;
@@ -348,7 +349,7 @@ const TicketDetail = () => {
                             onClick={() => setOpenAssign(true)}
                             className="ticketReassignButton"
                         >
-                            Reassign team
+                            {reassignButton}
                         </Button>
                     </Box>
                 </Box>
