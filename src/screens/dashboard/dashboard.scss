@@ -69,9 +69,9 @@
 }
 
 .priorityWorkIndicator {
-  width: 7px;
-  height: 7px;
-  flex: 0 0 7px;
+  width: 9px;
+  height: 9px;
+  flex: 0 0 9px;
   border-radius: 50%;
   background: #6258ed;
 }
@@ -84,7 +84,7 @@
 .priorityWorkTitle {
   overflow: hidden;
   color: var(--mui-palette-text-primary) !important;
-  font-size: 12px !important;
+  font-size: 13px !important;
   font-weight: 700 !important;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -94,7 +94,7 @@
   margin-top: 3px !important;
   overflow: hidden;
   color: var(--mui-palette-text-secondary) !important;
-  font-size: 10px !important;
+  font-size: 11px !important;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
