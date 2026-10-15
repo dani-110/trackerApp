@@ -37,33 +37,24 @@ import Communication from "./communication";
 import PermissionComp from "../../components/permissionComp/permissionComp";
 
 const TicketDetail = () => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  const navigate = useNavigate();
-  const currentUser = useSelector((state) => state.auth.user);
-  const knownUsers = useSelector((state) => state.users.users);
-  const initialTicket = location.state || null;
-  const [ticket, setTicket] = useState(initialTicket);
-  const [isLoading, setIsLoading] = useState(
-    Boolean(initialTicket?.workItemId),
-  );
-  const [openClassify, setOpenClassify] = useState(false);
-  const [openAssign, setOpenAssign] = useState(false);
-  const [openApproval, setOpenApproval] = useState(false);
-  const [actionMenuAnchor, setActionMenuAnchor] = useState(null);
-  const { user } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const location = useLocation();
+    const navigate = useNavigate();
+    const currentUser = useSelector((state) => state.auth.user);
+    const knownUsers = useSelector((state) => state.users.users);
+    const initialTicket = location.state || null;
+    const [ticket, setTicket] = useState(initialTicket);
+    const [isLoading, setIsLoading] = useState(Boolean(initialTicket?.workItemId));
+    const [openClassify, setOpenClassify] = useState(false);
+    const [openAssignTicket, setOpenAssignTicket] = useState(false);
+    const [openAssign, setOpenAssign] = useState(false);
+    const [openApproval, setOpenApproval] = useState(false);
+    const [actionMenuAnchor, setActionMenuAnchor] = useState(null);
+    const { user } = useSelector(state => state.auth)
 
-  const allowedRoles = [
-    "SYSTEM_ADMIN",
-    "SUPPORT_L1",
-    "SUPPORT_L2",
-    "SUPPORT_L3",
-  ];
-  const hasAccess = allowedRoles.some((role) => user.roles.includes(role))
-    ? "Assign Team"
-    : user.roles.includes("TEAM_LEAD")
-      ? "Assign User"
-      : "";
+    const allowedRoles = ['SYSTEM_ADMIN', 'SUPPORT_L1', 'SUPPORT_L2', 'SUPPORT_L3'];
+    const hasAccess = allowedRoles.some(role => user.roles.includes(role)) ? 'Assign Team' : user.roles.includes('TEAM_LEAD') ? 'Assign User' : '';
+    const reassignButton = allowedRoles.some(role => user.roles.includes(role)) ? 'Reassign Team' : user.roles.includes('TEAM_LEAD') ? 'Reassign User' : '';
 
   useEffect(() => {
     if (!initialTicket?.workItemId) return;
@@ -121,6 +112,7 @@ const TicketDetail = () => {
       matchingUser?.fullName ||
       matchingUser?.name ||
       matchingUser?.username;
+
 
     if (resolvedName) return resolvedName;
 
@@ -387,27 +379,27 @@ const TicketDetail = () => {
                 </strong>
               </Box>
             </Box>
-            <ModalButton
-              type="button"
-              label={
-                hasAccess === "Assign Team" ? "Reassign team" : "Reassign user"
-              }
-             heading={
-  hasAccess 
-}
-              variant="outlined"
-              startIcon={<Users size={15} />}
-              open={openAssign}
-              setOpen={setOpenAssign}
-              className="ticketReassignButton"
-            >
-              <TicketAssignForm
-                data={ticket}
-                setOpen={setOpenAssign}
-                fetchList={refreshTicket}
-              />
-            </ModalButton>
-          </Box>
+                        <ModalButton
+                            type="button"
+                            label={reassignButton}
+                            heading={
+                                hasAccess
+                            }
+                            variant="outlined"
+                            startIcon={<Users size={15} />}
+                            open={openAssign}
+                            setOpen={setOpenAssign}
+                            className="ticketReassignButton"
+                        >
+                            <TicketAssignForm
+                                data={ticket}
+                                setOpen={setOpenAssign}
+                                fetchList={refreshTicket}
+                            />
+                        </ModalButton>
+                    </Box>
+                </Box>
+            )}
         </Box>
       )}
     </Box>
