@@ -220,7 +220,9 @@ const TicketAssignForm = (props) => {
                       sx={{ marginRight: 1, color: "#fff" }}
                     />
                   )}
-                  Assign Team
+                   {allowedRoles.some((role) => user.roles.includes(role))
+                    ? "Assign team"
+                    : "Assign user"}
                 </Button>
               </ButtonContainer>
             </Grid>
