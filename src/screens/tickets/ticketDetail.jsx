@@ -233,38 +233,60 @@ const TicketDetail = () => {
                 </Box>
                 <Box className="ticketDetailActions">
                     {hasAccess && (
-                        <PermissionComp name='TICKET_ASSIGN'>
-                            <Button
+                        <PermissionComp name="TICKET_ASSIGN">
+                            <ModalButton
+                                type="button"
+                                label={hasAccess}
+                                heading={hasAccess}
                                 variant="outlined"
-                                onClick={() => setOpenAssignTicket(true)}
-                                className="ticketPrimaryAction"
+                                startIcon={<Users size={15} />}
+                                open={openAssign}
+                                setOpen={setOpenAssign}
                             >
-                                {hasAccess}
-                            </Button>
+                                <TicketAssignForm
+                                    data={ticket}
+                                    setOpen={setOpenAssign}
+                                    fetchList={refreshTicket}
+                                />
+                            </ModalButton>
                         </PermissionComp>
                     )}
 
                     {isUnclassified && (
-                        <PermissionComp name='TICKET_CLASSIFY'>
-                            <Button
+                        <PermissionComp name="TICKET_CLASSIFY">
+                            <ModalButton
+                                type="button"
+                                label="Classify ticket"
+                                heading="Classify ticket"
                                 variant="contained"
-                                onClick={() => setOpenClassify(true)}
-                                className="ticketPrimaryAction"
+                                open={openClassify}
+                                setOpen={setOpenClassify}
                             >
-                                Classify ticket
-                            </Button>
+                                <TicketClassifyForm
+                                    data={ticket}
+                                    setOpen={setOpenClassify}
+                                    fetchList={refreshTicket}
+                                />
+                            </ModalButton>
                         </PermissionComp>
                     )}
                     {canReview && (
-                        <PermissionComp name='TICKET_ACK_APPROVE'>
-                            <Button
+                        <PermissionComp name="TICKET_ACK_APPROVE">
+                            <ModalButton
+                                type="button"
+                                label="Review acknowledgement"
+                                heading="Review acknowledgement"
                                 variant="contained"
-                                onClick={() => setOpenApproval(true)}
-                                className="ticketPrimaryAction"
                                 startIcon={<Check size={15} />}
+                                open={openApproval}
+                                setOpen={setOpenApproval}
                             >
-                                Review acknowledgement
-                            </Button>
+                                <TicketAckApprove
+                                    data={ticket}
+                                    setOpen={setOpenApproval}
+                                    onApproved={refreshTicket}
+                                />
+                            </ModalButton>
                         </PermissionComp>
                     )}
                 </Box>
@@ -343,62 +365,27 @@ const TicketDetail = () => {
                                 <strong>{ticket?.workItemVersionNo ?? ticket?.versionNo ?? "-"}</strong>
                             </Box>
                         </Box>
-                        <Button
+                        <ModalButton
+                            type="button"
+                            label={reassignButton}
+                            heading={
+                                hasAccess
+                            }
                             variant="outlined"
                             startIcon={<Users size={15} />}
-                            onClick={() => setOpenAssign(true)}
+                            open={openAssign}
+                            setOpen={setOpenAssign}
                             className="ticketReassignButton"
                         >
-                            {reassignButton}
-                        </Button>
+                            <TicketAssignForm
+                                data={ticket}
+                                setOpen={setOpenAssign}
+                                fetchList={refreshTicket}
+                            />
+                        </ModalButton>
                     </Box>
                 </Box>
             )}
-
-            <ModalButton
-                open={openAssignTicket}
-                setOpen={setOpenAssignTicket}
-                heading="Assign Ticket"
-            >
-                <TicketAssignForm
-                    data={ticket}
-                    setOpen={setOpenAssignTicket}
-                    fetchList={refreshTicket}
-                />
-            </ModalButton>
-            <ModalButton
-                open={openAssignTicket}
-                setOpen={setOpenClassify}
-                heading="Classify ticket"
-            >
-                <TicketClassifyForm
-                    data={ticket}
-                    setOpen={setOpenClassify}
-                    fetchList={refreshTicket}
-                />
-            </ModalButton>
-            <ModalButton
-                open={openAssign}
-                setOpen={setOpenAssign}
-                heading="Reassign team"
-            >
-                <TicketAssignForm
-                    data={ticket}
-                    setOpen={setOpenAssign}
-                    fetchList={refreshTicket}
-                />
-            </ModalButton>
-            <ModalButton
-                open={openApproval}
-                setOpen={setOpenApproval}
-                heading="Review acknowledgement"
-            >
-                <TicketAckApprove
-                    data={ticket}
-                    setOpen={setOpenApproval}
-                    onApproved={refreshTicket}
-                />
-            </ModalButton>
         </Box>
     );
 };
