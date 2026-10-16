@@ -156,6 +156,21 @@
     display: grid;
     place-items: center;
   }
+  .notificationIcon {
+    position: absolute;
+    right: 144px;
+    top: 17px;
+    background: #f04438;
+    color: white;
+    border: 2px solid white;
+    border-radius: 50%;
+    font-size: 9px;
+    width: 17px;
+    height: 17px;
+    display: grid;
+    place-items: center;
+    font-style: normal;
+  }
 
   .profileMenuWrap {
     position: relative;
@@ -253,7 +268,7 @@
     gap: 11px;
     padding: 10px 4px;
     border: 0;
-    background:  var(--mui-palette-background-paper);
+    background: var(--mui-palette-background-paper);
     text-align: left;
     cursor: pointer;
   }
@@ -288,7 +303,7 @@
 
 @media (max-width: 650px) {
   .headerContainer .globalSearch,
-  .headerContainer  {
+  .headerContainer {
     display: none;
   }
 }

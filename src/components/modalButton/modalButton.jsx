@@ -5,7 +5,6 @@ import {
   Modal,
   Tooltip,
   Typography,
-  useTheme,
 } from "@mui/material";
 import React, { useContext } from "react";
 import { BreadCrumSelectorContext } from "../../store/context/breadCrumSelector";
@@ -28,10 +27,7 @@ const ModalButton = (props) => {
     className,
     variant = "contained",
   } = props;
-  const theme = useTheme();
   const buttonVariant = variant === "outline" ? "outlined" : variant;
-  const isLightOutlined =
-    theme.palette.mode === "light" && buttonVariant === "outlined";
   const breadCrumCtxt = useContext(BreadCrumSelectorContext);
 
   const handleOpen = () => {
@@ -61,42 +57,20 @@ const ModalButton = (props) => {
               className={className}
               sx={{
                 margin: "0px 0px 10px",
-                minHeight: isLightOutlined ? 34 : 40,
-                px: 2,
-                borderRadius: "8px",
-                // borderColor:
-                //   buttonVariant === "outlined" ? "#665df0" : "#ffffff17",
-                background:
-                  buttonVariant === "contained"
-                    ? "linear-gradient(135deg, #665df0, #596ee8)"
-                    : theme.palette.modalButtonBackground,
-                color:
-                  buttonVariant === "contained"
-                    ? "#fff"
-                    : isLightOutlined
-                      ? "#353a41"
-                      : "inherit",
-                borderColor: isLightOutlined
-                  ? theme.palette.modalButtonBorder
-                  : undefined,
-                boxShadow:
-                  buttonVariant === "contained"
-                    ? "0 7px 20px #4e49ce35"
-                    : "none",
-                textTransform: "none",
-                fontSize: isLightOutlined ? 12 : undefined,
-                fontWeight: isLightOutlined ? 500 : 600,
-                "&:hover": {
-                  background:
-                    buttonVariant === "contained"
-                      ? "linear-gradient(135deg, #665df0, #596ee8)"
-                      : isLightOutlined
-                        ? "#edf2f8"
-                        : "rgba(102, 93, 240, 0.08)",
-                  borderColor: isLightOutlined ? "#cbd7e5" : "#665df0",
-                  filter:
-                    buttonVariant === "contained" ? "brightness(0.96)" : "none",
-                },
+                ...(buttonVariant === "contained" && {
+                  minHeight: 40,
+                  px: 2,
+                  borderRadius: "8px",
+                  background: "linear-gradient(135deg, #665df0, #596ee8)",
+                  color: "#fff",
+                  boxShadow: "0 7px 20px #4e49ce35",
+                  textTransform: "none",
+                  fontWeight: 600,
+                  "&:hover": {
+                    background: "linear-gradient(135deg, #665df0, #596ee8)",
+                    filter: "brightness(0.96)",
+                  },
+                }),
               }}
               onClick={handleOpen}
               disabled={disabled}

@@ -14,6 +14,7 @@ import ApprovalQueue from "../screens/tickets/approvalQueue";
 import TimeSheet from "../screens/timesheet/timeSheet";
 import TimesheetCompliance from "../screens/timesheetCompliance/timesheetCompliance";
 import Dashboard from "../screens/dashboard/dashboard";
+import Notification from "../screens/notification/notification";
 
 export const privateRoutes = [
   { index: true, element: <Dashboard /> }, 
@@ -48,6 +49,10 @@ export const privateRoutes = [
   {
     path: "approvals",
     element: <ApprovalQueue />,
+  },
+  {
+    path: "notification",
+    element: <Notification />,
   },
   {
     path: "teams",
