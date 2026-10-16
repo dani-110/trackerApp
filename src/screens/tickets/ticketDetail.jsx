@@ -48,6 +48,7 @@ const TicketDetail = () => {
     const [openClassify, setOpenClassify] = useState(false);
     const [openAssignTicket, setOpenAssignTicket] = useState(false);
     const [openAssign, setOpenAssign] = useState(false);
+    const [openReAssign, setOpenReAssign] = useState(false);
     const [openApproval, setOpenApproval] = useState(false);
     const [actionMenuAnchor, setActionMenuAnchor] = useState(null);
     const { user } = useSelector(state => state.auth)
@@ -387,13 +388,13 @@ const TicketDetail = () => {
                             }
                             variant="outlined"
                             startIcon={<Users size={15} />}
-                            open={openAssign}
-                            setOpen={setOpenAssign}
+                            open={openReAssign}
+                            setOpen={setOpenReAssign}
                             className="ticketReassignButton"
                         >
                             <TicketAssignForm
                                 data={ticket}
-                                setOpen={setOpenAssign}
+                                setOpen={setOpenReAssign}
                                 fetchList={refreshTicket}
                             />
                         </ModalButton>
