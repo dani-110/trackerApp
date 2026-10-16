@@ -97,12 +97,7 @@
 }
 
 .modalButtonContent .modalActionContainer .MuiButton-root {
-  min-height: 38px;
-  border-radius: 8px;
-  padding: 0 14px;
-  font-size: 12px;
-  font-weight: 600;
-  text-transform: none;
+  margin-bottom: 0;
 }
 
 .modalButtonContent .modalActionContainer .MuiButton-contained {
@@ -114,16 +109,6 @@
 .modalButtonContent .modalActionContainer .MuiButton-contained:hover {
   background: linear-gradient(125deg, #6c7ddd, #6056ed);
   filter: brightness(0.96);
-}
-
-.modalButtonContent .modalActionContainer .MuiButton-outlined {
-  border-color: var(--mui-palette-divider);
-  color: var(--mui-palette-text-primary) !important;
-}
-
-.modalButtonContent .modalActionContainer .MuiButton-outlined:hover {
-  border-color: #6d65e2;
-  background: rgba(109, 101, 226, 0.08);
 }
 
 @media (max-width: 600px) {

@@ -165,8 +165,9 @@ const Header = (props) => {
             {themeCtxt.themeSelector ? <Sun size={17} /> : <Moon size={17} />}
           </button>
 
-          <button type="button" className="bell" aria-label="Notifications">
+          <button type="button" className="bell" aria-label="Notifications" onClick={()=>navigate("/notification")}>
             <Bell size={18} />
+            <span className="notificationIcon">2</span>
           </button>
 
           <Box className="profileMenuWrap">
