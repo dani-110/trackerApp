@@ -121,6 +121,18 @@ const Dashboard = () => {
 
   const { priorityWork = [], today = [] } = dashboard;
 
+  const actionableToday = today.filter((item) => {
+    if (item.actionCode === "CLASSIFY_TICKETS") {
+      return summary.canClassify && summary.actionableUnclassifiedCount > 0;
+    }
+
+    if (item.actionCode === "APPROVE_ACKNOWLEDGEMENTS") {
+      return summary.canApprove && summary.actionableApprovalCount > 0;
+    }
+
+    return true; // Keep other items, such as the timesheet deadline.
+  });
+
   return (
     <Box className="screenPage dashboardPage">
       {pageHeader}
@@ -164,10 +176,12 @@ const Dashboard = () => {
       <Box className="dashboardMainGrid">
         {/* Priority Work */}
         <Box className="dashboardPanel">
-          <Box className="dashboardPanelHeader"
-          sx={{
-            backgroundColor:theme.palette.PanelHeaderBackground
-          }}>
+          <Box
+            className="dashboardPanelHeader"
+            sx={{
+              backgroundColor: theme.palette.PanelHeaderBackground,
+            }}
+          >
             <Box>
               <Typography className="dashboardPanelTitle">
                 Priority work
@@ -183,24 +197,30 @@ const Dashboard = () => {
               className="dashboardViewAll"
               onClick={() => navigate("/tickets")}
             >
-              View all 
-              <IconButton
-                    size="small"
-                  >
-                    <ArrowRight size={17} />
-                  </IconButton>
-
+              View all
+              <IconButton size="small">
+                <ArrowRight size={17} />
+              </IconButton>
             </button>
           </Box>
 
           <Box className="priorityWorkList">
             {priorityWork.length > 0 ? (
               priorityWork.map((item) => (
-                <Box className="priorityWorkRow" key={item.workItemId}>
+                <Box
+                  className="priorityWorkRow"
+                  onClick={() =>
+                    navigate("/tickets/Details", {
+                      state: item,
+                    })
+                  }
+                  key={item.workItemId}
+                >
                   <Box
                     className="priorityWorkIndicator"
                     sx={{
-                      backgroundColor: getWorkTypeCodeStyle(item.workTypeCode).color,
+                      backgroundColor: getWorkTypeCodeStyle(item.workTypeCode)
+                        .color,
                     }}
                   />
 
@@ -220,14 +240,7 @@ const Dashboard = () => {
 
                   <WorkTypeCode value={item.workTypeCode} />
 
-                  <IconButton
-                    onClick={() =>
-                      navigate("/tickets/Details", {
-                        state: item,
-                      })
-                    }
-                    size="small"
-                  >
+                  <IconButton size="small">
                     <ArrowRight size={17} color={theme.palette.textColor} />
                   </IconButton>
                 </Box>
@@ -242,10 +255,12 @@ const Dashboard = () => {
 
         {/* Today */}
         <Box className="dashboardPanel todayPanel">
-          <Box className="dashboardPanelHeader"
-          sx={{
-            backgroundColor:theme.palette.PanelHeaderBackground
-          }}>
+          <Box
+            className="dashboardPanelHeader"
+            sx={{
+              backgroundColor: theme.palette.PanelHeaderBackground,
+            }}
+          >
             <Box>
               <Typography className="dashboardPanelTitle">Today</Typography>
 
@@ -256,8 +271,8 @@ const Dashboard = () => {
           </Box>
 
           <Box className="todayList">
-            {today.length > 0 ? (
-              today.map((item) => (
+            {actionableToday.length > 0 ? (
+              actionableToday.map((item) => (
                 <Box className="todayRow" key={item.actionCode}>
                   <Box
                     className={`todayStatus ${

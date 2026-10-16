@@ -20,7 +20,11 @@ const authSlice = createSlice({
       state.isLoggedIn = true;
       const obj = {
        ...action.payload.user,
-        token:action.payload.accessToken
+        token:action.payload.accessToken,
+        teamId:action.payload.teamId,
+        teamCode:action.payload.teamCode,
+        teamName:action.payload.teamName,
+        membershipRole:action.payload.membershipRole,
       }
       state.user = obj;
       // localStorage.setItem('eCheque', JSON.stringify(obj));

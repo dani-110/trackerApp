@@ -1,6 +1,5 @@
 import {
   Box,
-  Typography,
   Chip,
   TextField,
   InputAdornment,
@@ -16,6 +15,7 @@ import { getdashboarddata } from "../../store/actions/auth";
 import TicketCreateForm from "./ticketCreateForm";
 import { Search } from "lucide-react";
 import PageHeader from "../../components/pageHeader/pageHeader";
+import PermissionComp from "../../components/permissionComp/permissionComp";
 
 const Tickets = () => {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const Tickets = () => {
     dispatch(getdashboarddata({ silent: true }))
       .unwrap()
       .then((data) => {
-        setTeamCode(data?.priorityWork?.[0]?.teamCode ?? data?.teamCode ?? "");
+        setTeamCode(data?.summary?.teamCode?? "");
       })
       .catch(() => setTeamCode(""));
   }, []);
@@ -91,7 +91,7 @@ const Tickets = () => {
         borderRadius: "18px",
         height: 28,
         px: 0.25,
-        border:"1px solid",
+        border: "1px solid",
         fontSize: 12,
         color:
           activeFilter === (value || key)
@@ -123,17 +123,19 @@ const Tickets = () => {
         title="Tickets"
         description="One place to triage, classify and move client work forward."
         action={
-          <ModalButton
-            open={openCreate}
-            setOpen={setOpenCreate}
-            label="New Ticket"
-            heading="Create New Ticket"
-            type="button"
-            startIcon={<IoMdAdd />}
-            width="40%"
-          >
-            <TicketCreateForm setOpen={setOpenCreate} fetchList={fetchList} />
-          </ModalButton>
+          <PermissionComp name='TICKET_CREATE'>
+            <ModalButton
+              open={openCreate}
+              setOpen={setOpenCreate}
+              label="New Ticket"
+              heading="Create New Ticket"
+              type="button"
+              startIcon={<IoMdAdd />}
+              width="40%"
+            >
+              <TicketCreateForm setOpen={setOpenCreate} fetchList={fetchList} />
+            </ModalButton>
+          </PermissionComp>
         }
       />
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 1.5 }}>

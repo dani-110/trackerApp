@@ -18,7 +18,6 @@ import {
   Rows4,
   Boxes
 } from "lucide-react";
-import UserSetting from "../../components/userSetting/userSetting";
 import { useDispatch, useSelector } from "react-redux";
 // import { useTheme } from "@emotion/react";
 import { navBar } from "../sidebar/_profileNav";
@@ -62,8 +61,9 @@ const Header = (props) => {
   );
 
   useEffect(() => {
-    setSubTab(navBar.find((val) => val.label == tab).subTab[0].label);
-    navigate(navBar.find((val) => val.label == tab).subTab[0].url);
+    const subTab = navBar.find((val) => val.label == tab).subTab?.filter(ele => user?.permissions?.includes(ele.permissions))?.[0]
+    setSubTab(subTab?.label);
+    navigate(subTab?.url);
   }, [tab]);
   const logoutAction = () => {
     let obj = {};
@@ -231,21 +231,25 @@ const Header = (props) => {
         </Box>
       </Box>
       <Box className="subTabBar">
+        {console.log(user?.permissions)}
         {navBar
           .find((val) => val.label == tab)
           .subTab.map((ele) => (
-            <Box
-              className={`subTab ${subTab == ele.label && "activeSubTab"}`}
-              onClick={() => subTabChange(ele.url, ele.label)}
-              sx={{ cursor: "pointer" }}
-            >
-              {renderIcon(ele.icon, subTab === ele.label, 20)}
-              <Typography
-                sx={{ color: subTab == ele.label ? "#fff" : "#9aa9d6" }}
+            <>
+              {user?.permissions?.includes(ele.permissions) ? <Box
+                className={`subTab ${subTab == ele.label && "activeSubTab"}`}
+                onClick={() => subTabChange(ele.url, ele.label)}
+                sx={{ cursor: "pointer" }}
               >
-                {ele.label}
-              </Typography>
-            </Box>
+                {renderIcon(ele.icon, subTab === ele.label, 20)}
+                <Typography
+                  sx={{ color: subTab == ele.label ? "#fff" : "#9aa9d6" }}
+                >
+                  {ele.label}
+                </Typography>
+              </Box>
+                : null}
+            </>
           ))}
       </Box>
     </>

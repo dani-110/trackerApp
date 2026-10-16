@@ -46,7 +46,7 @@ const TicketClassifyForm = (props) => {
       id: data?.workItemId,
       obj: {
         workTypeCode: watch("workTypeCode"),
-        expectedVersion: data?.versionNo,
+        expectedVersion: data?.workItemVersionNo,
       },
     };
     console.log(saveObj, data);

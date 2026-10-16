@@ -20,18 +20,17 @@ import { removeTeamsMember } from "../../store/actions/teams";
 
 const MemberGrid = (props) => {
   const { dataList, isLoading, fetchList } = props;
-  const { rolefiller } = useSelector((state) => state.filler);
   const [list, setList] = useState([]);
+    const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     let arr = [];
     dataList.forEach((ele) => {
+      console.log(ele)
       const obj = { ...ele };
       obj["effectiveFromValue"] = moment(ele.effectiveFrom).format(
         "DD MMM YYYY",
       );
-      obj["membershipRoleValue"] =
-        filterName(rolefiller, ele.membershipRole) || ele.membershipRole;
       arr.push(obj);
     });
     setList(arr);
@@ -42,7 +41,7 @@ const MemberGrid = (props) => {
   const verifyParam = [
     "displayName",
     "username",
-    "membershipRoleValue",
+    "membershipRole",
     "status",
     "effectiveFromValue",
   ];
@@ -51,7 +50,7 @@ const MemberGrid = (props) => {
     <>
       <TabelContainer
         tableHeader={tableHeader}
-        action={TableAction}
+        action={user?.permissions?.includes('TEAM_MEMBER_REMOVE') && TableAction}
         data={list}
         verifyParam={verifyParam}
         isLoading={isLoading}

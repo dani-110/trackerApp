@@ -219,6 +219,12 @@ export const api = {
       method: "post",
     }
   },
+  ticketAssignee: (id) => {
+    return {
+      url: `${apiURL}/tickets/${id}/assignee`,
+      method: "post",
+    }
+  },
   ticketAssignmentHistory: (id) => {
     return {
       url: `${apiURL}/tickets/${id}/assignment-history`,
@@ -234,6 +240,12 @@ export const api = {
   ticketActivityHistory: (id) => {
     return {
       url: `${apiURL}/tickets/${id}/activity-history`,
+      method: "get",
+    }
+  },
+  assignmentReasons: (type) => {
+    return {
+      url: `${apiURL}/tickets/assignment-reasons?type=${type}`,
       method: "get",
     }
   },

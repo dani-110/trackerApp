@@ -8,6 +8,7 @@ import { setDataObject } from "../../utils/Utils";
 import SelectFields from "../../components/SelectFields";
 import DatePickerFields from "../../components/datePickerField";
 import { addTeamsMember } from "../../store/actions/teams";
+import dayjs from "dayjs";
 
 const AddMemberForm = (props) => {
   const { data, setOpen, fetchList } = props;
@@ -23,7 +24,7 @@ const AddMemberForm = (props) => {
       team: "",
       userId: "",
       membershipRole: "",
-      effectiveFrom: "",
+      effectiveFrom: dayjs().format("YYYY-MM-DD"),
       effectiveTo: "",
     },
   });

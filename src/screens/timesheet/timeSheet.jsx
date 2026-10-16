@@ -11,6 +11,7 @@ import TimeProgressChart from "./timeProgressChart";
 import TimelineStatus from "../../components/timelineStatus/timelineStatus";
 import PageHeader from "../../components/pageHeader/pageHeader";
 import { Clock3 } from "lucide-react";
+import { fontWeight } from "@mui/system";
 
 const TimeSheet = () => {
   const dispatch = useDispatch();
@@ -80,7 +81,7 @@ const TimeSheet = () => {
             <Box className="timeSheetBannerMain">
               <TimeProgressChart data={header} />
               <Box className="timeSheetBannerCopy">
-                <TimelineStatus value={header.status} />
+                <TimelineStatus value={header.status}/>
                 <Typography variant="h2" className="timeSheetBannerTitle">
                   Keep today up to date
                 </Typography>
