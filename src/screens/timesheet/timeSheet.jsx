@@ -81,7 +81,7 @@ const TimeSheet = () => {
             <Box className="timeSheetBannerMain">
               <TimeProgressChart data={header} />
               <Box className="timeSheetBannerCopy">
-                <TimelineStatus value={header.status}/>
+                <TimelineStatus value={header.displayStatus}/>
                 <Typography variant="h2" className="timeSheetBannerTitle">
                   Keep today up to date
                 </Typography>

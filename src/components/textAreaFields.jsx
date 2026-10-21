@@ -12,7 +12,7 @@ const CssTextField = styled(TextField)(({ theme }) => ({
     borderRadius: "10px",
     backgroundColor: theme.palette.inputBackgroundColor,
     "& fieldset": {
-      borderColor: theme.palette.inputBorder,
+      borderColor: theme.palette.inputBorderColor,
     },
     "&:hover fieldset": {
       borderColor: theme.palette.inputFocusedColor,

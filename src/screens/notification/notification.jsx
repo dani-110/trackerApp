@@ -1,8 +1,10 @@
-import { useState } from "react";
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Box, Button, CircularProgress, Typography, useTheme } from "@mui/material";
 import { Clock3, Hourglass, Check } from "lucide-react";
 import PageHeader from "../../components/pageHeader/pageHeader";
 import moment from "moment";
+import { useDispatch } from "react-redux";
+import { notifications } from "../../store/actions/notifications";
 
 const mockNotifications = [
   {
@@ -37,6 +39,8 @@ const mockNotifications = [
 const Notification = () => {
   const theme = useTheme();
 
+  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
   const [notificationList, setNotificationList] = useState(mockNotifications);
 
   const unreadCount = notificationList.filter(
@@ -49,6 +53,28 @@ const Notification = () => {
         ...notification,
         readAt: notification.readAt ?? new Date().toISOString(),
       })),
+    );
+  };
+
+
+  useEffect(() => {
+    fetchList();
+  }, []);
+
+  const fetchList = () => {
+    setIsLoading(true);
+    const obj = {
+      unreadOnly: false,
+      page: '1',
+      pageSize: '25',
+    }
+    dispatch(notifications(obj)).then(
+      (res) => {
+        console.log(res)
+        const response = res.payload;
+        setNotificationList(response?.list);
+        setIsLoading(false);
+      },
     );
   };
 
@@ -79,122 +105,126 @@ const Notification = () => {
           }}
         ></Box>
 
-        <Box
-          sx={{
-            border: `1px solid ${theme.palette.divider}`,
-            borderRadius: 2,
-            overflow: "hidden",
-          }}
-        >
-          {notificationList.length === 0 ? (
-            <Typography sx={{ p: 3, textAlign: "center" }}>
-              No notifications
-            </Typography>
-          ) : (
-            notificationList.map((notification) => {
-              const isUnread = notification.readAt == null;
-              const isOverdue = notification.eventType === "TIMESHEET_OVERDUE";
+        {isLoading ?
+          <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+            <CircularProgress size={50} />
+          </Box>
+          : <Box
+            sx={{
+              border: `1px solid ${theme.palette.divider}`,
+              borderRadius: 2,
+              overflow: "hidden",
+            }}
+          >
+            {notificationList.length === 0 ? (
+              <Typography sx={{ p: 3, textAlign: "center" }}>
+                No notifications
+              </Typography>
+            ) : (
+              notificationList.map((notification) => {
+                const isUnread = notification.readAt == null;
+                const isOverdue = notification.eventType === "TIMESHEET_OVERDUE";
 
-              return (
-                <Box
-                  key={notification.notificationId}
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 1.5,
-                    px: 2.25,
-                    py: 1.75,
-                    borderBottom: `1px solid ${theme.palette.divider}`,
-                    backgroundColor: isUnread
-                      ? theme.palette.unreadNotificationBackground
-                      : theme.palette.background.paper,
-                    "&:last-child": {
-                      borderBottom: 0,
-                    },
-                  }}
-                >
+                return (
                   <Box
+                    key={notification.notificationId}
                     sx={{
-                      width: 36,
-                      height: 36,
-                      flex: "0 0 36px",
-                      display: "grid",
-                      placeItems: "center",
-                      borderRadius: 1.5,
-                      bgcolor: isOverdue ? "#ffe0db" : "#fff4db",
-                      color: isOverdue ? "#b80000" : "#b86b00",
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 1.5,
+                      px: 2.25,
+                      py: 1.75,
+                      borderBottom: `1px solid ${theme.palette.divider}`,
+                      backgroundColor: isUnread
+                        ? theme.palette.unreadNotificationBackground
+                        : theme.palette.background.paper,
+                      "&:last-child": {
+                        borderBottom: 0,
+                      },
                     }}
                   >
-                    {isOverdue ? <Clock3 size={19} /> : <Hourglass size={19} />}
-                  </Box>
-
-                  <Box sx={{ minWidth: 0, flex: 1 }}>
-                    <Typography
-                      sx={{
-                        color: theme.palette.text.primary,
-                        fontSize: 14,
-                        fontWeight: 600,
-                      }}
-                    >
-                      {notification.renderedSubject}
-                    </Typography>
-
-                    <Typography
-                      sx={{
-                        color: theme.palette.text.secondary,
-                        fontSize: 12,
-                      }}
-                    >
-                      {notification.renderedBody}
-                    </Typography>
-
                     <Box
                       sx={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 1,
-                        mt: 0.5,
+                        width: 36,
+                        height: 36,
+                        flex: "0 0 36px",
+                        display: "grid",
+                        placeItems: "center",
+                        borderRadius: 1.5,
+                        bgcolor: isOverdue ? "#ffe0db" : "#fff4db",
+                        color: isOverdue ? "#b80000" : "#b86b00",
                       }}
                     >
-                      <Typography
-                        sx={{
-                          color: theme.palette.text.secondary,
-                          fontSize: 11,
-                        }}
-                      >
-                        {notification.createdAt
-                          ? moment(notification.createdAt).fromNow()
-                          : ""}
-                      </Typography>
+                      {isOverdue ? <Clock3 size={19} /> : <Hourglass size={19} />}
+                    </Box>
 
+                    <Box sx={{ minWidth: 0, flex: 1 }}>
                       <Typography
                         sx={{
-                          color: isOverdue ? "#d32f2f" : "#b86b00",
-                          fontSize: 11,
+                          color: theme.palette.text.primary,
+                          fontSize: 14,
                           fontWeight: 600,
                         }}
                       >
-                        {isOverdue ? "Overdue" : "Due soon"}
+                        {notification.renderedSubject}
                       </Typography>
-                    </Box>
-                  </Box>
 
-                  {isUnread && (
-                    <Box
-                      sx={{
-                        backgroundColor: theme.palette.unreadNotificationDot,
-                        width: 7,
-                        height: 7,
-                        borderRadius: "50%",
-                        flex: "0 0 7px",
-                      }}
-                    />
-                  )}
-                </Box>
-              );
-            })
-          )}
-        </Box>
+                      <Typography
+                        sx={{
+                          color: theme.palette.text.secondary,
+                          fontSize: 12,
+                        }}
+                      >
+                        {notification.renderedBody}
+                      </Typography>
+
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          gap: 1,
+                          mt: 0.5,
+                        }}
+                      >
+                        <Typography
+                          sx={{
+                            color: theme.palette.text.secondary,
+                            fontSize: 11,
+                          }}
+                        >
+                          {notification.createdAt
+                            ? moment(notification.createdAt).fromNow()
+                            : ""}
+                        </Typography>
+
+                        <Typography
+                          sx={{
+                            color: isOverdue ? "#d32f2f" : "#b86b00",
+                            fontSize: 11,
+                            fontWeight: 600,
+                          }}
+                        >
+                          {isOverdue ? "Overdue" : "Due soon"}
+                        </Typography>
+                      </Box>
+                    </Box>
+
+                    {isUnread && (
+                      <Box
+                        sx={{
+                          backgroundColor: theme.palette.unreadNotificationDot,
+                          width: 7,
+                          height: 7,
+                          borderRadius: "50%",
+                          flex: "0 0 7px",
+                        }}
+                      />
+                    )}
+                  </Box>
+                );
+              })
+            )}
+          </Box>}
       </Box>
     </Box>
   );
