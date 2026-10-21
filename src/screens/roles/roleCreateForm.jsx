@@ -10,6 +10,7 @@ import { Plus } from "lucide-react";
 import TextAreaFields from "../../components/textAreaFields";
 import MultiSelectFields from "../../components/MultiSelectFields";
 import { createRoles, rolesPermissions, updateRoles } from "../../store/actions/roles";
+import ToggleButton from "../../components/toggleButton/toggleButton";
 
 const RoleCreateForm = (props) => {
   const { data, setOpen, fetchList, type } = props;
@@ -50,6 +51,7 @@ const RoleCreateForm = (props) => {
         code: data.code,
         name: data.name,
         description: data.description,
+        isActive: data.isActive
         // permissionIds: []
       })
     }
@@ -72,10 +74,9 @@ const RoleCreateForm = (props) => {
     setIsLoading(true);
     let obj = setDataObject(getValues());
     console.log(obj);
-    if (data.id) {
+    if (data?.id) {
       delete obj.code
       obj['expectedVersion'] = data.versionNo
-      obj['isActive'] = data.isActive
       console.log(obj)
       const saveObj = {
         obj,
@@ -162,6 +163,13 @@ const RoleCreateForm = (props) => {
               error={errors?.permissionIds}
             />
           </Grid>
+          {type == 'Update' && <Grid item xs={12}>
+            <ToggleButton
+              fieldName="isActive"
+              lable="Is Active"
+              control={control}
+            />
+          </Grid>}
           <Grid item xs={12}>
             <ButtonContainer>
               <Button
