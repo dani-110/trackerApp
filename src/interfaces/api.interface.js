@@ -109,7 +109,7 @@ export const api = {
   //================Roles==================
   roles: (id) => {
     return {
-      url: `${apiURL}/roles?activeOnly=true`,
+      url: `${apiURL}/roles?activeOnly=false`,
       method: "get",
     }
   },

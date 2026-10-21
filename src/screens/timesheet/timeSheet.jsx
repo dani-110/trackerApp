@@ -36,7 +36,7 @@ const TimeSheet = () => {
     setIsLoading(true);
     dispatch(getTimeSheetByDay(moment(watch("day")).format("YYYY-MM-DD"))).then(
       (res) => {
-        if (res.payload.status == 200) {
+        if (res?.payload?.status == 200) {
           console.log(res);
           const response = res.payload.data;
           setHeader(response.header);
