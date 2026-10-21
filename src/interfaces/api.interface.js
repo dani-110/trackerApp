@@ -23,11 +23,11 @@ export const api = {
     };
   },
   getdashboarddata: () => {
-  return {
-    url: `${apiURL}/dashboard`,
-    method: "get",
-  };
-},
+    return {
+      url: `${apiURL}/dashboard`,
+      method: "get",
+    };
+  },
   logout: () => {
     return {
       url: `${apiURL}/auth/logout`,
@@ -110,6 +110,31 @@ export const api = {
   roles: (id) => {
     return {
       url: `${apiURL}/roles?activeOnly=true`,
+      method: "get",
+    }
+  },
+  rolesPermissions: (id) => {
+    return {
+      url: `${apiURL}/roles/permissions?activeOnly=true${id ? `&roleId=${id}` : ''}`,
+      method: "get",
+    }
+  },
+  createRoles: () => {
+    return {
+      url: `${apiURL}/roles`,
+      method: "post",
+    }
+  },
+  updateRoles: (roleId) => {
+    return {
+      url: `${apiURL}/roles/${roleId}`,
+      method: "put",
+    }
+  },
+  //================Notifications==================
+  notifications: ({ unreadOnly, page, pageSize }) => {
+    return {
+      url: `${apiURL}/notifications?unreadOnly=${unreadOnly}&page=${page}&pageSize=${pageSize}`,
       method: "get",
     }
   },

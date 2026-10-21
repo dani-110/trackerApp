@@ -38,3 +38,99 @@ export const roles = createAsyncThunk(
     }
   }
 );
+export const rolesPermissions = createAsyncThunk(
+  "rolesPermissions",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.rolesPermissions(data), undefined, thunkAPI);
+      console.log(response)
+      if (response.status == '200') {
+        if (response.data.permissions.length == 0) {
+          thunkAPI.dispatch(
+            uiActions.showNotification({
+              status: "success",
+              title: "Success!",
+              message: 'Fetched! No data found',
+            })
+          );
+        }
+        return {
+          list: response.data.permissions,
+          total: response.data.totalCount
+        };
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.respdescription,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+export const createRoles = createAsyncThunk(
+  "createRoles",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.createRoles(), data, thunkAPI);
+      console.log(response)
+      if (response.status == '201') {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "success",
+            title: "Success!",
+            message: response.data.respdescription,
+          })
+        );
+        return response
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.respdescription,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+export const updateRoles = createAsyncThunk(
+  "updateRoles",
+  async (data, thunkAPI) => {
+    console.log(data)
+    try {
+      const response = await HttpService.call(api.updateRoles(data.roleId), data.obj, thunkAPI);
+      console.log(response)
+      if (response.status == '200') {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "success",
+            title: "Success!",
+            message: response.data.respdescription,
+          })
+        );
+        return response
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.respdescription,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);

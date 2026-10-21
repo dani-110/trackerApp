@@ -2,6 +2,10 @@ import { useEffect, useState } from 'react';
 import TabelContainer from '../../components/table/table';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
+import { Box } from '@mui/material';
+import ModalButton from '../../components/modalButton/modalButton';
+import RoleCreateForm from './roleCreateForm';
+import { MdEdit } from "react-icons/md";
 
 const DataGrid = (props) => {
     const { isLoading, fetchList } = props
@@ -15,7 +19,7 @@ const DataGrid = (props) => {
         roles.forEach((ele) => {
             const obj = { ...ele }
             obj['createdAtValue'] = moment(ele.createdAt).format('DD MMM YYYY')
-            obj['status'] = ele.isActive?'Active':'Not Active'
+            obj['status'] = ele.isActive ? 'Active' : 'Not Active'
             arr.push(obj)
         })
         setDataList(arr)
@@ -40,7 +44,7 @@ const DataGrid = (props) => {
     return <>
         <TabelContainer
             tableHeader={tableHeader}
-            // action={TableAction}
+            action={TableAction}
             data={dataList}
             verifyParam={verifyParam}
             isLoading={isLoading}
@@ -50,3 +54,16 @@ const DataGrid = (props) => {
 }
 export default DataGrid;
 
+
+const TableAction = (data) => {
+    const item = data.id
+    const [openView, setOpenView] = useState(false);
+    return (
+        <Box>
+
+            <ModalButton open={openView} setOpen={setOpenView} heading={'Update Role'} width={'30%'} type={'icon'} startIcon={<MdEdit />}>
+                <RoleCreateForm data={item} setOpen={setOpenView} fetchList={data.fetchList} type={'Update'} />
+            </ModalButton>
+        </Box>
+    )
+}

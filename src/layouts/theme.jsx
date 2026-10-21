@@ -71,9 +71,11 @@ const generateTheme = (mode) => {
             approvalQueueText:"#5650c9",
             
             modalButtonHeaderBackground: "linear-gradient(135deg, #101a2c, #1b3151)",
-            modalButtonBackground: "#fbfbfb",
-            modalButtonBorder: "#dce4ef",
-            PanelHeaderBackground:"aliceblue"
+            ButtonBackground: "#fbfbfb",
+            ButtonBorder: "#dce4ef",
+            PanelHeaderBackground:"aliceblue",
+            unreadNotificationBackground:"#eeefff",
+            unreadNotificationDot:"#665df0"
 
           }
         : {
@@ -139,11 +141,49 @@ const generateTheme = (mode) => {
 
 
             modalButtonHeaderBackground: "linear-gradient(135deg, #201d45, #2c3a8d)",
-            modalButtonBackground: "linear-gradient(135deg, #101a2c, #1b3151)",
-            modalButtonBorder: "linear-gradient(135deg, #101a2c, #1b3151)",
-            PanelHeaderBackground:"#253e54cf"
+            ButtonBackground: "linear-gradient(135deg, #101a2c, #1b3151)",
+            ButtonBorder: "#304a61",
+            PanelHeaderBackground:"#253e54cf",
+            unreadNotificationBackground:"#222b5b",
+            unreadNotificationDot:"#b2afff",
           }),
     },
+     components: {
+    MuiButton: {
+      styleOverrides: {
+        outlined: ({ theme }) => ({
+          minHeight: theme.palette.mode === "light" ? 34 : 40,
+          paddingLeft: theme.spacing(2),
+          paddingRight: theme.spacing(2),
+          borderRadius: "8px",
+          background: theme.palette.ButtonBackground,
+          color:
+            theme.palette.mode === "light"
+              ? "#353a41"
+              : theme.palette.text.primary,
+          borderColor: theme.palette.ButtonBorder,
+          boxShadow: "none",
+          textTransform: "none",
+          fontSize: theme.palette.mode === "light" ? 12 : undefined,
+          fontWeight: theme.palette.mode === "light" ? 500 : 600,
+
+          "&:hover": {
+            background:
+              theme.palette.mode === "light"
+                ? "#edf2f8"
+                : "rgba(102, 93, 240, 0.08)",
+            borderColor:
+              theme.palette.mode === "light" ? "#cbd7e5" : "#665df0",
+          },
+
+          "&:focus-visible": {
+            outline: `2px solid ${theme.palette.secondary.main}`,
+            outlineOffset: 2,
+          },
+        }),
+      },
+    },
+  },
 
     typography: {
       fontFamily: font,
