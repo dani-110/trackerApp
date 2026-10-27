@@ -1,5 +1,4 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
 import User from "../screens/user/user";
 import Teams from "../screens/teams/teams";
 import DetailView from "../screens/teams/detailView";
@@ -15,9 +14,20 @@ import TimeSheet from "../screens/timesheet/timeSheet";
 import TimesheetCompliance from "../screens/timesheetCompliance/timesheetCompliance";
 import Dashboard from "../screens/dashboard/dashboard";
 import Notification from "../screens/notification/notification";
+import ChangePassword from "../screens/login/changePassword";
+import PasswordPolicy from "../screens/passwordPolicy/passwordPolicy";
 
 export const privateRoutes = [
-  { index: true, element: <Dashboard /> }, 
+  { index: true, element: <Dashboard /> },
+  {
+    path: "changePassword",
+    element: <ChangePassword />,
+  },
+  {
+    path: "passwordPolicy",
+    element: <PasswordPolicy />,
+  },
+
   {
     path: "dashboard",
     element: <Dashboard />,

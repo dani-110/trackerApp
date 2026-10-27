@@ -98,17 +98,8 @@
 
 .modalButtonContent .modalActionContainer .MuiButton-root {
   margin-bottom: 0;
-}
-
-.modalButtonContent .modalActionContainer .MuiButton-contained {
-  background: linear-gradient(135deg, #665df0, #596ee8);
-  color: #fff !important;
-  box-shadow: 0 7px 18px rgba(89, 92, 230, 0.24);
-}
-
-.modalButtonContent .modalActionContainer .MuiButton-contained:hover {
-  background: linear-gradient(125deg, #6c7ddd, #6056ed);
-  filter: brightness(0.96);
+  font-size: 12px;
+  font-weight: 600;
 }
 
 @media (max-width: 600px) {

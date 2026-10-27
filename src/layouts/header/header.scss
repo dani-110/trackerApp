@@ -156,17 +156,21 @@
     display: grid;
     place-items: center;
   }
+
+  .bell {
+    position: relative;
+  }
+
   .notificationIcon {
     position: absolute;
-    right: 144px;
-    top: 17px;
+    right: -6px;
+    top: -6px;
     background: #f04438;
     color: white;
-    border: 2px solid white;
     border-radius: 50%;
-    font-size: 9px;
-    width: 17px;
-    height: 17px;
+    font-size: 10px;
+    width: 19px;
+    height: 19px;
     display: grid;
     place-items: center;
     font-style: normal;
@@ -178,6 +182,7 @@
 
   .userMenu {
     min-height: 40px;
+    max-width: min(280px, 32vw);
     padding: 3px 8px;
     display: flex;
     align-items: center;
@@ -186,14 +191,18 @@
   }
 
   .userMenuText {
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 2px;
   }
 
   .userMenuText strong {
+    overflow: hidden;
     color: #f8fafc;
     font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   .userMenuText > span {

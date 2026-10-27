@@ -10,12 +10,15 @@ const generateTheme = (mode) => {
   let inputFocusedColor;
 
   if (mode === "light") {
-    textColor = "#6c757d";
+    textColor = "#5d6266";
+    inputLabelFocusedColor = "#5146d8";
+     inputFieldsetColor = "#ffffff";
+    inputFocusedColor = "#6c64e0";
   } else {
     textColor = "#aab8c5";
-    inputLabelFocusedColor = "#E0E3E7";
-    inputFieldsetColor = "#6F7E8C";
-    inputFocusedColor = "#E0E3E7";
+    inputLabelFocusedColor = "#ffffff";
+    inputFieldsetColor = "#304a61";
+    inputFocusedColor = "#7d6cff";
   }
 
   return createTheme({
@@ -47,8 +50,13 @@ const generateTheme = (mode) => {
               primary: "#000",
             },
             inputLabelColor: "#000000",
+            inputLabelFocusedColor,
             rowBackground: "#d3d3d3",
             inputBorder: "rgba(0, 0, 0, 0.23)",
+            inputBackgroundColor: "#ffffff",
+            inputFocusedColor,
+            inputFocusRing: "rgba(91, 80, 232, 0.16)",
+            inputPlaceholderColor:"#8a94a6",
             selectedTab: "#3bc0c3",
             tabText: "rgba(108, 117, 125, 0.75)",
             selectedTabText: "#000",
@@ -67,6 +75,7 @@ const generateTheme = (mode) => {
             ticketFilterChipActiveBackground: "#e8e5ff",
             ticketFilterChipActiveText: "#5146d8",
             ticketFilterChipActiveBorder: "#5a4aec",
+            ticketActiveBackground: "linear-gradient(135deg, #665df0, #596ee8)",
             approvalQueueBackground:"#f5f5ff",
             approvalQueueText:"#5650c9",
             
@@ -111,9 +120,12 @@ const generateTheme = (mode) => {
             textColor: "#d9e4ee",
 
             inputLabelColor: "#b9c7d7",
-            inputLabelFocusedColor: "#ffffff",
-            inputFieldsetColor: "#304a61",
-            inputFocusedColor: "#7d6cff",
+            inputLabelFocusedColor,
+            inputFieldsetColor,
+            inputFocusedColor,
+            inputBackgroundColor: "#0b1d2e",
+            inputFocusRing: "rgba(125, 108, 255, 0.24)",
+            inputPlaceholderColor:"#d9e4eeb5",
 
             pageBackground: "#061522",
             surfaceBackground: "#0b1d2e",
@@ -136,6 +148,7 @@ const generateTheme = (mode) => {
             ticketFilterChipActiveBackground: "#463b7d",
             ticketFilterChipActiveText: "#f6f4ff",
             ticketFilterChipActiveBorder: "#7466df",
+            ticketActiveBackground: "#463b7d",
             approvalQueueBackground:"#1c2145",
             approvalQueueText:"#c7c3ff",
 
@@ -150,8 +163,34 @@ const generateTheme = (mode) => {
     },
      components: {
     MuiButton: {
-      styleOverrides: {
-        outlined: ({ theme }) => ({
+      styleOverrides: (() => {
+        const containedButton = ({ theme }) => ({
+          minHeight: 40,
+          paddingLeft: theme.spacing(2),
+          paddingRight: theme.spacing(2),
+          borderRadius: "8px",
+          background: theme.palette.btnColor.main,
+          color: theme.palette.btnColor.contrastText,
+          boxShadow: "0 7px 20px rgba(78, 73, 206, 0.21)",
+          textTransform: "none",
+          fontWeight: 600,
+          fontSize: 12,
+          "&:hover": {
+            background: theme.palette.btnColor.main,
+            filter: "brightness(0.96)",
+          },
+          "&.Mui-disabled": {
+            background: theme.palette.btnColor.main,
+            color: theme.palette.btnColor.contrastText,
+            opacity: 0.58,
+          },
+          "&:focus-visible": {
+            outline: `2px solid ${theme.palette.secondary.main}`,
+            outlineOffset: 2,
+          },
+        });
+
+        const outlinedButton = ({ theme }) => ({
           minHeight: theme.palette.mode === "light" ? 34 : 40,
           paddingLeft: theme.spacing(2),
           paddingRight: theme.spacing(2),
@@ -162,11 +201,10 @@ const generateTheme = (mode) => {
               ? "#353a41"
               : theme.palette.text.primary,
           borderColor: theme.palette.ButtonBorder,
-          boxShadow: "none",
+          boxShadow: "0 7px 20px rgba(78, 73, 206, 0.11)",
           textTransform: "none",
           fontSize: theme.palette.mode === "light" ? 12 : undefined,
           fontWeight: theme.palette.mode === "light" ? 500 : 600,
-
           "&:hover": {
             background:
               theme.palette.mode === "light"
@@ -175,13 +213,19 @@ const generateTheme = (mode) => {
             borderColor:
               theme.palette.mode === "light" ? "#cbd7e5" : "#665df0",
           },
-
           "&:focus-visible": {
             outline: `2px solid ${theme.palette.secondary.main}`,
             outlineOffset: 2,
           },
-        }),
-      },
+        });
+
+        return {
+          contained: containedButton,
+          containedPrimary: containedButton,
+          containedSecondary: containedButton,
+          outlined: outlinedButton,
+        };
+      })(),
     },
   },
 

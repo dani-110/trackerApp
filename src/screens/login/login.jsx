@@ -25,7 +25,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { login } from "../../store/actions/auth";
 import { alphanumericWithPointRegex } from "../../utils/Utils";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 const Login = () => {
   const themeCtxt = useContext(ThemeSelectorContext);
@@ -46,11 +46,6 @@ const Login = () => {
   const {
     control,
     handleSubmit,
-    setError,
-    clearErrors,
-    watch,
-    reset,
-    resetField,
     getValues,
     formState: { errors },
   } = defaultValues;
@@ -59,7 +54,6 @@ const Login = () => {
     setIsLoading(true);
     let data = getValues();
     data["actuser"] = data.username;
-    data["password"] = data.password;
     dispatch(login(data)).then((res) => {
       if (res.meta.requestStatus === "fulfilled") {
         if (rememberMe) {
@@ -116,7 +110,7 @@ const Login = () => {
             forward.
           </Typography>
           <Typography className="heroDescription">
-            Tickets, approvals, time, teams and operational visibility — in one
+            Tickets, approvals, time, teams and operational visibility â€” in one
             focused workspace.
           </Typography>
 
@@ -151,7 +145,7 @@ const Login = () => {
               rules={{ required: "Username is required" }}
               error={errors.username}
               inputProps={{
-                startAdornment: <Users size={16} style={{ color: "var(--login-icon)" }} />,
+                startAdornment: <Users size={23} style={{ color: "var(--login-icon)" }} />,
               }}
               pattern={alphanumericWithPointRegex}
             />
@@ -163,7 +157,7 @@ const Login = () => {
               rules={{ required: "Password is required" }}
               error={errors.password}
               inputProps={{
-                startAdornment: <LockKeyhole size={16} style={{ color: "var(--login-icon)" }} />,
+                startAdornment: <LockKeyhole size={25} style={{ color: "var(--login-icon)" }} />,
                 endAdornment: (
                   <IconButton
                     aria-label="toggle password visibility"
@@ -187,37 +181,28 @@ const Login = () => {
                 />
                 <span>Remember me</span>
               </label>
-              <Link to="#" className="forgotLink">
-                Forgot password?
-              </Link>
             </Box>
 
             <Button
               fullWidth
               size="medium"
               variant="contained"
-              color="secondary"
               disabled={isLoading}
               onClick={handleSubmit(submit)}
-              sx={{
-                background: "var(--login-button-background) !important",
-                color: "var(--login-button-text) !important",
-                "&.Mui-disabled": {
-                  background: "var(--login-button-background) !important",
-                  color: "var(--login-button-text) !important",
-                  opacity: 1,
-                },
-              }}
             >
-              <LogIn size={17} aria-hidden="true" />
-              <span>Sign in</span>
+              {isLoading ? (
+                <CircularProgress size={18} color="inherit" aria-label="Signing in" />
+              ) : (
+                <LogIn size={17} aria-hidden="true" />
+              )}
+              <span>{isLoading ? "Signing in…" : "Sign in"}</span>
             </Button>
           </form>
         </Box>
       </Box>
 
       <Box className="planetHorizon" aria-hidden="true" />
-      <Typography className="loginFooter">QOrbito · Qubits Tracker</Typography>
+      <Typography className="loginFooter">QOrbito Â· Qubits Tracker</Typography>
     </Box>
   );
 };

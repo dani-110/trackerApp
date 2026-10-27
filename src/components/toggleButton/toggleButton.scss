@@ -3,8 +3,79 @@
     align-items: center;
     justify-content: space-between;
     padding: 0px 10px;
-    border-radius: 5px;
+    border-radius: 10px;
 }
+
+.toggle {
+    position: relative;
+    cursor: pointer;
+}
+
+.toggleContent {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.toggleIcon {
+    display: flex;
+    flex: 0 0 34px;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 11px;
+    background: #eeeeff;
+    color: #6159dd;
+}
+
+.toggle input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+}
+
+.toggleSwitch {
+    position: relative;
+    flex: 0 0 41px;
+    width: 41px;
+    height: 23px;
+    border-radius: 20px;
+    background: #cbd5e1;
+    transition: 0.2s;
+}
+
+.toggleSwitch::after {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 17px;
+    height: 17px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px #0002;
+    content: "";
+    transition: 0.2s;
+}
+
+.toggle input:checked + .toggleSwitch {
+    background: #6159dd;
+}
+
+.toggle input:checked + .toggleSwitch::after {
+    transform: translateX(18px);
+}
+
+.toggle input:focus-visible + .toggleSwitch {
+    outline: 3px solid #b3aeff;
+    outline-offset: 2px;
+}
+
 .switch {
     position: relative;
     display: inline-block;

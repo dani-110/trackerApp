@@ -12,6 +12,7 @@ import {
 import TextAreaFields from "../../components/textAreaFields";
 import { setDataObject } from "../../utils/Utils";
 import { teams, teamsMember } from "../../store/actions/teams";
+import {UserRoundArrowLeft } from "lucide-react";
 
 const TicketAssignForm = (props) => {
   const { data, setOpen, fetchList } = props;
@@ -223,6 +224,7 @@ const TicketAssignForm = (props) => {
                       sx={{ marginRight: 1, color: "#fff" }}
                     />
                   )}
+                  <UserRoundArrowLeft size={16} style={{ marginRight: 8 }} />
                   {allowedRoles.some((role) => user.roles.includes(role))
                     ? "Assign team"
                     : "Assign user"}

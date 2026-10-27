@@ -103,6 +103,12 @@ export const navBar = [
         permissions:'PERMISSION_VIEW'
       },
       {
+        label: "Password Policy",
+        icon: "LockKeyhole",
+        url: "passwordPolicy",
+        permissions:'CONFIG_MANAGE'
+      },
+      {
         label: "System Logs",
         icon: "LuScrollText",
         url: "",

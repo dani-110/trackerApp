@@ -5,7 +5,6 @@ import InputFields from "../../components/InputFields";
 import ButtonContainer from "../../components/buttonContainer";
 import { useDispatch } from "react-redux";
 import { setDataObject } from "../../utils/Utils";
-import { createUsers } from "../../store/actions/users";
 import { Plus } from "lucide-react";
 import TextAreaFields from "../../components/textAreaFields";
 import MultiSelectFields from "../../components/MultiSelectFields";
@@ -168,6 +167,7 @@ const RoleCreateForm = (props) => {
               fieldName="isActive"
               lable="Is Active"
               control={control}
+              noBorder
             />
           </Grid>}
           <Grid item xs={12}>
