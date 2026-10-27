@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Box, Button, CircularProgress, Grid } from "@mui/material";
+import { Button, CircularProgress, Grid } from "@mui/material";
 import InputFields from "../../components/InputFields";
 import ButtonContainer from "../../components/buttonContainer";
 import { useDispatch } from "react-redux";
 import { setDataObject } from "../../utils/Utils";
-import { createUsers } from "../../store/actions/users";
 import TextAreaFields from "../../components/textAreaFields";
 import { createTickets } from "../../store/actions/tickets";
-import { Plus } from "lucide-react";
+import { TicketPlus} from "lucide-react";
 
 const TicketCreateForm = (props) => {
   const { setOpen, fetchList } = props;
@@ -130,7 +129,7 @@ const TicketCreateForm = (props) => {
                   sx={{ marginRight: 1, color: "#fff" }}
                 />
               )}
-              <Plus size={16} style={{ marginRight: 8 }} />
+              <TicketPlus size={16} style={{ marginRight: 8 }} />
               Generate Ticket
             </Button>
           </ButtonContainer>

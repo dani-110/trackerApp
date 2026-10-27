@@ -184,7 +184,6 @@ const DataGrid = (props) => {
               <Button
                 size="medium"
                 variant="contained"
-                className="commitButton"
                 disabled={isLoading}
                 startIcon={<LuCircleCheck />}
                 onClick={submit}

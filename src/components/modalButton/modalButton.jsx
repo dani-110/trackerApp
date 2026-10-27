@@ -55,23 +55,7 @@ const ModalButton = (props) => {
               size="medium"
               variant={buttonVariant}
               className={className}
-              sx={{
-                margin: "0px 0px 10px",
-                ...(buttonVariant === "contained" && {
-                  minHeight: 40,
-                  px: 2,
-                  borderRadius: "8px",
-                  background: "linear-gradient(135deg, #665df0, #596ee8)",
-                  color: "#fff",
-                  boxShadow: "0 7px 20px #4e49ce35",
-                  textTransform: "none",
-                  fontWeight: 600,
-                  "&:hover": {
-                    background: "linear-gradient(135deg, #665df0, #596ee8)",
-                    filter: "brightness(0.96)",
-                  },
-                }),
-              }}
+              sx={{ margin: "0px 0px 10px" }}
               onClick={handleOpen}
               disabled={disabled}
               startIcon={startIcon ? startIcon : null}

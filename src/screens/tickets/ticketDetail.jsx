@@ -380,6 +380,8 @@ const TicketDetail = () => {
                                 </strong>
                             </Box>
                         </Box>
+                        {hasAccess && (
+                        <PermissionComp name="TICKET_ASSIGN">
                         <ModalButton
                             type="button"
                             label={reassignButton}
@@ -398,6 +400,8 @@ const TicketDetail = () => {
                                 fetchList={refreshTicket}
                             />
                         </ModalButton>
+                        </PermissionComp>
+                    )}
                     </Box>
                 </Box>
             )}

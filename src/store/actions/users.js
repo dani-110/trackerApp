@@ -39,6 +39,29 @@ export const users = createAsyncThunk(
   }
 );
 
+export const resetUserPassword = createAsyncThunk(
+  "resetUserPassword",
+  async (userId, thunkAPI) => {
+    try {
+      const response = await HttpService.call(
+        api.resetPassword(userId),
+        undefined,
+        thunkAPI
+      );
+
+      if (response?.status === 200 && response.data) {
+        return response.data;
+      }
+
+      return thunkAPI.rejectWithValue(
+        response?.data?.detail || "Password reset failed."
+      );
+    } catch {
+      return thunkAPI.rejectWithValue("Password reset failed");
+    }
+  }
+);
+
 
 export const createUsers = createAsyncThunk(
   "createUsers",

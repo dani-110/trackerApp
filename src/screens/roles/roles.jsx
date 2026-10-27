@@ -31,7 +31,7 @@ const Roles = () => {
             title="Roles"
             description="Manage system roles."
             action={
-                <PermissionComp name='USER_CREATE'>
+                <PermissionComp name='ROLE_MANAGE'>
                     <ModalButton
                         open={openCreate}
                         setOpen={setOpenCreate}

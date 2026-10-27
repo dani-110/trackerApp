@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import DataGrid from "./dataGrid";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";

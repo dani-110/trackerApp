@@ -9,9 +9,14 @@
 
 .dashboardMainGrid {
   display: grid;
+  align-items: start;
   grid-template-columns: minmax(0, 1.7fr) minmax(320px, 1fr);
   gap: 16px;
   margin-top: 2px;
+}
+
+.todayPanel {
+  height: fit-content;
 }
 
 .dashboardPanel {
