@@ -123,7 +123,7 @@ const Tickets = () => {
         title="Tickets"
         description="One place to triage, classify and move client work forward."
         action={
-          <PermissionComp name='TICKET_CREATE'>
+          <PermissionComp name='WORK_ITEM_CREATE'>
             <ModalButton
               open={openCreate}
               setOpen={setOpenCreate}

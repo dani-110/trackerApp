@@ -1,10 +1,8 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Box, Grid, IconButton, Typography } from "@mui/material";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { Box, Typography } from "@mui/material";
 import "./header.scss";
-import { AiOutlineMenu } from "react-icons/ai";
 import qorbitoMark from "../../assests/qorbito-modern-flow-mark-final.png";
 import { ThemeSelectorContext } from "../../store/context/themeSelectore";
-import ThemeToggle from "../../components/themeToggle";
 import {
   Search,
   Sun,
@@ -16,10 +14,11 @@ import {
   UsersRound,
   UserKey,
   Rows4,
-  Boxes
+  Boxes,
+  UserRoundCog,
+  LockKeyhole
 } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useTheme } from "@emotion/react";
 import { navBar } from "../sidebar/_profileNav";
 import { logout } from "../../store/actions/auth";
 import {
@@ -38,6 +37,10 @@ import { useNavigate } from "react-router-dom";
 const Header = (props) => {
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
+  const navigateRef = useRef(navigate);
+  const userRef = useRef(user);
+  navigateRef.current = navigate;
+  userRef.current = user;
   const dispatch = useDispatch();
   const themeCtxt = useContext(ThemeSelectorContext);
 
@@ -61,9 +64,18 @@ const Header = (props) => {
   );
 
   useEffect(() => {
-    const subTab = navBar.find((val) => val.label == tab).subTab?.filter(ele => user?.permissions?.includes(ele.permissions))?.[0]
-    setSubTab(subTab?.label);
-    navigate(subTab?.url);
+    const currentUser = userRef.current;
+    if (currentUser?.mustChangePassword) return;
+
+    const currentTab = navBar.find((value) => value.label === tab);
+    const firstPermittedSubTab = currentTab?.subTab?.find((item) =>
+      currentUser?.permissions?.includes(item.permissions),
+    );
+
+    if (!firstPermittedSubTab) return;
+
+    setSubTab(firstPermittedSubTab.label);
+    navigateRef.current(firstPermittedSubTab.url);
   }, [tab]);
   const logoutAction = () => {
     let obj = {};
@@ -109,6 +121,8 @@ const Header = (props) => {
         return <Rows4 color={currentColor} size={size} />;
       case "Boxes":
         return <Boxes color={currentColor} size={size} />;
+      case "LockKeyhole":
+        return <LockKeyhole color={currentColor} size={size} />;
     }
   };
 
@@ -201,12 +215,27 @@ const Header = (props) => {
                 <button
                   type="button"
                   className="profileDropdownItem"
-                  onClick={() => setProfileMenu(false)}
+                  onClick={() => navigate("./dashboard")}
                 >
-                  <Box className="profileDropdownIcon">♙</Box>
+                  <UserRoundCog size={16}  className="profileDropdownIcon"/>
                   <Box className="profileDropdownUser">
                     <strong>My profile</strong>
                     <span>Account and preferences</span>
+                  </Box>
+                </button>
+
+                <button
+                  type="button"
+                  className="profileDropdownItem"
+                  onClick={() => {
+                    setProfileMenu(false);
+                    navigate("/changePassword");
+                  }}
+                >
+                  <UserKey size={16} className="profileDropdownIcon"/>
+                  <Box className="profileDropdownUser">
+                    <strong>Change password</strong>
+                    <span>Update your account password</span>
                   </Box>
                 </button>
 

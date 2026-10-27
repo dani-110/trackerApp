@@ -28,11 +28,12 @@ const Notification = (props) => {
   const isDark = theme.palette.mode === "dark";
   const notificationColors = isDark
     ? {
-        success: { background: "#123b2b", foreground: "#d7f8e7", border: "#28764f" },
-        error: { background: "#482128", foreground: "#ffe3e5", border: "#a44450" },
-        warning: { background: "#493719", foreground: "#fff1cf", border: "#94702b" },
-        info: { background: "#15364d", foreground: "#d8efff", border: "#39769c" },
-      }
+        success: { background: "#ecfaf2", foreground: "#17734b", border: "#c9eed9" },
+        error: { background: "#fff0f0", foreground: "#b83b3b", border: "#ffd1d1" },
+        warning: { background: "#fff8e7", foreground: "#94600e", border: "#ffe1a3" },
+        info: { background: "#eef6ff", foreground: "#2864a4", border: "#d2e6ff" },
+}
+
     : {};
   const colors = notificationColors[props?.status];
 
@@ -59,7 +60,7 @@ const Notification = (props) => {
         severity={props?.status}
       >
         {/* <AlertTitle sx={{ fontSize: "13px", color: '#000' }}>{props?.title}</AlertTitle> */}
-        <Typography variant="h5" sx={{ fontSize: "14px", color: "inherit", overflowWrap: "anywhere" }}>{props?.message ? props?.message : props?.title}</Typography>
+        <Typography variant="h5" sx={{ fontSize: "16px", color: "inherit", overflowWrap: "anywhere" }}>{props?.message ? props?.message : props?.title}</Typography>
       </Alert>
     </Slide>
   );

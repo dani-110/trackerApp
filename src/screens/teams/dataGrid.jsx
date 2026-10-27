@@ -11,6 +11,7 @@ const DataGrid = (props) => {
     const { isLoading, fetchList } = props
     const [dataList, setDataList] = useState([])
     const { user } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
 
     const { teams, totalcount } = useSelector(state => state.teams)
 
@@ -50,6 +51,7 @@ const DataGrid = (props) => {
             isLoading={isLoading}
             count={totalcount}
             fetchList={fetchList}
+            onRowClick={(team) => navigate('Details', { state: team})}
         />
     </>
 }

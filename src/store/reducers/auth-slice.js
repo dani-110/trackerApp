@@ -16,11 +16,12 @@ const authSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(login.fulfilled, (state, action) => {
-      console.log(action.payload)
+      // console.log(action.payload)
       state.isLoggedIn = true;
       const obj = {
        ...action.payload.user,
         token:action.payload.accessToken,
+        mustChangePassword: action.payload.mustChangePassword,
         teamId:action.payload.teamId,
         teamCode:action.payload.teamCode,
         teamName:action.payload.teamName,

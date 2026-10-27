@@ -10,7 +10,7 @@ const CssTextField = styled(TextField)(({ theme }) => ({
     borderRadius: "10px",
     backgroundColor: theme.palette.inputBackgroundColor,
     "& fieldset": {
-      borderColor: theme.palette.inputBorderColor,
+      borderColor: theme.palette.inputBorder,
     },
     "&:hover fieldset": {
       borderColor: theme.palette.inputFocusedColor,
@@ -59,37 +59,38 @@ const InputFields = (props) => {
           }
         };
         return (
-          <Tooltip title={error?.message ? error?.message : ""}>
+          <>
             <Typography
               variant="body1"
               sx={{ marginBottom: "6px", color: theme.palette.inputLabelColor,fontWeight: "500", textAlign: "left" }}
             >{`${label}${rules?.required ? "*" : ""}`}</Typography>
-            <CssTextField
-              size="small"
-              className="outlined"
-              required={!!rules?.required}
-              variant="outlined"
-              error={!!error}
-              type={type}
-              inputRef={field.ref}
-              // label={label}
-              value={phone ? onlyPhone(field?.value) : field?.value}
-              onChange={(e) => {
-                if (limit && e.target.value.length > limit) {
-                  return;
-                }
-                const value = isCaps
-                  ? e.target.value?.toUpperCase()
-                  : e.target.value;
-                pattern ? handleChange(value) : field?.onChange(value);
-              }}
-              fullWidth
-              disabled={disabled}
-              autoComplete=""
-              InputProps={inputProps}
-              {...rest}
-            />
-          </Tooltip>
+            <Tooltip title={error?.message ? error.message : ""}>
+              <CssTextField
+                size="small"
+                className="outlined"
+                required={!!rules?.required}
+                variant="outlined"
+                error={!!error}
+                type={type}
+                inputRef={field.ref}
+                value={phone ? onlyPhone(field?.value) : field?.value}
+                onChange={(e) => {
+                  if (limit && e.target.value.length > limit) {
+                    return;
+                  }
+                  const value = isCaps
+                    ? e.target.value?.toUpperCase()
+                    : e.target.value;
+                  pattern ? handleChange(value) : field?.onChange(value);
+                }}
+                fullWidth
+                disabled={disabled}
+                autoComplete=""
+                InputProps={inputProps}
+                {...rest}
+              />
+            </Tooltip>
+          </>
         );
       }}
     />

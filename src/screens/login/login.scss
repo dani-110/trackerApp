@@ -1,14 +1,8 @@
 .loginContainer {
   --login-background: radial-gradient(circle at 22% 8%, rgba(98, 82, 255, 0.13), transparent 34%), radial-gradient(circle at 82% 24%, rgba(32, 151, 214, 0.12), transparent 36%), linear-gradient(118deg, #f5f7ff 0%, #f8fbff 53%, #eef8fc 100%);
   --login-foreground: #152238;
-  --login-heading: #000000c4;
   --login-muted: #52657c;
-  --login-secondary-text: #687aa2;
-  --login-subtle-text: #65768a;
-  --login-card-background: rgba(255, 255, 255, 0.94);
-  --login-card-border: #ccd9e7;
   --login-card-shadow: 0 28px 70px rgba(42, 61, 89, 0.15);
-  --login-field-background: #f8fbfe;
   --login-field-border: #c7d5e4;
   --login-field-hover-border: #91a5bb;
   --login-field-focused-border: #6254e8;
@@ -16,10 +10,8 @@
   --login-toggle-background: #ffffff;
   --login-toggle-border: #d5deea;
   --login-toggle-color: #526176;
-  --login-button-background: linear-gradient(90deg, #5949f5, #704df7);
-  --login-button-text: #ffffff;
   --login-link: #5f56db;
-  --login-checkbox: #1687ff;
+  --login-checkbox: #665df0;
   --login-feature-check: #16bf91;
   --login-decorative-line: rgba(91, 76, 220, 0.16);
   --login-planet-background: radial-gradient(ellipse at 55% 0%, rgba(63, 143, 255, 0.25), rgba(91, 71, 220, 0.12) 32%, rgba(255, 255, 255, 0) 66%);
@@ -43,23 +35,17 @@
 body.dark-mode .loginContainer {
   --login-background: radial-gradient(ellipse at 24% 5%, rgba(91, 76, 220, 0.24), transparent 32%), radial-gradient(ellipse at 82% 20%, rgba(17, 154, 218, 0.1), transparent 34%), linear-gradient(118deg, #111b45 0%, #081827 48%, #061522 100%);
   --login-foreground: #f4f7fb;
-  --login-heading: #f4f7fb;
   --login-muted: #a9bdd0;
-  --login-secondary-text: #aebed0;
-  --login-subtle-text: #9cb0c3;
-  --login-card-background: rgba(13, 30, 46, 0.92);
-  --login-card-border: #304a61;
   --login-card-shadow: 0 28px 70px rgba(0, 0, 0, 0.35);
-  --login-field-background: #081827;
   --login-field-border: #304a61;
   --login-field-hover-border: #4a6680;
   --login-field-focused-border: #7d6cff;
-  --login-icon: #829bb2;
+  --login-icon: #dfeaee;
   --login-toggle-background: #0d1b2b;
-  --login-toggle-border: #2c4057;
-  --login-toggle-color: #b8c9da;
+  --login-toggle-border: #777d85;
+  --login-toggle-color: #f8fbfc;
   --login-link: #7568ff;
-  --login-checkbox: #7d6cff;
+  --login-checkbox: #928bfe;
 }
 .loginContainer,
 .loginForm {
@@ -117,8 +103,8 @@ body.dark-mode .loginContainer {
   right: 34px;
   z-index: 20;
 
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   border-radius: 10px;
 
   display: grid;
@@ -126,9 +112,6 @@ body.dark-mode .loginContainer {
 
   cursor: pointer;
   transition: all 0.2s ease;
-}
-
-.loginThemeOnly {
   background: var(--login-toggle-background);
   border: 1px solid var(--login-toggle-border);
   color: var(--login-toggle-color);
@@ -138,7 +121,7 @@ body.dark-mode .loginContainer {
 }
 
 .heroEyebrow {
-  color: var(--login-link);
+  color: var(--login-link) !important;
 }
 
 .loginBrand {
@@ -161,8 +144,8 @@ body.dark-mode .loginContainer {
   }
   .brandTagline {
     margin-top: 7px;
-    color: var(--login-secondary-text);
-    letter-spacing: 0.35em;
+    color: var(--mui-palette-text-secondary);
+    letter-spacing: 0.29em;
     font-size: 18px;
   }
 }
@@ -171,7 +154,7 @@ body.dark-mode .loginContainer {
   margin: 12px 0 18px !important;
   font-size: clamp(36px, 4vw, 48px) !important;
   line-height: 1.05 !important;
-  color: var(--login-heading) !important;
+  color: var(--mui-palette-text-primary) !important;
   font-weight: 620 !important;
   letter-spacing: -0.04em !important;
 }
@@ -208,9 +191,9 @@ body.dark-mode .loginContainer {
   width: 100%;
   box-sizing: border-box;
   padding: 40px;
-  border: 1px solid var(--login-card-border);
+  border: 1px solid var(--mui-palette-divider);
   border-radius: 20px;
-  background: var(--login-card-background);
+  background: var(--mui-palette-background-paper);
   box-shadow: var(--login-card-shadow);
 
   h2 {
@@ -222,7 +205,7 @@ body.dark-mode .loginContainer {
 }
 .loginIntro {
   margin-bottom: 24px !important;
-  color: var(--login-subtle-text);
+  color: var(--mui-palette-text-secondary);
   font-size: 12px !important;
 }
 
@@ -238,12 +221,16 @@ body.dark-mode .loginContainer {
   font-weight: 600;
   gap: 11px;
   border-color: var(--login-field-border) !important;
-  background-color: var(--login-field-background) !important;
   color: var(--login-foreground) !important;
 }
 
 .loginContainer .loginForm .MuiOutlinedInput-input {
   color: var(--login-foreground) !important;
+}
+
+.loginForm input[type="password"]::-ms-reveal,
+.loginForm input[type="password"]::-ms-clear {
+  display: none;
 }
 
 .loginContainer .loginForm .MuiOutlinedInput-notchedOutline {
@@ -261,7 +248,6 @@ body.dark-mode .loginContainer {
 .loginForm .MuiOutlinedInput-input:-webkit-autofill,
 .loginForm .MuiOutlinedInput-input:-webkit-autofill:hover,
 .loginForm .MuiOutlinedInput-input:-webkit-autofill:focus {
-  -webkit-box-shadow: 0 0 0 100px var(--login-field-background) inset;
   -webkit-text-fill-color: var(--login-foreground);
   caret-color: var(--login-foreground);
   border-radius: 0;
@@ -320,7 +306,7 @@ body.dark-mode .loginContainer {
   position: absolute;
   z-index: 1;
   bottom: 16px;
-  color: var(--login-subtle-text);
+  color: var(--mui-palette-text-secondary);
   font-size: 10px !important;
 }
 

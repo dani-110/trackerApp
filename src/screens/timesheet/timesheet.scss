@@ -229,14 +229,6 @@
     background: color-mix(in srgb, var(--mui-palette-primary-main) 8%, var(--mui-palette-background-paper));
   }
 
-  .commitButton {
-    color: #fff !important;
-    background: linear-gradient(135deg, #665df0, #596ee8) !important;
-  }
-  .commitButton:hover {
-    background: linear-gradient(125deg, #4e61cc,#665df0) !important;
-  }
-
   body.dark-mode & .timeSheetHeaderContainer {
     border-color: #263b5a;
     background: linear-gradient(120deg, #1a2d4b, #223d63);

@@ -16,7 +16,7 @@ const CssAutocomplete = styled(Autocomplete)(({ theme }) => ({
   },
   '& .MuiOutlinedInput-root': {
     '& fieldset': {
-      borderColor: theme.palette.inputBorderColor,
+      borderColor: theme.palette.inputBorder,
     },
     '&:hover fieldset': {
       borderColor: theme.palette.inputFocusedColor,
@@ -130,7 +130,22 @@ const MultiSelectFields = ({
             <CssAutocomplete
               size="small"
               componentsProps={{
-                paper: { sx: { bgcolor: theme.palette.backgroundBaseColor } }
+                paper: {
+                  sx: {
+                    bgcolor: theme.palette.backgroundBaseColor,
+                    "& .MuiAutocomplete-option:hover, & .MuiAutocomplete-option.Mui-focused":
+                      {
+                        bgcolor: theme.palette.ticketActiveBackground,
+                        color: theme.palette.text.primary,
+                      },
+                    "& .MuiAutocomplete-option[aria-selected='true']": {
+                      bgcolor: theme.palette.ticketFilterChipActiveBackground,
+                    },
+                    "& .MuiAutocomplete-option[aria-selected='true']:hover": {
+                      bgcolor: theme.palette.ticketFilterChipActiveBackground,
+                    },
+                  },
+                },
               }}
               disabled={disabled}
               options={list}

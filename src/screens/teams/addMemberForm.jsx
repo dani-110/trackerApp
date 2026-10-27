@@ -8,6 +8,7 @@ import { setDataObject } from "../../utils/Utils";
 import SelectFields from "../../components/SelectFields";
 import DatePickerFields from "../../components/datePickerField";
 import { addTeamsMember } from "../../store/actions/teams";
+import {UserRoundArrowLeft } from "lucide-react";
 import dayjs from "dayjs";
 
 const AddMemberForm = (props) => {
@@ -158,6 +159,7 @@ const AddMemberForm = (props) => {
                     sx={{ marginRight: 1, color: "#fff" }}
                   />
                 )}
+                <UserRoundArrowLeft size={16} style={{ marginRight: 8 }}/>
                 Assign Member
               </Button>
             </ButtonContainer>
