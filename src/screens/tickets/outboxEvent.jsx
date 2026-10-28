@@ -1,63 +1,51 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { ticketOutboxEvents } from "../../store/actions/tickets";
 
-import TabelContainer from '../../components/table/table';
-import moment from "moment";
-
-const OutboxEvent = ({ data }) => {
-
+const OutboxEvent = ({ data, onData, reloadKey }) => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
-  const [dataList, setDataList] = useState([])
-
-
   useEffect(() => {
-    fetchList();
-  }, []);
-
-  const fetchList = () => {
-    console.log(data)
-    dispatch(ticketOutboxEvents(data?.workItemId)).then((res) => {
-      if (res.payload.status == 200) {
-        let arr = []
-        res.payload.data.items?.forEach(ele => {
-          const obj = { ...ele }
-          obj['occurredAtValue'] = ele.occurredAt ? moment(ele.occurredAt).format('DD MMM YYYY') : ''
-          obj['processedAtValue'] = ele.processedAt ? moment(ele.processedAt).format('DD MMM YYYY') : ''
-          arr.push(obj)
-        });
-        setDataList(arr)
-      }
-      setIsLoading(false);
+    let active = true;
+    onData({ loading: true, error: false, items: [] });
+    dispatch(ticketOutboxEvents(data?.workItemId)).then((result) => {
+      if (!active) return;
+      const error = result.meta.requestStatus !== "fulfilled";
+      const records =
+        error || !Array.isArray(result.payload?.data?.items)
+          ? []
+          : result.payload.data.items;
+      const items = records.map((record) => ({
+        id: record.outboxEventId,
+        title: String(record.eventType || "Outbox event").replaceAll("_", " "),
+        time: record.occurredAt,
+        actor: "Integration Platform",
+        status: record.status,
+        statusLabel: String(record.status || "Unknown").replaceAll("_", " "),
+        summary: record.aggregateType,
+        fields: [
+          ["Aggregate type", record.aggregateType],
+          ["Event type", record.eventType],
+          ["Attempts", record.attemptCount],
+          ["Channel", record.channel],
+          ["Correlation ID", record.correlationId],
+          ["Communication", record.communicationId],
+          ["Communication type", record.communicationType],
+          ["Event version", record.eventVersion],
+          ["Next attempt", record.nextAttemptAt],
+          ["Last error", record.lastError],
+          ["Processed at", record.processedAt],
+        ],
+      }));
+      onData({
+        loading: false,
+        error,
+        items,
+      });
     });
-  };
-
-  const tableHeader = [
-    'Event Id',
-    'Event Type',
-    'Status',
-    'Created At',
-    'Processed At',
-  ]
-
-  const verifyParam = [
-    'outboxEventId',
-    'eventType',
-    'status',
-    'occurredAtValue',
-    'processedAtValue',
-  ]
-  return (
-    <TabelContainer
-      tableHeader={tableHeader}
-      // action={TableAction}
-      data={dataList}
-      verifyParam={verifyParam}
-      isLoading={isLoading}
-      // count={normalizedSearch ? visibleData.length : totalcount}
-      fetchList={fetchList}
-    />
-  );
+    return () => {
+      active = false;
+    };
+  }, [data?.workItemId, dispatch, onData, reloadKey]);
+  return null;
 };
 export default OutboxEvent;

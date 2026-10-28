@@ -124,7 +124,7 @@ const TicketAssignForm = (props) => {
         userId: watch('teamId'),
         assignmentComment: watch('assignmentComment'),
         assignmentReasonCode: watch('assignmentReasonCode'),
-        expectedVersion: data?.versionNo,
+        expectedVersion: data?.workItemVersionNo,
       },
     };
     dispatch(ticketAssignee(saveObj)).then((res) => {

@@ -2,7 +2,9 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 
 export const getStatusStyle = (value) => {
-  const status = String(value ?? "").trim().toUpperCase();
+  const status = String(value ?? "")
+    .trim()
+    .toUpperCase();
 
   const colors = {
     NEW: { background: "#e4f6ee", color: "#008765" },
@@ -10,17 +12,31 @@ export const getStatusStyle = (value) => {
     INACTIVE: { background: "#eef1f5", color: "#607086" },
     DISABLED: { background: "#eef1f5", color: "#607086" },
     PENDING: { background: "#fff3d6", color: "#a96700" },
+    QUEUED: { background: "#fff3d6", color: "#a96700" },
+    AWAITING_APPROVAL: { background: "#fff3d6", color: "#a96700" },
     LOCKED: { background: "#e5efff", color: "#2764c5" },
+    APPROVED: { background: "#e4f6ee", color: "#008765" },
+    SENT: { background: "#e4f6ee", color: "#008765" },
+    PROCESSED: { background: "#e4f6ee", color: "#008765" },
+    CURRENT: { background: "#e4f6ee", color: "#008765" },
+    RECEIVED: { background: "#e4f6ee", color: "#008765" },
+    FAILED: { background: "#fde8e7", color: "#b42318" },
+    REJECTED: { background: "#fde8e7", color: "#b42318" },
+    SUPERSEDED: { background: "#eef1f5", color: "#607086" },
   };
 
-  return colors[status] || {
-    background: "#eef1f5",
-    color: "#607086",
-  };
+  return (
+    colors[status] || {
+      background: "#eef1f5",
+      color: "#607086",
+    }
+  );
 };
 
 const Status = ({ value }) => {
-  const status = String(value ?? "").trim().toUpperCase();
+  const status = String(value ?? "")
+    .trim()
+    .toUpperCase();
   const style = getStatusStyle(status);
 
   return (

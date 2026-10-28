@@ -75,6 +75,13 @@
   text-transform: none !important;
 }
 
+.ticketBackRow {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  margin-bottom: -18px;
+}
+
 .ticketDetailIdentity {
   display: flex;
   align-items: center;
@@ -109,6 +116,12 @@
   padding-top: 20px;
 }
 
+.ticketDetailHeaderEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .ticketMoreButton {
   width: 40px;
   height: 36px;
@@ -125,6 +138,7 @@
 
 .ticketDetailContent {
   display: grid;
+  flex: 0 0 auto;
   grid-template-columns: minmax(0, 1fr) 280px;
   align-items: start;
   gap: 16px;
@@ -162,7 +176,6 @@
 body.dark-mode .ticketCardEyebrow {
   color: #9d95ff !important;
 }
-
 
 .ticketRequestText {
   color: var(--mui-palette-text-primary) !important;
@@ -241,6 +254,165 @@ body.dark-mode .ticketCardEyebrow {
 
 .ticketOverviewCard {
   padding: 17px 18px;
+}
+
+.ticketLinkedRecords {
+  flex: 0 0 auto;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 14px;
+  background: var(--mui-palette-background-paper);
+  box-shadow: 0 8px 24px rgba(25, 43, 67, 0.04);
+}
+.ticketLinkedRecordsHeader {
+  padding: 18px 20px 12px;
+}
+.ticketLinkedTabs {
+  min-height: 42px;
+  border-bottom: 1px solid var(--mui-palette-divider);
+}
+.ticketLinkedTabs .MuiTabs-indicator {
+  background-color: #6258ed;
+}
+.ticketLinkedTabs .MuiTab-root {
+  min-height: 42px;
+  min-width: 0;
+  padding: 0 18px;
+  color: var(--mui-palette-text-secondary);
+  text-transform: none;
+  font-size: 11px;
+}
+.ticketLinkedTabs .MuiTab-root.Mui-selected {
+  color: #6258ed;
+  font-weight: 700;
+}
+.ticketHistoryTabLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.ticketHistoryCount {
+  padding: 2px 6px;
+  border-radius: 10px;
+  background: #edf0f8;
+  color: #62718a;
+  font-size: 9px;
+  font-weight: 700;
+}
+.ticketLinkedTabPanel {
+  padding: 14px 0 0;
+}
+.referenceLoading,
+.referenceEmpty {
+  display: flex;
+  min-height: 110px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--mui-palette-text-secondary);
+  font-size: 11px;
+}
+.referenceEmpty {
+  flex-direction: column;
+}
+.referenceList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px 18px;
+}
+.referenceRecord {
+  overflow: hidden;
+  border: 1px solid var(--mui-palette-divider);
+  border-radius: 10px;
+}
+.referenceRecordHeader {
+  display: flex;
+  min-height: 62px;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+.referenceRecordIcon {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 30px;
+  place-items: center;
+  border-radius: 8px;
+  background: #eff0ff;
+  color: #6258ed;
+}
+.referenceRecordSummary {
+  min-width: 0;
+  flex: 1;
+}
+.referenceRecordTitle {
+  color: var(--mui-palette-text-primary) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+}
+.referenceRecordMeta,
+.referenceRecordDescription {
+  color: var(--mui-palette-text-secondary);
+  font-size: 9px !important;
+}
+.referenceRecordDescription {
+  margin-top: 2px !important;
+}
+.referenceRecordDetails {
+  padding: 12px 14px;
+  border-top: 1px solid var(--mui-palette-divider);
+  background: var(--mui-palette-background-default);
+}
+.referenceFields {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px 18px;
+}
+.referenceField {
+  min-width: 0;
+}
+.referenceField span {
+  display: block;
+  margin-bottom: 3px;
+  color: var(--mui-palette-text-secondary);
+  font-size: 10px;
+}
+.referenceField strong {
+  display: block;
+  overflow-wrap: anywhere;
+  color: var(--mui-palette-text-primary);
+  font-size: 11px;
+  font-weight: 500;
+}
+.referenceCopyRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+.referenceCopyRow .MuiButton-root {
+  text-transform: none;
+  font-size: 10px;
+}
+.referenceCopyRow .MuiTypography-root {
+  color: var(--mui-palette-text-secondary);
+  font-size: 9px;
+}
+@media (max-width: 700px) {
+  .ticketLinkedRecordsHeader {
+    padding: 16px;
+  }
+  .ticketLinkedTabs .MuiTab-root {
+    padding: 0 10px;
+    font-size: 9px;
+  }
+  .referenceFields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .ticketOverviewRows {
