@@ -73,6 +73,19 @@
   border-bottom: 0;
 }
 
+.dashboardEmptyState {
+  display: grid;
+  min-height: 112px;
+  place-items: center;
+  padding: 20px;
+  color: var(--mui-palette-text-secondary);
+  text-align: center;
+}
+
+.dashboardEmptyState .MuiTypography-root {
+  font-size: 12px;
+}
+
 .priorityWorkIndicator {
   width: 9px;
   height: 9px;

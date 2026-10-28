@@ -285,6 +285,12 @@ export const api = {
       method: "get",
     };
   },
+  ticketAcknowledgementHistory: (id) => {
+    return {
+      url: `${apiURL}/tickets/${id}/acknowledgement-history`,
+      method: "get",
+    };
+  },
   ticketOutboxEvents: (id) => {
     return {
       url: `${apiURL}/tickets/${id}/outbox-events`,

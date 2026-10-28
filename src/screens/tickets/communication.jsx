@@ -1,65 +1,54 @@
-import {
-  Box,
-  Typography,
-  Chip,
-  Divider,
-} from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { ticketActivityHistory } from "../../store/actions/tickets";
-import moment from "moment";
-import { initials } from "../../utils/Utils";
+import { ticketAcknowledgementHistory } from "../../store/actions/tickets";
 
-const Communication = ({ data }) => {
-
+const Communication = ({ data, onData, reloadKey }) => {
   const dispatch = useDispatch();
-  const [isLoading, setIsLoading] = useState(false);
-  const [dataList, setDataList] = useState([])
-
-
   useEffect(() => {
-    fetchList();
-  }, []);
-
-  const fetchList = () => {
-    console.log(data)
-    dispatch(ticketActivityHistory(data?.workItemId)).then((res) => {
-      if (res.payload.status == 200) {
-        let arr = []
-        res.payload.data.items?.forEach(ele => {
-          const obj = { ...ele }
-          obj['assignedAtValue'] = moment(ele.assignedAt).format('DD MMM YYYY')
-          arr.push(obj)
-        });
-        setDataList(arr)
-      }
-      setIsLoading(false);
+    let active = true;
+    onData({ loading: true, error: false, items: [] });
+    dispatch(ticketAcknowledgementHistory(data?.workItemId)).then((result) => {
+      if (!active) return;
+      const error = result.meta.requestStatus !== "fulfilled";
+      const records =
+        error || !Array.isArray(result.payload?.data?.items)
+          ? []
+          : result.payload.data.items;
+      const items = records.map((record) => ({
+        id: record.acknowledgementId,
+        title: String(record.communicationType || "Acknowledgement").replaceAll(
+          "_",
+          " ",
+        ),
+        time: record.generatedAt,
+        actor: record.generatedByDisplayName,
+        status: record.status,
+        statusLabel: String(record.status || "Unknown").replaceAll("_", " "),
+        summary: record.subject,
+        fields: [
+          ["Channel", record.channel],
+          ["Recipient", record.toAddress],
+          ["CC", record.ccAddresses],
+          ["Subject", record.subject],
+          ["Approved by", record.approvedByDisplayName],
+          ["Approved at", record.approvedAt],
+          ["Queued at", record.queuedAt],
+          ["Sent at", record.sentAt],
+          ["Failed at", record.failedAt],
+          ["Failure reason", record.failureReason],
+          ["Message", record.body],
+        ],
+      }));
+      onData({
+        loading: false,
+        error,
+        items,
+      });
     });
-  };
-
-  return (
-    <>
-      {
-        dataList.map(ele => (
-          <Box>
-            <Box sx={{ display: 'flex', gap: '10px', flex: 1, margin: '10px 0px' }}>
-              <Box sx={{ display: 'flex', height: '30px', width: '30px', justifyContent: 'center', alignItems: 'center', borderRadius: '100px', background: '#172640' }}>
-                <Typography variant="h4" sx={{ textTransform: 'capitalize', color: '#fff' }}>{initials(ele.actorUsername)}</Typography>
-              </Box>
-              <Box>
-                <Box sx={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                  <Typography variant="h4" sx={{ textTransform: 'capitalize' }}>{ele.actorUsername}</Typography>
-                  <Typography variant="body2">{moment(ele.eventTime).format('DD MMM YYYY hh:mm')}</Typography>
-                </Box>
-                <Typography variant="body1">{ele.actionCode}</Typography>
-                <Typography variant="body2">{ele.reason}</Typography>
-              </Box>
-            </Box>
-            <Divider />
-          </Box>
-        ))
-      }
-    </>
-  );
+    return () => {
+      active = false;
+    };
+  }, [data?.workItemId, dispatch, onData, reloadKey]);
+  return null;
 };
 export default Communication;

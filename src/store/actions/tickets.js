@@ -256,6 +256,19 @@ export const ticketAssignmentHistory = createAsyncThunk(
     }
   }
 );
+export const ticketAcknowledgementHistory = createAsyncThunk(
+  "ticketAcknowledgementHistory",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.ticketAcknowledgementHistory(data), undefined, thunkAPI);
+      if (response.status == '200') return response;
+      thunkAPI.dispatch(uiActions.showNotification({ status: "error", title: "Failed!", message: response.data.detail }));
+      return thunkAPI.rejectWithValue(response);
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
 export const ticketOutboxEvents = createAsyncThunk(
   "ticketOutboxEvents",
   async (data, thunkAPI) => {
