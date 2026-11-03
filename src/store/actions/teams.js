@@ -38,6 +38,66 @@ export const teams = createAsyncThunk(
     }
   }
 );
+export const createTeam = createAsyncThunk(
+  "createTeam",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.createTeam(), data, thunkAPI);
+      console.log(response)
+      if (response.status == '200') {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "success",
+            title: "Success!",
+            message: response.data.message,
+          })
+        );
+        return response;
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.respdescription,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+export const updateTeam = createAsyncThunk(
+  "updateTeam",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.updateTeam(data.teamId), data.obj, thunkAPI);
+      console.log(response)
+      if (response.status == '200') {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "success",
+            title: "Success!",
+            message: response.data.message,
+          })
+        );
+        return response;
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.respdescription,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
 export const teamsMember = createAsyncThunk(
   "teamsMember",
   async (data, thunkAPI) => {
