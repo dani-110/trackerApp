@@ -4,12 +4,17 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { teams } from "../../store/actions/teams";
 import PageHeader from "../../components/pageHeader/pageHeader";
+import PermissionComp from "../../components/permissionComp/permissionComp";
+import ModalButton from "../../components/modalButton/modalButton";
+import { IoMdAdd } from "react-icons/io";
+import TeamCreateForm from "./teamCreateForm";
 
 const Teams = () => {
 
     const dispatch = useDispatch();
     const [isLoading, setIsLoading] = useState(false);
     const [searchData, setSearchData] = useState({});
+    const [openCreate, setOpenCreate] = useState(false);
 
 
     useEffect(() => {
@@ -38,6 +43,20 @@ const Teams = () => {
             eyebrow="ADMINISTRATION"
             title="Teams"
             description="Manage teams and their members."
+            action={
+                <PermissionComp name='TEAM_CREATE'>
+                    <ModalButton
+                        open={openCreate}
+                        setOpen={setOpenCreate}
+                        label="Add Team"
+                        type="button"
+                        startIcon={<IoMdAdd />}
+                        width="30%"
+                    >
+                        <TeamCreateForm setOpen={setOpenCreate} fetchList={fetchList} type={'Add'} />
+                    </ModalButton>
+                </PermissionComp>
+            }
         />
         <DataGrid fetchList={fetchList} isLoading={isLoading} />
     </Box>

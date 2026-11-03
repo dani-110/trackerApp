@@ -397,3 +397,16 @@ export const initials = (displayName) => {
     .map((part) => part[0].toUpperCase())
     .join("")
 }
+
+export const LookupsTypes = {
+  ORGANIZATION: 'ORGANIZATION',
+  DEPARTMENT: 'DEPARTMENT',
+  TEAM: 'TEAM',
+  TEAM_TYPE: 'TEAM_TYPE',
+  USER: 'USER',
+  HOD_CANDIDATE: 'HOD_CANDIDATE',
+  TEAM_HEAD_CANDIDATE: 'TEAM_HEAD_CANDIDATE',
+  ROLE: 'ROLE',
+  CLIENT: 'CLIENT',
+  WORK_TYPE: 'WORK_TYPE',
+};

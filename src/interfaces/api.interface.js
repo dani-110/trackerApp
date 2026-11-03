@@ -112,7 +112,7 @@ export const api = {
   //================Teams==================
   teams: () => {
     return {
-      url: `${apiURL}/teams?activeOnly=true`,
+      url: `${apiURL}/teams?activeOnly=false`,
       method: "get",
     };
   },
@@ -132,6 +132,18 @@ export const api = {
     return {
       url: `${apiURL}/teams/${teamId}/members/${userId}`,
       method: "delete",
+    };
+  },
+  createTeam: () => {
+    return {
+      url: `${apiURL}/teams`,
+      method: "post",
+    };
+  },
+  updateTeam: (teamId) => {
+    return {
+      url: `${apiURL}/teams/${teamId}`,
+      method: "put",
     };
   },
   //================Roles==================
@@ -319,6 +331,13 @@ export const api = {
   roleFiller: (id) => {
     return {
       url: `${apiURL}/roleFiller`,
+      method: "get",
+    };
+  },
+  //================Lookups==================
+  lookups: (type) => {
+    return {
+      url: `${apiURL}/teams/lookups/${type}`,
       method: "get",
     };
   },
