@@ -33,6 +33,7 @@ const DataGrid = (props) => {
         'Name',
         'Type',
         'Status',
+        'HOD',
     ]
 
     const verifyParam = [
@@ -40,6 +41,7 @@ const DataGrid = (props) => {
         'name',
         'unitType',
         'status',
+        'managerUsername'
     ]
 
     return <>
