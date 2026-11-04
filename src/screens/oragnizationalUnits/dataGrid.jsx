@@ -2,10 +2,16 @@ import { useEffect, useState } from 'react';
 import TabelContainer from '../../components/table/table';
 import { useSelector } from 'react-redux';
 import moment from 'moment';
+import { Box } from '@mui/material';
+import PermissionComp from '../../components/permissionComp/permissionComp';
+import ModalButton from '../../components/modalButton/modalButton';
+import OrgCreateForm from './orgCreateForm';
+import { MdEdit } from 'react-icons/md';
 
 const DataGrid = (props) => {
     const { isLoading, fetchList } = props
     const [dataList, setDataList] = useState([])
+    const { user } = useSelector((state) => state.auth);
 
     const { organizationUnits, totalcount } = useSelector(state => state.organizationUnits)
 
@@ -23,27 +29,23 @@ const DataGrid = (props) => {
     }, [organizationUnits])
 
     const tableHeader = [
-        'Name',
         'Code',
-        'Unit Type',
-        'Parent Unit',
+        'Name',
+        'Type',
         'Status',
-        'Created At',
     ]
 
     const verifyParam = [
-        'name',
         'code',
+        'name',
         'unitType',
-        'parentUnit',
         'status',
-        'createdAtValue',
     ]
 
     return <>
         <TabelContainer
             tableHeader={tableHeader}
-            // action={TableAction}
+            action={user?.permissions?.includes("ORG_UNIT_UPDATE") && TableAction}
             data={dataList}
             verifyParam={verifyParam}
             isLoading={isLoading}
@@ -53,3 +55,18 @@ const DataGrid = (props) => {
 }
 export default DataGrid;
 
+
+
+const TableAction = (data) => {
+    const item = data.id
+    const [openView, setOpenView] = useState(false);
+    return (
+        <Box>
+            <PermissionComp name='ORG_UNIT_UPDATE'>
+                <ModalButton open={openView} setOpen={setOpenView} heading={'Update Organization'} width={'30%'} type={'icon'} startIcon={<MdEdit />}>
+                    <OrgCreateForm data={item} setOpen={setOpenView} fetchList={data.fetchList} type={'Update'} />
+                </ModalButton>
+            </PermissionComp>
+        </Box>
+    )
+}

@@ -45,20 +45,20 @@ export const api = {
       method: "post",
     };
   },
-  
+
   //================Password Policy==================
   getPasswordPolicy: () => {
-      return {
-        url: `${apiURL}/password-policy`,
-        method: "get",
-      };
-    },
+    return {
+      url: `${apiURL}/password-policy`,
+      method: "get",
+    };
+  },
   updatePasswordPolicy: () => {
-      return {
-        url: `${apiURL}/password-policy`,
-        method: "put",
-      };
-    },
+    return {
+      url: `${apiURL}/password-policy`,
+      method: "put",
+    };
+  },
 
   //================User==================
   users: (pageNo = 1, pageSize = 10, filters = {}) => {
@@ -223,10 +223,22 @@ export const api = {
     };
   },
   //================Oragnizational Units==================
-  organizationUnits: (domin) => {
+  organizationUnits: () => {
     return {
       url: `${apiURL}/organization-units?activeOnly=false`,
       method: "get",
+    };
+  },
+  createOrganizationUnits: () => {
+    return {
+      url: `${apiURL}/organization-units`,
+      method: "post",
+    };
+  },
+  updateOrganizationUnits: (id) => {
+    return {
+      url: `${apiURL}/organization-units/${id}`,
+      method: "put",
     };
   },
   //================Functional Units==================
