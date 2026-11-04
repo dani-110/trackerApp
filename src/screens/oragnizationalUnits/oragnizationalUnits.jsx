@@ -4,10 +4,15 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { organizationUnits } from "../../store/actions/oragnizationalUnits";
 import PageHeader from "../../components/pageHeader/pageHeader";
+import PermissionComp from "../../components/permissionComp/permissionComp";
+import ModalButton from "../../components/modalButton/modalButton";
+import { IoMdAdd } from "react-icons/io";
+import OrgCreateForm from "./orgCreateForm";
 
 const OragnizationalUnits = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const [openCreate, setOpenCreate] = useState(false);
 
   useEffect(() => {
     fetchList({});
@@ -21,14 +26,28 @@ const OragnizationalUnits = () => {
 
   return (
     <Box className="screenPage">
-        <PageHeader
-            eyebrow="ADMINISTRATION"
-            title="Oragnizational Units"
-            description=" Manage system Oragnizational Units."
-        />
-        <DataGrid fetchList={fetchList} isLoading={isLoading} />
+      <PageHeader
+        eyebrow="ADMINISTRATION"
+        title="Oragnizational Units"
+        description=" Manage system Oragnizational Units."
+        action={
+          <PermissionComp name='ORG_UNIT_CREATE'>
+            <ModalButton
+              open={openCreate}
+              setOpen={setOpenCreate}
+              label="Add Organizational"
+              type="button"
+              startIcon={<IoMdAdd />}
+              width="30%"
+            >
+              <OrgCreateForm setOpen={setOpenCreate} fetchList={fetchList} type={'Add'} />
+            </ModalButton>
+          </PermissionComp>
+        }
+      />
+      <DataGrid fetchList={fetchList} isLoading={isLoading} />
     </Box>
-    
+
   );
 };
 export default OragnizationalUnits;

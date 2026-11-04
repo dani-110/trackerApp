@@ -38,3 +38,64 @@ export const organizationUnits = createAsyncThunk(
     }
   }
 );
+
+export const createOrganizationUnits = createAsyncThunk(
+  "createOrganizationUnits",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.createOrganizationUnits(), data, thunkAPI);
+      console.log(response)
+      if (response.status == '201') {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "success",
+            title: "Success!",
+            message: response.data.message,
+          })
+        );
+        return response;
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.respdescription,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
+export const updateOrganizationUnits = createAsyncThunk(
+  "updateOrganizationUnits",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.updateOrganizationUnits(data.orgId), data.obj, thunkAPI);
+      console.log(response)
+      if (response.status == '200') {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "success",
+            title: "Success!",
+            message: response.data.message,
+          })
+        );
+        return response;
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.respdescription,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
