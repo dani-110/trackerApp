@@ -1,15 +1,16 @@
-import { Box, CircularProgress } from "@mui/material";
+import { Box, CircularProgress, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { teamsMember } from "../../store/actions/teams";
 import Status from "../../components/status/status";
 import ModalButton from "../../components/modalButton/modalButton";
 import { IoMdAdd } from "react-icons/io";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import MemberGrid from "./memberGrid";
 import AddMemberForm from "./addMemberForm";
 import { roleFiller, userFiller } from "../../store/actions/fillers";
 import PageHeader from "../../components/pageHeader/pageHeader";
+import { ArrowLeft } from "lucide-react";
 import PermissionComp from "../../components/permissionComp/permissionComp";
 
 const DetailView = () => {
@@ -18,16 +19,22 @@ const DetailView = () => {
   const [openCreate, setOpenCreate] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [dataList, setDataList] = useState([]);
-
+  const navigate = useNavigate();
   const [isLoader, setIsLoader] = useState(false);
-  const { user } = useSelector(state => state.auth)
+  const { user } = useSelector((state) => state.auth);
 
   const location = useLocation();
   const { state } = location;
-  const allowedRoles = ['SYSTEM_ADMIN', 'SUPPORT_L1', 'SUPPORT_L2', 'SUPPORT_L3', 'TEAM_LEAD'];
+  const allowedRoles = [
+    "SYSTEM_ADMIN",
+    "SUPPORT_L1",
+    "SUPPORT_L2",
+    "SUPPORT_L3",
+    "TEAM_LEAD",
+  ];
 
   useEffect(() => {
-    if (allowedRoles.some(role => user.roles.includes(role))) {
+    if (allowedRoles.some((role) => user.roles.includes(role))) {
       fetchFilterData();
     } else {
       fetchList();
@@ -66,6 +73,19 @@ const DetailView = () => {
 
   return (
     <Box className="screenPage teamDetailPage">
+      <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Button
+          startIcon={<ArrowLeft size={15} />}
+          onClick={() => navigate("/teams")}
+          sx={{
+            textTransform: "none",
+            fontSize: 14,
+            color: "var(--mui-palette-text-secondary)",
+          }}
+        >
+          Back to teams
+        </Button>
+      </Box>
       <PageHeader
         eyebrow="ADMINISTRATION > TEAMS"
         title={state?.name || "Team details"}
@@ -75,7 +95,7 @@ const DetailView = () => {
         action={
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <Status value={activeStatus} />
-            <PermissionComp name='TEAM_MEMBER_ASSIGN'>
+            <PermissionComp name="TEAM_MEMBER_ASSIGN">
               <ModalButton
                 open={openCreate}
                 setOpen={setOpenCreate}

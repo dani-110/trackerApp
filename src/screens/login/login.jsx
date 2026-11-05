@@ -110,7 +110,7 @@ const Login = () => {
             forward.
           </Typography>
           <Typography className="heroDescription">
-            Tickets, approvals, time, teams and operational visibility â€” in one
+            Tickets, approvals, time, teams and operational visibility —  in one
             focused workspace.
           </Typography>
 
@@ -202,7 +202,7 @@ const Login = () => {
       </Box>
 
       <Box className="planetHorizon" aria-hidden="true" />
-      <Typography className="loginFooter">QOrbito Â· Qubits Tracker</Typography>
+      <Typography className="loginFooter">QOrbito · Qubits Tracker</Typography>
     </Box>
   );
 };

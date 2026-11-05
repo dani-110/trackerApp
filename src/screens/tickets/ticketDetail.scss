@@ -169,7 +169,7 @@
 .ticketCardEyebrow {
   margin-bottom: 10px !important;
   color: #6258ed !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   font-weight: 700 !important;
   letter-spacing: 0.08em !important;
 }
@@ -191,14 +191,14 @@ body.dark-mode .ticketCardEyebrow {
 .ticketActivityTitle,
 .ticketOverviewTitle {
   color: var(--mui-palette-text-primary) !important;
-  font-size: 14px !important;
+  font-size: 18px !important;
   font-weight: 700 !important;
 }
 
 .ticketActivityDescription {
   margin-top: 1px !important;
   color: var(--mui-palette-text-secondary) !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
 }
 
 .ticketActivityItem {
@@ -227,13 +227,13 @@ body.dark-mode .ticketCardEyebrow {
 
 .ticketActivityEvent {
   color: var(--mui-palette-text-primary) !important;
-  font-size: 11px !important;
+  font-size: 13px !important;
   font-weight: 700 !important;
 }
 
-.ticketActivityMeta {
+.ticketActivityDesc {
   color: var(--mui-palette-text-secondary) !important;
-  font-size: 10px !important;
+  font-size: 12px !important;
 }
 
 .ticketActivityEmpty {
@@ -281,7 +281,7 @@ body.dark-mode .ticketCardEyebrow {
   padding: 0 18px;
   color: var(--mui-palette-text-secondary);
   text-transform: none;
-  font-size: 11px;
+  font-size: 14px;
 }
 .ticketLinkedTabs .MuiTab-root.Mui-selected {
   color: #6258ed;
@@ -297,7 +297,7 @@ body.dark-mode .ticketCardEyebrow {
   border-radius: 10px;
   background: #edf0f8;
   color: #62718a;
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
 }
 .ticketLinkedTabPanel {
@@ -319,7 +319,7 @@ body.dark-mode .ticketCardEyebrow {
 .referenceList {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 15px;
   padding: 0 16px 18px;
 }
 .referenceRecord {
@@ -337,13 +337,17 @@ body.dark-mode .ticketCardEyebrow {
 }
 .referenceRecordIcon {
   display: grid;
-  width: 30px;
-  height: 30px;
-  flex: 0 0 30px;
+  width: 35px;
+  height: 35px;
+  flex: 0 0 35px;
   place-items: center;
   border-radius: 8px;
   background: #eff0ff;
   color: #6258ed;
+}
+.referenceRecordIcon svg {
+  width: 18px;
+  height: 18px;
 }
 .referenceRecordSummary {
   min-width: 0;
@@ -351,13 +355,14 @@ body.dark-mode .ticketCardEyebrow {
 }
 .referenceRecordTitle {
   color: var(--mui-palette-text-primary) !important;
-  font-size: 12px !important;
+  font-size: 14px !important;
   font-weight: 600 !important;
+  margin-bottom: 3px !important;
 }
 .referenceRecordMeta,
 .referenceRecordDescription {
   color: var(--mui-palette-text-secondary);
-  font-size: 9px !important;
+  font-size: 12px !important;
 }
 .referenceRecordDescription {
   margin-top: 2px !important;
@@ -379,29 +384,30 @@ body.dark-mode .ticketCardEyebrow {
   display: block;
   margin-bottom: 3px;
   color: var(--mui-palette-text-secondary);
-  font-size: 10px;
+  font-size: 11px;
 }
 .referenceField strong {
   display: block;
   overflow-wrap: anywhere;
   color: var(--mui-palette-text-primary);
-  font-size: 11px;
+  font-size: 12px;
+  margin-top: 8px;
   font-weight: 500;
 }
-.referenceCopyRow {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-top: 12px;
-}
-.referenceCopyRow .MuiButton-root {
-  text-transform: none;
-  font-size: 10px;
-}
-.referenceCopyRow .MuiTypography-root {
-  color: var(--mui-palette-text-secondary);
-  font-size: 9px;
-}
+// .referenceCopyRow {
+//   display: flex;
+//   align-items: center;
+//   gap: 12px;
+//   margin-top: 12px;
+// }
+// .referenceCopyRow .MuiButton-root {
+//   text-transform: none;
+//   font-size: 10px;
+// }
+// .referenceCopyRow .MuiTypography-root {
+//   color: var(--mui-palette-text-secondary);
+//   font-size: 9px;
+// }
 @media (max-width: 700px) {
   .ticketLinkedRecordsHeader {
     padding: 16px;
