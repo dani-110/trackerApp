@@ -84,24 +84,24 @@ export const navBar = [
         url: "oragnizationalUnits",
         permissions:'ORG_UNIT_VIEW',
       },
-      {
-        label: "Functional-level Units",
-        icon: "Boxes",
-        url: "functionalUnit",
-        permissions:'FUNCTIONAL_LEVEL_VIEW',
-      },
-      {
-        label: "Queues",
-        icon: "Rows4",
-        url: "queues",
-        permissions:'QUEUE_VIEW',
-      },
-      {
-        label: "Permissions",
-        icon: "UserKey",
-        url: "permissions",
-        permissions:'PERMISSION_VIEW'
-      },
+      // {
+      //   label: "Functional-level Units",
+      //   icon: "Boxes",
+      //   url: "functionalUnit",
+      //   permissions:'FUNCTIONAL_LEVEL_VIEW',
+      // },
+      // {
+      //   label: "Queues",
+      //   icon: "Rows4",
+      //   url: "queues",
+      //   permissions:'QUEUE_VIEW',
+      // },
+      // {
+      //   label: "Permissions",
+      //   icon: "UserKey",
+      //   url: "permissions",
+      //   permissions:'PERMISSION_VIEW'
+      // },
       {
         label: "Password Policy",
         icon: "LockKeyhole",

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import { Button, CircularProgress, Grid } from "@mui/material";
+import { Button, Grid } from "@mui/material";
 import InputFields from "../../components/InputFields";
 import ButtonContainer from "../../components/buttonContainer";
 import { useDispatch } from "react-redux";
@@ -25,12 +25,12 @@ const UserCreateForm = (props) => {
   const {
     control,
     handleSubmit,
-    setError,
-    clearErrors,
-    watch,
-    reset,
-    setValue,
-    resetField,
+    // setError,
+    // clearErrors,
+    // watch,
+    // reset,
+    // setValue,
+    // resetField,
     getValues,
     formState: { errors },
   } = defaultValues;

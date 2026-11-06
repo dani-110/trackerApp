@@ -27,12 +27,6 @@ const TicketCreateForm = (props) => {
   const {
     control,
     handleSubmit,
-    setError,
-    clearErrors,
-    watch,
-    reset,
-    setValue,
-    resetField,
     getValues,
     formState: { errors },
   } = defaultValues;

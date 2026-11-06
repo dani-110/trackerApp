@@ -11,7 +11,6 @@ import TimeProgressChart from "./timeProgressChart";
 import TimelineStatus from "../../components/timelineStatus/timelineStatus";
 import PageHeader from "../../components/pageHeader/pageHeader";
 import { Clock3 } from "lucide-react";
-import { fontWeight } from "@mui/system";
 
 const TimeSheet = () => {
   const dispatch = useDispatch();
