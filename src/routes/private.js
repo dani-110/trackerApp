@@ -16,6 +16,7 @@ import Dashboard from "../screens/dashboard/dashboard";
 import Notification from "../screens/notification/notification";
 import ChangePassword from "../screens/login/changePassword";
 import PasswordPolicy from "../screens/passwordPolicy/passwordPolicy";
+import TeamType from "../screens/teamType/teamType";
 
 export const privateRoutes = [
   { index: true, element: <Dashboard /> },
@@ -73,6 +74,10 @@ export const privateRoutes = [
         element: <DetailView />,
       },
     ],
+  },
+   {
+    path: "teamType",
+    element: <TeamType />,
   },
   {
     path: "timeSheet",

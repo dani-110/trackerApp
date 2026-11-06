@@ -72,6 +72,12 @@ export const navBar = [
         url: "teams",
         permissions: 'TICKET_VIEW',
       },
+       {
+        label: "Team Types",
+        icon: "UsersRound",
+        url: "teamType",
+        permissions: 'CONFIG_MANAGE',
+      },
       {
         label: "Roles",
         icon: "UserShield",
