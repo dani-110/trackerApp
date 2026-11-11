@@ -193,8 +193,11 @@ const TicketDetail = () => {
     Boolean(initialTicket?.workItemId),
   );
   const [openClassify, setOpenClassify] = useState(false);
-  const [openAssign, setOpenAssign] = useState(false);
-  const [openReAssign, setOpenReAssign] = useState(false);
+  const [openAssignTeam, setOpenAssignTeam] = useState(false);
+  const [openReAssignTeam, setOpenReAssignTeam] = useState(false);
+  const [openAssignUser, setOpenAssignUser] = useState(false);
+  const [openReAssignUser, setOpenReAssignUser] = useState(false);
+
   const [openApproval, setOpenApproval] = useState(false);
   const [historyTab, setHistoryTab] = useState("communication");
   const [communicationState, setCommunicationState] = useState({
@@ -221,24 +224,13 @@ const TicketDetail = () => {
   const [expandedHistory, setExpandedHistory] = useState({});
   const { user } = useSelector((state) => state.auth);
 
-  const allowedRoles = [
-    "SYSTEM_ADMIN",
-    "SUPPORT_L1",
-    "SUPPORT_L2",
-    "SUPPORT_L3",
-    "TEAM_LEAD",
-    "MANAGER",
-  ];
-  const hasAccess = allowedRoles.some((role) => user.roles.includes(role))
-    ? "Assign Team"
-    : user.roles.includes("TEAM_LEAD")
-      ? "Assign User"
-      : "";
-  const reassignButton = allowedRoles.some((role) => user.roles.includes(role))
-    ? "Reassign Team"
-    : user.roles.includes("TEAM_LEAD")
-      ? "Reassign User"
-      : "";
+  const isSupportMember = user?.teamCode === "SUPPORT_TEAM" || user?.roles.includes("SYSTEM_ADMIN");
+  const isTeamLead = user?.roles.includes("TEAM_LEAD");
+  const isManager = user?.roles.includes("MANAGER");
+  const assignTeamAccess = isSupportMember && (isTeamLead || isManager);
+  const assignUserAccess = isSupportMember && isTeamLead;
+  const reassignTeamAccess = isSupportMember && (isTeamLead || isManager);
+  const reassignUserAccess = isSupportMember && isTeamLead;
 
   useEffect(() => {
     if (!initialTicket?.workItemId) return;
@@ -395,20 +387,41 @@ const TicketDetail = () => {
           .join(" . ")}
         action={
           <Box className="ticketDetailActions">
-            {hasAccess && (
+            {assignTeamAccess && (
               <PermissionComp name="TICKET_ASSIGN">
                 <ModalButton
                   type="button"
-                  label={hasAccess}
-                  heading={hasAccess}
+                  label="Assign Team"
+                  heading="Assign Team"
                   variant="outlined"
                   startIcon={<Users size={15} />}
-                  open={openAssign}
-                  setOpen={setOpenAssign}
+                  open={openAssignTeam}
+                  setOpen={setOpenAssignTeam}
                 >
                   <TicketAssignForm
                     data={ticket}
-                    setOpen={setOpenAssign}
+                    setOpen={setOpenAssignTeam}
+                    assignmentType="TEAM"
+                    fetchList={refreshTicket}
+                  />
+                </ModalButton>
+              </PermissionComp>
+            )}
+            {assignUserAccess && (
+              <PermissionComp name="TICKET_ASSIGN">
+                <ModalButton
+                  type="button"
+                  label="Assign User"
+                  heading="Assign User"
+                  variant="outlined"
+                  startIcon={<Users size={15} />}
+                  open={openAssignUser}
+                  setOpen={setOpenAssignUser}
+                >
+                  <TicketAssignForm
+                    data={ticket}
+                    setOpen={setOpenAssignUser}
+                    assignmentType="USER"
                     fetchList={refreshTicket}
                   />
                 </ModalButton>
@@ -547,21 +560,43 @@ const TicketDetail = () => {
                 </strong>
               </Box>
             </Box>
-            {hasAccess && (
+            {reassignTeamAccess  && (
               <PermissionComp name="TICKET_ASSIGN">
                 <ModalButton
                   type="button"
-                  label={reassignButton}
-                  heading={hasAccess}
+                  label={"Reassign Team"}
+                  heading={"Reassign Team"}
                   variant="outlined"
                   startIcon={<Users size={15} />}
-                  open={openReAssign}
-                  setOpen={setOpenReAssign}
+                  open={openReAssignTeam}
+                  setOpen={setOpenReAssignTeam}
                   className="ticketReassignButton"
                 >
                   <TicketAssignForm
                     data={ticket}
-                    setOpen={setOpenReAssign}
+                    setOpen={setOpenReAssignTeam}
+                    assignmentType="TEAM"
+                    fetchList={refreshTicket}
+                  />
+                </ModalButton>
+              </PermissionComp>
+            )}
+            {reassignUserAccess  && (
+              <PermissionComp name="TICKET_ASSIGN">
+                <ModalButton
+                  type="button"
+                  label={"Reassign User"}
+                  heading={"Reassign User"}
+                  variant="outlined"
+                  startIcon={<Users size={15} />}
+                  open={openReAssignUser}
+                  setOpen={setOpenReAssignUser}
+                  className="ticketReassignButton"
+                >
+                  <TicketAssignForm
+                    data={ticket}
+                    setOpen={setOpenReAssignUser}
+                    assignmentType="USER"
                     fetchList={refreshTicket}
                   />
                 </ModalButton>
