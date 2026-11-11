@@ -47,7 +47,7 @@ export const isEmptyObject = (obj) => {
 // }
 const isDateField = (key) => {
   const lowerKey = key.toLowerCase();
-  const hasDateKeywords = lowerKey.includes('date') || lowerKey.includes('create') || lowerKey.includes('from') || lowerKey.includes('to');
+  const hasDateKeywords = lowerKey.includes('date') || lowerKey.includes('create') || lowerKey.includes('from') || lowerKey.includes('to') || lowerKey.includes('at');
   const hasExcludedKeywords = lowerKey.includes('customer') || lowerKey.includes('converted') || lowerKey.includes('created') || lowerKey.includes('account');
 
   return hasDateKeywords && !hasExcludedKeywords;
@@ -409,4 +409,10 @@ export const LookupsTypes = {
   ROLE: 'ROLE',
   CLIENT: 'CLIENT',
   WORK_TYPE: 'WORK_TYPE',
+  products: 'products',
+  environments: 'environments',
+  moduleComponents: 'module-components',
+  categories: 'categories',
+  priorities: 'priorities',
+  severities: 'severities',
 };
