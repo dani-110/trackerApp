@@ -15,11 +15,9 @@ const OutboxEvent = ({ data, onData, reloadKey }) => {
           ? []
           : result.payload.data.items;
       const items = records.map((record) => ({
-        id: record.outboxEventId,
         title: String(record.eventType || "Outbox event").replaceAll("_", " "),
         time: record.occurredAt,
         actor: "Integration Platform",
-        status: record.status,
         statusLabel: String(record.status || "Unknown").replaceAll("_", " "),
         summary: record.aggregateType,
         fields: [

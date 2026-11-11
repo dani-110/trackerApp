@@ -226,7 +226,7 @@ const TeamCreateForm = (props) => {
                 onClick={handleSubmit(submit)}
               >
                 <Plus size={16} style={{ marginRight: 8 }} />
-                {`${type} Role`}
+                {`${type} Team`}
               </Button>
             </ButtonContainer>
           </Grid>

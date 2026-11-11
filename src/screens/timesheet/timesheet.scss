@@ -2,23 +2,6 @@
   padding: 18px clamp(20px, 4.5vw, 66px) !important;
   gap: 16px;
 
-  .pageHeaderTitle {
-    font-size: 26px !important;
-  }
-
-  .pageHeaderEyebrow {
-    color: #8b7cff !important;
-    font-size: 10px !important;
-  }
-
-  .pageHeaderDescription {
-    font-size: 12px !important;
-  }
-
-  .pageHeaderAction {
-    width: 150px;
-  }
-
   .compactDatePickerField .MuiOutlinedInput-root {
     min-height: 34px;
     border-radius: 8px;

@@ -43,7 +43,7 @@ const TicketAssignForm = (props) => {
     formState: { errors },
   } = defaultValues;
 
-  const allowedRoles = ['SYSTEM_ADMIN', 'SUPPORT_L1', 'SUPPORT_L2', 'SUPPORT_L3'];
+  const allowedRoles = ['SYSTEM_ADMIN', 'SUPPORT_L1', 'SUPPORT_L2', 'SUPPORT_L3','TEAM_LEAD','MANAGER'];
 
   useEffect(() => {
     const hasAccess = allowedRoles.some(role => user.roles.includes(role));

@@ -15,14 +15,12 @@ const Communication = ({ data, onData, reloadKey }) => {
           ? []
           : result.payload.data.items;
       const items = records.map((record) => ({
-        id: record.acknowledgementId,
         title: String(record.communicationType || "Acknowledgement").replaceAll(
           "_",
           " ",
         ),
         time: record.generatedAt,
         actor: record.generatedByDisplayName,
-        status: record.status,
         statusLabel: String(record.status || "Unknown").replaceAll("_", " "),
         summary: record.subject,
         fields: [

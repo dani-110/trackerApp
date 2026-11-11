@@ -359,4 +359,19 @@ export const api = {
       method: "get",
     };
   },
+   //================Team Type==================
+  teamType: (teamCode) => {
+    return {
+      url: `${apiURL}/teams/lookups/team-types/${teamCode}`,
+      method: "get",
+    };
+  },
+  updateTeamType: () => {
+    return {
+      url: `${apiURL}/teams/lookups/team-types`,
+      method: "put",
+    };
+  }
+
+
 };

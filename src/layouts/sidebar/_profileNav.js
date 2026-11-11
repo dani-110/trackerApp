@@ -72,6 +72,12 @@ export const navBar = [
         url: "teams",
         permissions: 'TICKET_VIEW',
       },
+       {
+        label: "Team Types",
+        icon: "UsersRound",
+        url: "teamType",
+        permissions: 'CONFIG_MANAGE',
+      },
       {
         label: "Roles",
         icon: "UserShield",
@@ -84,24 +90,24 @@ export const navBar = [
         url: "oragnizationalUnits",
         permissions:'ORG_UNIT_VIEW',
       },
-      {
-        label: "Functional-level Units",
-        icon: "Boxes",
-        url: "functionalUnit",
-        permissions:'FUNCTIONAL_LEVEL_VIEW',
-      },
-      {
-        label: "Queues",
-        icon: "Rows4",
-        url: "queues",
-        permissions:'QUEUE_VIEW',
-      },
-      {
-        label: "Permissions",
-        icon: "UserKey",
-        url: "permissions",
-        permissions:'PERMISSION_VIEW'
-      },
+      // {
+      //   label: "Functional-level Units",
+      //   icon: "Boxes",
+      //   url: "functionalUnit",
+      //   permissions:'FUNCTIONAL_LEVEL_VIEW',
+      // },
+      // {
+      //   label: "Queues",
+      //   icon: "Rows4",
+      //   url: "queues",
+      //   permissions:'QUEUE_VIEW',
+      // },
+      // {
+      //   label: "Permissions",
+      //   icon: "UserKey",
+      //   url: "permissions",
+      //   permissions:'PERMISSION_VIEW'
+      // },
       {
         label: "Password Policy",
         icon: "LockKeyhole",
