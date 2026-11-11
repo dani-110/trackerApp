@@ -15,7 +15,8 @@ import { teams, teamsMember } from "../../store/actions/teams";
 import {UserRoundArrowLeft } from "lucide-react";
 
 const TicketAssignForm = (props) => {
-  const { data, setOpen, fetchList } = props;
+  const { data, setOpen, fetchList,assignmentType } = props;
+  const isTeamAssignment = assignmentType === "TEAM";
 
   const dispatch = useDispatch();
 
@@ -46,8 +47,7 @@ const TicketAssignForm = (props) => {
   const allowedRoles = ['SYSTEM_ADMIN', 'SUPPORT_L1', 'SUPPORT_L2', 'SUPPORT_L3','TEAM_LEAD','MANAGER'];
 
   useEffect(() => {
-    const hasAccess = allowedRoles.some(role => user.roles.includes(role));
-    if (hasAccess) {
+    if (isTeamAssignment) {
       setIsTeamLoading(true);
       const obj = {
         pageSize: 1000,
@@ -58,30 +58,26 @@ const TicketAssignForm = (props) => {
         setIsTeamLoading(false);
       });
     }
+        else {
+    getTeamMember();
+  }
+  getAssignReasons();
+}, [assignmentType]);
 
-    const allowedReasonRoles = ['SYSTEM_ADMIN', 'SUPPORT_L1', 'SUPPORT_L2', 'SUPPORT_L3', 'TEAM_LEAD'];
-    if (allowedReasonRoles.some(role => user.roles.includes(role))) {
-      getAssignReasons();
-    }
-
-    if (user.roles.includes('TEAM_LEAD')) {
-      getTeamMember()
-    }
-  }, []);
 
   const getAssignReasons = () => {
-    const hasAccess = allowedRoles.some(role => user.roles.includes(role));
-    dispatch(assignmentReasons(hasAccess ? 'TEAM' : user.roles.includes('TEAM_LEAD') ? 'User' : '')).then((res) => {
+    dispatch(assignmentReasons(isTeamAssignment ? 'TEAM' : 'USER')).then((res) => {
       setReasonList(res.payload.list)
     })
   }
 
   const getTeamMember = () => {
+    if (!user?.teamId) return;
     setIsTeamLoading(true);
     dispatch(teamsMember(user.teamId)).then((res) => {
       console.log(res.payload.data.items)
       if (res.payload.status == 200) {
-        setDataList(res.payload.data.items);
+        setDataList(res.payload.data.items || []);
       }
       setIsTeamLoading(false);
     })
@@ -89,11 +85,11 @@ const TicketAssignForm = (props) => {
 
   const submit = () => {
     setIsLoading(true);
-    if (allowedRoles.some(role => user.roles.includes(role))) {
+    if (isTeamAssignment) {
       teamAssignee()
     }
 
-    if (user.roles.includes('TEAM_LEAD')) {
+    else {
       userAssignee()
     }
 
@@ -152,34 +148,26 @@ const TicketAssignForm = (props) => {
       ) : (
         <form style={{ padding: "10px" }}>
           <Grid container spacing={2}>
-            {allowedRoles.some(role => user.roles.includes(role)) && <Grid item xs={12}>
+            <Grid item xs={12}>
               <SelectFields
                 fieldName="teamId"
-                label="Team"
+                label={isTeamAssignment ? "Team" : "Member"}
                 control={control}
-                options={teamList?.map(({ id, name }) => {
-                  return { label: name, value: id };
-                })}
+                options={
+                  isTeamAssignment
+                    ? teamList?.map(({ id, name }) => {
+                        return { label: name, value: id };
+                      })
+                    : dataList?.map(({ userId, displayName }) => {
+                        return { label: displayName, value: userId };
+                      })
+                }
                 rules={{
-                  required: "Team is required",
+                  required: isTeamAssignment ? "Team is required" : "Member is required",
                 }}
                 error={errors?.teamId}
               />
-            </Grid>}
-            {user.roles.includes('TEAM_LEAD') && <Grid item xs={12}>
-              <SelectFields
-                fieldName="teamId"
-                label="Member"
-                control={control}
-                options={dataList?.map(({ userId, displayName }) => {
-                  return { label: displayName, value: userId };
-                })}
-                rules={{
-                  required: "Team is required",
-                }}
-                error={errors?.teamId}
-              />
-            </Grid>}
+            </Grid>
             <Grid item xs={12}>
               <SelectFields
                 fieldName="assignmentReasonCode"
@@ -225,7 +213,7 @@ const TicketAssignForm = (props) => {
                     />
                   )}
                   <UserRoundArrowLeft size={16} style={{ marginRight: 8 }} />
-                  {allowedRoles.some((role) => user.roles.includes(role))
+                  {isTeamAssignment
                     ? "Assign team"
                     : "Assign user"}
                 </Button>

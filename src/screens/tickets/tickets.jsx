@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import DataGrid from "./dataGrid";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import ModalButton from "../../components/modalButton/modalButton";
 import { IoMdAdd } from "react-icons/io";
 import { tickets } from "../../store/actions/tickets";
@@ -26,6 +26,8 @@ const Tickets = () => {
   const [search, setSearch] = useState("");
   const [filters, setFilters] = useState({});
   const [teamCode, setTeamCode] = useState("");
+  const { user } = useSelector((state) => state.auth);
+  const isSupportMember = user?.teamCode === "SUPPORT_TEAM" || user?.roles.includes("SYSTEM_ADMIN");
 
   useEffect(() => {
     fetchList({});
@@ -123,7 +125,7 @@ const Tickets = () => {
         title="Tickets"
         description="One place to triage, classify and move client work forward."
         action={
-          <PermissionComp name='WORK_ITEM_CREATE'>
+          isSupportMember && (
             <ModalButton
               open={openCreate}
               setOpen={setOpenCreate}
@@ -135,8 +137,7 @@ const Tickets = () => {
             >
               <TicketCreateForm setOpen={setOpenCreate} fetchList={fetchList} />
             </ModalButton>
-          </PermissionComp>
-        }
+          )}
       />
       <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mb: 1.5 }}>
         {filterChip("All", "all")}
