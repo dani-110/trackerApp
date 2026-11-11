@@ -353,4 +353,10 @@ export const api = {
       method: "get",
     };
   },
+  ticketsLookups: (type) => {
+    return {
+      url: `${apiURL}/tickets/lookups/${type}`,
+      method: "get",
+    };
+  },
 };

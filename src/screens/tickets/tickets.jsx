@@ -33,7 +33,7 @@ const Tickets = () => {
     dispatch(getdashboarddata({ silent: true }))
       .unwrap()
       .then((data) => {
-        setTeamCode(data?.summary?.teamCode?? "");
+        setTeamCode(data?.summary?.teamCode ?? "");
       })
       .catch(() => setTeamCode(""));
   }, []);
@@ -133,7 +133,7 @@ const Tickets = () => {
               startIcon={<IoMdAdd />}
               width="40%"
             >
-              <TicketCreateForm setOpen={setOpenCreate} fetchList={fetchList} />
+              <TicketCreateForm setOpen={setOpenCreate} fetchList={fetchList} type={'Create'} />
             </ModalButton>
           </PermissionComp>
         }

@@ -26,3 +26,26 @@ export const lookups = createAsyncThunk(
     }
   }
 );
+export const ticketsLookups = createAsyncThunk(
+  "ticketsLookups",
+  async (data, thunkAPI) => {
+    try {
+      const response = await HttpService.call(api.ticketsLookups(data.name), data?.obj ? data?.obj : undefined, thunkAPI);
+      console.log(response)
+      if (response.status == '200') {
+        return response;
+      } else {
+        thunkAPI.dispatch(
+          uiActions.showNotification({
+            status: "error",
+            title: "Failed!",
+            message: response.data.respdescription,
+          })
+        );
+        return thunkAPI.rejectWithValue(response);
+      }
+    } catch (error) {
+      return thunkAPI.rejectWithValue();
+    }
+  }
+);
